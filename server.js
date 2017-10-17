@@ -539,10 +539,10 @@ app.get('/ShowAndModifyUserTokenData_UserTokenData/',function(req,res){
   }); 
 });
           
-https.createServer(options, app).listen(8081, function () {
-    console.log('Https server listening on port ' + 8081);
+https.createServer(options, app).listen(9081, function () {
+    console.log('Https server listening on port ' + 9081);
 });
 
-app.listen(8080, function(){
-    console.log('listening on 8080');
+app.listen(9080, function(){
+    console.log('listening on 9080');
 });
