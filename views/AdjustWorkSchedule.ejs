@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MushiSetting</title>
+</head>
+<body>
+	<form action="/" method="GET">
+				<button type="submit">返回老闆權限</button>
+	</form>
+	<br>  
+	<table border='1'>
+	<tbody>
+	      <td> 刪除 </td>
+	      <td> 時間碼 </td>
+	      <td> 唯一碼 </td>
+	      <td> 員工姓名 </td>
+	      <td> 品牌名稱 </td>
+	      <td> 品牌地點 </td>
+	      <td> 年/月/日</td>  
+	      <td> 上下班時間</td>  
+	<% for(var i=0; i<WorkHour.length; i++) {%>
+		<tr>
+		   <td><form action="/Plan_Work_Schedule_DeleteWorkScheduleData/" method="POST">
+		   <input type="hidden" placeholder="UniqueID" name="TID" value=<%= WorkHour[i].TID %>>
+		   <input type="hidden" placeholder="workyear" name="workyear" value=<%= WorkHour[i].workyear %>>
+		   <input type="hidden" placeholder="workmonth" name="workmonth" value=<%= WorkHour[i].workmonth %>>
+		   <input type="hidden" placeholder="workday" name="workday" value=<%= WorkHour[i].workday %>>
+		      		<button type="submit">刪除</button>
+		  </form></td>
+		  <td><%= WorkHour[i].TID %></td>
+	      <td><%= WorkHour[i].uniID %></td>
+	      <td><%= WorkHour[i].name %></td>
+	      <td><%= WorkHour[i].userbrandname %></td>
+	      <td><%= WorkHour[i].userbrandplace %></td>
+	      <td><%= WorkHour[i].workyear %>/<%= WorkHour[i].workmonth %>/<%= WorkHour[i].workday %></td>
+	      <td><%= WorkHour[i].onlinehour %>:<%=WorkHour[i].onlineminute %>-<%= WorkHour[i].offlinehour %>:<%=WorkHour[i].offlineminute %></td>
+	  <% } %>
+	</tr>
+	</tbody>
+	</table>
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AddNewPersonalData</title>
+</head>
+<body>
+
+	<form action="/AddNewPersonalData_AddMemberData/" method="POST">
+	<br>員工姓名<input type="text" placeholder="陳柏農" name="name" value="">
+	<br>員工職稱 <select name="userbrandtitle">
+		<option value="正職">正職</option><option value="兼職">兼職</option>
+	</select>
+	<br>品牌<input type="text" placeholder="食鍋藝" name="userbrandname" value="">
+	<br>地點<input type="text" placeholder="竹北" name="userbrandplace" value="">
+	<br>基本底薪<input type="text" placeholder="22000" name="usermonthsalary" value="">
+	<br>伙食獎金<input type="text" placeholder="2000" name="userfoodsalary" value="">
+	<br>全勤獎金<input type="text" placeholder="2500" name="userwithoutsalary" value="">
+	<br>職稱獎金<input type="text" placeholder="0" name="usertitlesalary" value="">
+	<br>額外獎金<input type="text" placeholder="0" name="userextrasalary" value="">
+	<br>勞健保<input type="text" placeholder="0" name="userlawsalary" value="">
+
+	<button type="submit">更新</button>
+	</form>
+</body>
+</html>

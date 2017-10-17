@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CheckEveryDayWorkStatus</title>
+</head>
+<body>
+
+	<form action="/QR_codeSan_CheckEveryDayWorkStatus/" method="POST">
+		<select name="checkPeriodYear">
+			<option selected value="2017">2017</option>
+		</select>
+		<select name="checkPeriodMonth">
+			<option value="01">1</option><option  value="02">2</option>
+			<option value="03">3</option><option  value="04">4</option>
+			<option value="05">5</option><option  value="06">6</option>
+			<option value="07">7</option><option  selected value="08">8</option>
+			<option value="09">9</option><option  value="10">10</option>
+			<option value="11">11</option><option  value="12">12</option>
+		</select>
+		<select name="checkPeriodDay">
+			<option value="01">1</option><option  value="02">2</option>
+			<option value="03">3</option><option  value="04">4</option>
+			<option value="05">5</option><option  value="06">6</option>
+			<option value="07">7</option><option selected value="08">8</option>
+			<option value="09">9</option><option  value="10">10</option>
+			<option value="11">11</option><option  value="12">12</option>
+			<option value="13">13</option><option  value="14">14</option>
+			<option value="15">15</option><option  value="16">16</option>
+			<option value="17">17</option><option  value="18">18</option>
+			<option value="19">19</option><option  value="20">20</option>
+			<option value="21">21</option><option  value="22">22</option>
+			<option value="23">23</option><option  value="24">24</option>
+			<option value="25">25</option><option  value="26">26</option>
+			<option value="27">27</option><option  value="28">28</option>
+			<option value="29">29</option><option  value="30">30</option>
+			<option value="31">31</option>
+		</select>
+		<button type="submit">查詢</button>
+	</form>	 
+	<br>
+	<form action="/" method="GET">
+				<button type="submit">返回老闆權限</button>
+	</form>
+	<br> 
+	<table border='1'>
+	<tbody>
+		  <td> 唯一碼 </td>
+	      <td> 員工姓名 </td>
+	      <td> 打卡日期 </td>  
+	      <td> 打卡時間 </td> 
+	      <td> 打卡狀態 </td> 
+	      <td> 上下班檢查 </td> 
+	      <td> 重覆檢查 </td> 
+	<%  for(var i=0; i<passvariable.length; i++) {%>
+		<tr>
+			  <td><%= passvariable[i].TID %></td>
+		      <td><%= passvariable[i].name %></td>
+		      <td><%= passvariable[i].Year +'/'+ passvariable[i].Month +'/'+ passvariable[i].Day %></td>
+		      <td><%= passvariable[i].Hour +':'+ passvariable[i].Minute %></td>
+		      <td><%= passvariable[i].status %></td>
+		      <%  var onofflineCompare = '' ;var duplicateCheck = 0; 
+				  for(var j=0; j<passvariable.length; j++) {
+
+		      			if( passvariable[i].name == passvariable[j].name && passvariable[i].Year == passvariable[j].Year && passvariable[i].Month == passvariable[j].Month && passvariable[i].Day == passvariable[j].Day)
+		      			{
+		      				if(passvariable[i].status != passvariable[j].status)
+		      				{
+		      					duplicateCheck = duplicateCheck + 1;
+		      					onofflineCompare = '正常' ;
+		      					
+		      				}
+
+		      			}
+		      	  }
+		      %>
+		      <td><%= onofflineCompare %></td>
+		      <td><%= duplicateCheck %></td>
+		      <td><%= i %></td>
+		</tr>
+	<% } %>
+	</tbody>
+	</table>
+
+</body>
+</html>

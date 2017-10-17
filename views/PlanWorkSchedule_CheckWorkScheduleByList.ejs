@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CheckEveryMonthWorkStatus</title>
+</head>
+<body>
+
+	<form action="/Plan_Work_Schedule_CheckEmployeeWorkScheduleByList/" method="POST">
+		<select name="checkPeriodYear">
+			<option selected value="2017">2017</option>
+		</select>
+		<select name="checkPeriodMonth">
+			<option value="01">01</option><option  value="02">02</option>
+			<option value="03">03</option><option  value="04">04</option>
+			<option value="05">05</option><option  value="06">06</option>
+			<option  value="07">07</option><option value="08">08</option>
+			<option selected value="09">09</option><option  value="10">10</option>
+			<option value="11">11</option><option  value="12">12</option>
+		</select>
+		<button type="submit">查詢</button>
+	</form>	 
+	<br>
+	<form action="/" method="GET">
+				<button type="submit">返回老闆權限</button>
+	</form>
+	<br> 
+	<table border='1'>
+	<tbody>
+		  <td> 時間碼 </td>
+	      <td> 唯一碼 </td>
+	      <td> 品牌名稱 </td>  
+	      <td> 品牌地點 </td> 
+	      <td> 姓名 </td> 
+	      <td> 日期 </td> 
+	      <td> 上班 </td> 
+	      <td> 下班 </td> 
+	      <td> 檢查 </td> 
+	      <td> 比數 </td> 
+	<%  for(var i=0; i<passvariable.length; i++) {%>
+		<tr>
+			  <td><%= passvariable[i].TID %></td>
+		      <td><%= passvariable[i].uniID %></td>
+		      <td><%= passvariable[i].userbrandname  %></td>
+		      <td><%= passvariable[i].userbrandplace %></td>
+		      <td><%= passvariable[i].name %></td>
+			  <td><%= passvariable[i].workyear%>/<%= passvariable[i].workmonth %>/<%= passvariable[i].workday  %></td>
+		      <td><%= passvariable[i].onlinehour %>:<%= passvariable[i].onlineminute %></td>
+		      <td><%= passvariable[i].offlinehour %>:<%= passvariable[i].offlineminute %></td>     
+		      <%  var duplicateCheck = 0; 
+				  for(var j=0; j<passvariable.length; j++) {
+
+		      			if( passvariable[i].name == passvariable[j].name && passvariable[i].workyear == passvariable[j].workyear && passvariable[i].workmonth == passvariable[j].workmonth && passvariable[i].workday == passvariable[j].workday)
+		      			{
+		      				if(passvariable[i].status != passvariable[j].status)
+		      				{
+		      					duplicateCheck = duplicateCheck + 1;		      					
+		      				}
+		      			}
+		      	  }
+		      %>
+		      <td><%= duplicateCheck %></td>
+		      <td><%= i %></td>
+		</tr>
+	<% } %>
+
+	</tbody>
+	</table>
+
+</body>
+</html>

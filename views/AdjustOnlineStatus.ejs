@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MushiSetting</title>
+</head>
+<body>
+	<form action="/" method="GET">
+				<button type="submit">返回老闆權限</button>
+	</form>
+	<br> 
+	<table border='1'>
+	<tbody>
+	      <td> 刪除 </td>
+	      <td> 時間碼 </td>
+	      <td> 唯一碼 </td>
+	      <td> 員工姓名 </td>
+	      <td> 上班狀況 </td>
+	      <td> 年 </td>  
+	      <td> 月 </td>  
+	      <td> 日 </td>  
+	      <td> 時 </td>  
+	  	  <td> 分 </td>  
+	  	  <td> 計薪狀態 </td> 
+	  	  <td> 更新時間 </td> 
+	<% for(var i=0; i<WorkHour.length; i++) {%>
+		<tr>
+		   <td><form action="/QR_codeScan_DeleteOnlineOfflineDate/" method="POST">
+		   	<input type="hidden" placeholder="name" name="name" value=<%= WorkHour[i].name %>>
+		    <input type="hidden" placeholder="UniqueID" name="TID" value=<%= WorkHour[i].TID %>>
+		    <input type="hidden" placeholder="Year" name="Year" value=<%= WorkHour[i].Year %>>
+		    <input type="hidden" placeholder="Month" name="Month" value=<%= WorkHour[i].Month %>>
+		    <input type="hidden" placeholder="Day" name="Day" value=<%= WorkHour[i].Day %>>
+		    <button type="submit">刪除</button>
+		  </form></td>
+		  <td><%= WorkHour[i].TID %></td>
+	      <td><%= WorkHour[i].uniID %></td>
+	      <td><%= WorkHour[i].name %></td>
+	      <td><%= WorkHour[i].status %></td>
+	      <td><%= WorkHour[i].Year %></td>
+	      <td><%= WorkHour[i].Month %></td>
+	      <td><%= WorkHour[i].Day %></td>
+	      <td><%= WorkHour[i].Hour %></td>
+	      <td><%= WorkHour[i].Minute %></td>
+	      <td><%= WorkHour[i].SalaryCountStatus %></td>
+	      <td>
+	      	  <form action="/QR_codeScan_UpdateOnlineOfflineDate/" method="POST">
+	      	  <input type="hidden" placeholder="UniqueID" name="TID" value=<%= WorkHour[i].TID %>>
+		      <input type="hidden" placeholder="name" name="name" value=<%= WorkHour[i].name %>>
+		      <select name="updateyear">
+			  <option selected value="2017">2017</option><option  value="2018">2018</option>
+		      </select>		      
+		      <select name="updatemonth">
+			  <option value="00">00</option><option value="01">01</option>
+			  <option value="02">02</option><option value="03">03</option>
+			  <option value="04">04</option><option value="05">05</option>
+			  <option value="05">05</option><option value="06">06</option>
+			  <option value="07">07</option><option selected value="08">08</option>
+			  <option value="09">09</option><option value="10">10</option>
+			  <option value="11">11</option><option value="12">12</option>
+		      </select>
+
+		      <select name="updateday">
+			  <option value="00">00</option><option value="01">01</option>
+			  <option value="02">02</option><option value="03">03</option>
+			  <option value="04">04</option><option value="05">05</option>
+			  <option value="06">06</option><option value="07">07</option>
+			  <option value="08">08</option><option value="09">09</option>
+			  <option value="10">10</option><option value="11">11</option>
+			  <option value="12">12</option><option value="13">13</option>
+			  <option value="14">14</option><option selected value="15">15</option>
+			  <option value="16">16</option><option value="17">17</option>
+			  <option value="18">18</option><option value="19">19</option>
+			  <option value="20">20</option><option value="21">21</option>
+			  <option value="22">22</option><option value="23">23</option>
+			  <option value="24">24</option><option value="25">25</option>
+			  <option value="26">26</option><option value="27">27</option>
+			  <option value="28">28</option><option value="29">29</option>
+			  <option value="30">30</option><option value="31">31</option>
+		      </select>
+
+		      <select name="updathour">
+			  <option value="05">05</option><option value="06">06</option>
+			  <option value="07">07</option><option value="08">08</option>
+			  <option value="09">09</option><option value="10">10</option>
+			  <option value="11">11</option><option  selected value="12">12</option>
+			  <option value="13">13</option><option value="14">14</option>
+			  <option value="15">15</option><option value="16">16</option>
+			  <option value="17">17</option><option value="18">18</option>
+			  <option value="19">19</option><option value="20">20</option>
+			  <option value="21">21</option><option value="22">22</option>
+			  <option value="23">23</option><option value="24">24</option>
+		      </select>
+
+		      <select name="updateminute">
+			  <option value="00">00</option><option value="01">01</option>
+			  <option value="02">02</option><option value="03">03</option>
+			  <option value="04">04</option><option value="05">05</option>
+			  <option value="06">06</option><option value="07">07</option>
+			  <option value="08">08</option><option value="09">09</option>
+			  <option value="10">10</option><option value="11">11</option>
+			  <option value="12">12</option><option value="13">13</option>
+			  <option value="14">14</option><option value="15">15</option>
+			  <option value="16">16</option><option value="17">17</option>
+			  <option value="18">18</option><option value="19">19</option>
+			  <option value="20">20</option><option value="21">21</option>
+			  <option value="22">22</option><option value="23">23</option>
+			  <option value="24">24</option><option value="25">25</option>
+			  <option value="26">26</option><option value="27">27</option>
+			  <option value="28">28</option><option value="29">29</option>
+			  <option value="30">30</option><option value="31">31</option>
+			  <option value="31">31</option><option value="32">32</option>
+			  <option value="33">33</option><option value="34">34</option>
+			  <option value="35">35</option><option value="36">36</option>
+			  <option value="37">37</option><option value="38">38</option>
+			  <option value="39">39</option><option value="40">40</option>
+			  <option value="41">41</option><option value="42">42</option>
+			  <option value="43">43</option><option value="44">44</option>
+			  <option value="45">45</option><option value="46">46</option>
+			  <option value="47">47</option><option value="48">48</option>
+			  <option value="49">49</option><option value="50">50</option>
+			  <option value="51">51</option><option value="52">52</option>
+			  <option value="53">53</option><option value="54">54</option>
+			  <option value="55">55</option><option value="56">56</option>
+			  <option value="57">57</option><option value="58">58</option>
+			  <option value="59">59</option><option value="60">60</option>
+		      </select>
+
+		      <button type="submit">時間更新</button>
+		      </form>
+		  </td>
+	  <% } %>
+	</tr>
+	</tbody>
+	</table>
+
+</body>
+</html>

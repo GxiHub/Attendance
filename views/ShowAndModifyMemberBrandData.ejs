@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+</head>
+<body>
+	<form action="/" method="GET">
+				<button type="submit">返回老闆權限</button>
+	</form>
+	<br> 
+	<table border='1'>
+	<tbody>
+	      <td> 唯一碼 </td>
+	      <td> 員工姓名 </td>
+	      <td> 職稱 </td>
+	      <td> 品牌 </td>  
+	      <td> 地點 </td>  
+	      <td> 基本底薪 </td>  
+	      <td> 伙食獎金 </td>  
+	  	  <td> 全勤獎金 </td>  
+	  	  <td> 職稱獎金 </td> 
+	  	  <td> 額外獎金 </td> 
+	  	  <td> 勞健保 </td>
+	  	  <td> 修改 </td> 
+
+	<% for(var i=0; i<passvariable.length; i++) {%>
+		<tr>
+	      <td><%= passvariable[i].uniID %></td>
+	      <td><%= passvariable[i].name %></td>
+	      <td><%= passvariable[i].userbrandtitle %></td>
+	      <td><%= passvariable[i].userbrandname %></td>
+	      <td><%= passvariable[i].userbrandplace %></td>
+	      <td><%= passvariable[i].usermonthsalary %></td>
+	      <td><%= passvariable[i].userfoodsalary %></td>
+	      <td><%= passvariable[i].userwithoutsalary %></td>
+	      <td><%= passvariable[i].usertitlesalary %></td>
+	      <td><%= passvariable[i].userextrasalary %></td>
+	      <td><%= passvariable[i].userlawsalary %></td>
+	      <td>
+	      	  <form action="/ShowAndModifyMemberBrandData_UpdateBrandData/" method="POST">
+	      	  <input type="hidden" placeholder="UniqueID" name="uniID" value=<%= passvariable[i].uniID %>>
+		      <input type="hidden" placeholder="name" name="name" value=<%= passvariable[i].name %>>
+ 
+		      <select name="updatechoose">
+			  <option value="員工職稱">員工職稱</option><option value="品牌名稱">品牌名稱</option>
+			  <option value="工作地點">工作地點</option><option value="基本月薪">基本月薪</option>
+			  <option value="伙食獎金">伙食獎金</option><option value="全勤獎金">全勤獎金</option>
+			  <option value="職稱獎金">職稱獎金</option><option value="額外獎金">額外獎金</option>
+			  <option value="勞健保">勞健保</option>
+		      </select>
+	      	  <input type="text" placeholder="修改內容" name="content" value="">
+		      <button type="submit">更新</button>
+		      </form>
+		  </td>
+	  <% } %>
+	</tr>
+	</tbody>
+	</table>
+
+</body>
+</html>

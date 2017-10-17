@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CheckMonthSalary</title>
+</head>
+<body>
+	<form action="/" method="GET">
+				<button type="submit">返回老闆權限</button>
+	</form>
+	<br> 
+	<form action="/Backup_PrintMonthSalary_CheckMonthSalary/" method="POST">
+		<select name="checkName">
+			<option value="陳柏農">陳柏農</option>
+			<option value="林祐華">林祐華</option>
+			<option value="張雅筑">張雅筑</option>
+			<option value="柯怡玲">柯怡玲</option>
+			<option value="郭政一">郭政一</option>
+			<option value="謝雅玲">謝雅玲</option>
+			<option value="盧亞暄">盧亞暄</option>
+			<option value="羅鈺晴">羅鈺晴</option>
+			<option value="倪銘鴻">倪銘鴻</option>
+			<option value="羅怡聘">羅怡聘</option>
+			<option value="孫珮寧">孫珮寧</option>
+			<option value="林雨涵">林雨涵</option>
+			<option value="彭鈺婷">彭鈺婷</option>
+			<option value="陳妙蓮">陳妙蓮</option>
+			<option value="謝靜嫻">謝靜嫻</option>
+			<option selected value="全部">全部</option>
+		</select>
+		<select name="checkPeriodYear">
+			<option value="2016">2016</option><option selected value="2017">2017</option>
+		</select>
+		年
+		<select name="checkPeriodMonth">
+			<option value="01">1</option><option  value="02">2</option>
+			<option value="03">3</option><option  value="04">4</option>
+			<option value="05">5</option><option  value="06">6</option>
+			<option value="07">7</option><option  value="08">8</option>
+			<option selected value="09">9</option><option  value="10">10</option>
+			<option value="11">11</option><option  value="12">12</option>
+		</select>
+		月
+		<button type="submit">查詢資料</button>
+	</form>	 
+	<br> 
+	<table border='1'>
+	<tbody>
+		  <td> 唯一碼 </td>
+		  <td> 員工碼 </td>
+	      <td> 員工姓名 </td>
+	      <td> 計薪天數 </td> 
+	      <td> 計薪月份 </td> 
+	      <td> 基本薪資 </td> 
+	      <td> 全勤獎金 </td> 
+	      <td> 伙食獎金 </td> 
+	      <td> 職位獎金 </td>  
+	      <td> 額外獎金 </td>
+	      <td> 勞健保費 </td>
+	      <td> 基本薪資 </td> 
+	      <td> 加班小計 </td>
+	      <td> 加班分鐘 </td>
+	      <td> 遲到小計 </td>
+	      <td> 遲到分鐘 </td>
+	      <td> 合計薪資 </td> 	      
+	<%  for(var i=0; i<passvariable.length; i++) {%>
+		<tr>
+			  <td><%= passvariable[i].TID %></td>
+			  <td><%= passvariable[i].uniID %></td>
+		      <td><%= passvariable[i].name %></td>
+		      <td><%= passvariable[i].workdaynumber %></td>
+		      <td><%= passvariable[i].monthperiod %></td>
+		      <td><%= passvariable[i].monthsalary  %></td>
+		      <td><%= passvariable[i].withoutsalary %></td>
+		      <td><%= passvariable[i].foodsalary %></td>
+		      <td><%= passvariable[i].titlesalary %></td>
+		      <td><%= passvariable[i].extrabonus %></td>
+		      <td><%= passvariable[i].lawsalary %></td>
+			  <td><%= passvariable[i].basicsalary %></td>
+		      <td><%= passvariable[i].addtimesalary %></td>
+		      <td><%= passvariable[i].addminute %></td>
+		      <td><%= passvariable[i].latetimesalary %></td>
+		      <td><%= passvariable[i].lateminute %></td>
+		      <td><%= passvariable[i].totalmonthsalary %></td>
+		</tr>
+	<% } %>
+	</tbody>
+	</table>
+
+</body>
+</html>
