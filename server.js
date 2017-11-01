@@ -7,6 +7,8 @@ moment = require('moment');
 var https = require('https');
 var  fs = require("fs");
 var sleep = require('system-sleep');
+var aesjs = require('aes-js');
+var crypto = require('crypto');
 var options = {
     key: fs.readFileSync('./CertificateFile/privatekey.pem'),
     cert: fs.readFileSync('./CertificateFile/certificate.pem'),
@@ -38,6 +40,8 @@ ModifyMemberBrandData = require('./ModifyPersonalData/ModifyMemberBrandData');
 AddMemberData = require('./AddNewPersonalData/AddMemberData');
 PrintPersonalData = require('./AddNewPersonalData/PrintPersonalData');
 
+AddIncomeAndExpenditure = require('./IncomeAndExpenditure/AddIncomeAndExpenditure');
+
 var dbtoken;
 MongoClient.connect('mongodb://9kingson:mini0306@ds111622.mlab.com:11622/usertokenrelatedinformation', function(err, database){ 
   if (err) return console.log(err);
@@ -56,8 +60,36 @@ MongoClient.connect('mongodb://9kingson:mini0306@ds163294.mlab.com:63294/testdat
   dbtest = database;
 })
 
-app.get('/',function(req,res){
-  res.render('index.ejs');
+var encrypt = function (key, iv, data) {
+    var cipher = crypto.createCipheriv('aes-128-cbc', key, iv);
+    var crypted = cipher.update(data, 'utf8', 'binary');
+    crypted += cipher.final('binary');
+    crypted = new Buffer(crypted, 'binary').toString('base64');
+    return crypted;
+};
+
+var decrypt = function (key, iv, crypted) {
+    crypted = new Buffer(crypted, 'base64').toString('binary');
+    var decipher = crypto.createDecipheriv('aes-128-cbc', key, iv);
+    var decoded = decipher.update(crypted, 'binary', 'utf8');
+    decoded += decipher.final('utf8');
+    return decoded;
+};
+
+app.get('/AES128Decode/',function(req,res){
+    //console.log(req.headers['aes128']);    
+    //var text = '525b954189ef';
+    var key = '0123456789abcdef';
+    console.log('加密的key:', key.toString('hex'));
+    var iv = '0123456789abcdef';
+    console.log('加密的iv:', iv);
+    var data = "Hello";
+    console.log("需要加密的数据:", data);
+    var crypted = encrypt(key, iv, data);
+    console.log("数据加密后:", crypted);
+    var dec = decrypt(key, iv, crypted);
+    console.log("数据解密后:", dec);  
+    //console.log(decrypt(req.headers['aes128']));         
 });
 
 //QRcodeScan. 透過手機端掃描二維條碼，並添加個人上下班時間
@@ -441,6 +473,31 @@ app.get('/Sync_AddLateWorkTimeCalculate_result/',function(req,res){
     AddLateWorkTimeCalculate.CalculateAddlateTime(BrandButton); 
     res.redirect('/');
 });
+
+// 掃描標籤條碼，入庫後分解前三碼，去比對庫存名稱資料庫。可以取得名稱、分類、等級
+// 去庫存庫裡面撈是否存在此商品，沒有就新增，有的話就把狀態改成out。
+// 新增 時間、名稱、條碼、分類、狀態
+// 確認條碼產生的方法
+
+// ===================== 新增收入支出 IncomeAndExpenditure
+
+// [顯示] [營收支出]
+app.get('/ShowIncomeAndExpenditure/',function(req,res){
+    res.render('AddIncomeAndExpenditure.ejs'); 
+});
+
+// [顯示] [營收支出]
+app.post('/AddIncomeAndExpenditure/',function(req,res){
+   console.log(' year = ',req.body.year);
+   console.log(' month = ',req.body.month);
+   console.log(' day = ',req.body.day);
+   console.log(' itemname = ',req.body.itemname);
+   console.log(' itemclass = ',req.body.itemclass);
+   console.log(' itemsubclass = ',req.body.itemsubclass);
+   AddIncomeAndExpenditure.AddIncomeAndExpenditureData(req.body.year,req.body.month,req.body.day,req.body.itemname,req.body.itemclass,req.body.itemsubclass);
+   res.render('AddIncomeAndExpenditure.ejs'); 
+});
+
 
 
 //  ==================== 同步專區 Start

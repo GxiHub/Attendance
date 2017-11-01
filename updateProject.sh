@@ -45,3 +45,5 @@ sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/CertificateFi
 
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/UpdateOriginalData/SyncOnlineOfflineData.js ./UpdateOriginalData/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/UpdateOriginalData/SyncWorkScheduleData.js ./UpdateOriginalData/.
+
+sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/IncomeAndExpenditure/AddIncomeAndExpenditure.js ./IncomeAndExpenditure/.
