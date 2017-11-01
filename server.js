@@ -79,6 +79,9 @@ var decrypt = function (key, iv, crypted) {
     return decoded;
 };
 
+app.get('/',function(req,res){
+  res.render('index.ejs');
+});
 
 app.get('/QRcodeStockIn/',function(req,res){
     console.log(req.query.usertoken['thing']);    
