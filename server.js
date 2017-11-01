@@ -40,7 +40,7 @@ ModifyMemberBrandData = require('./ModifyPersonalData/ModifyMemberBrandData');
 AddMemberData = require('./AddNewPersonalData/AddMemberData');
 PrintPersonalData = require('./AddNewPersonalData/PrintPersonalData');
 
-AddIncomeAndExpenditure = require('./IncomeAndExpenditure/AddIncomeAndExpenditure');
+//AddIncomeAndExpenditure = require('./IncomeAndExpenditure/AddIncomeAndExpenditure');
 
 var dbtoken;
 MongoClient.connect('mongodb://9kingson:mini0306@ds111622.mlab.com:11622/usertokenrelatedinformation', function(err, database){ 
