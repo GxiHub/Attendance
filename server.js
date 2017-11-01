@@ -125,6 +125,8 @@ app.get('/QR_codeSan_GetTokenToServer/',function(req,res){
 
 //透過帳號與密碼比對資料庫，若正確則返回一組 token
 app.get('/FisrtLoginAndReturnMemberToken/',function(req,res){
+  var key = '0123456789abcdef';
+  var iv = '0123456789abcdef';
   var deckey = decrypt(key, iv, req.headers['account']);
   var deciv = decrypt(key, iv, req.headers['password']);
     console.log(req.headers['account']);    
