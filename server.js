@@ -77,18 +77,24 @@ var decrypt = function (key, iv, crypted) {
 };
 
 app.get('/AES128Decode/',function(req,res){
-    //console.log(req.headers['aes128']);    
+    console.log(req.headers['key']);    
+    console.log(req.headers['iv']);
     //var text = '525b954189ef';
-    var key = '0123456789abcdef';
-    console.log('加密的key:', key.toString('hex'));
-    var iv = '0123456789abcdef';
-    console.log('加密的iv:', iv);
-    var data = "Hello";
-    console.log("需要加密的数据:", data);
-    var crypted = encrypt(key, iv, data);
-    console.log("数据加密后:", crypted);
-    var dec = decrypt(key, iv, crypted);
-    console.log("数据解密后:", dec);  
+    // var key = '0123456789abcdef';
+    // console.log('加密的key:', key.toString('hex'));
+    // var iv = '0123456789abcdef';
+    // console.log('加密的iv:', iv);
+    // var data = "Hello";
+    // console.log("需要加密的数据:", data);
+    // var crypted = encrypt(key, iv, data);
+    // console.log("数据加密后:", crypted);
+    //var dec = decrypt(key, iv, crypted);
+    var deckey = decrypt(key, iv, req.headers['key']);
+    var deciv = decrypt(key, iv, req.headers['iv']);
+    console.log("数据解密后:", deckey);  
+    console.log("数据解密后:", deciv);  
+
+    //console.log("数据解密后:", dec);  
     //console.log(decrypt(req.headers['aes128']));         
 });
 
@@ -119,7 +125,12 @@ app.get('/QR_codeSan_GetTokenToServer/',function(req,res){
 
 //透過帳號與密碼比對資料庫，若正確則返回一組 token
 app.get('/FisrtLoginAndReturnMemberToken/',function(req,res){
-  dbtoken.collection('memberinformationcollection').findOne({'account':req.headers['account'],"password":req.headers['password']},function(err, results) {
+  var deckey = decrypt(key, iv, req.headers['account']);
+  var deciv = decrypt(key, iv, req.headers['password']);
+    console.log(req.headers['account']);    
+    console.log(req.headers['password']);
+  dbtoken.collection('memberinformationcollection').findOne({'account':deckey,"password":deciv},function(err, results) {
+  //dbtoken.collection('memberinformationcollection').findOne({'account':req.headers['account'],"password":req.headers['password']},function(err, results) {
     if(results==null){ json = { 'status':{'code':'E0002','msg':'帳號或密碼有錯，請重新輸入'},'data':results}; }
     else{ json = { 'status':{'code':'S0000','msg':'帳號密碼正確'},'data':results.uniID};}
         var SendDataToPhone = JSON.stringify(json); res.type('application/json'); res.send(SendDataToPhone);
