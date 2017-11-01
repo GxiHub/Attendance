@@ -84,7 +84,7 @@ app.get('/',function(req,res){
 });
 
 app.get('/QRcodeStockIn/',function(req,res){
-    console.log(req.query.usertoken['thing']);    
+    console.log(req.query.thing);    
 });
 
 //QRcodeScan. 透過手機端掃描二維條碼，並添加個人上下班時間
