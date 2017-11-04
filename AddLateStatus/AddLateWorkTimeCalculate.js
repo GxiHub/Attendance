@@ -23,18 +23,25 @@ var Promise = require('rsvp').Promise;
 // 正職須額外扣除的時間
 var addTimeConditionHour = 2;
 
+var MonthShift = 1;
+
 // #計算 #店名 #計算數量 #UID
 exports.CalculateAddlateTime = function(BrandName)
 {
-    var _year = '2017';
-    var _month = '09';
+  //產生現在的年份與月份
+    var _Year = moment().format('YYYY');
+    var _Month = moment().format('MM') - MonthShift;
+
+    //為了月份做處理，單位數的補零，雙位數的轉字串
+    if(_Month<10){_Month='0'+_Month;}
+    _Month = _Month.toString();
+    console.log(' Date = ', _Year+'/'+_Month);
     
   	dbtoken.collection('memberbrandinformation').find({'userbrandname':BrandName}).toArray(function(err, results) {
       // console.log(' result = ',results);
       for( var i = 0; i<results.length; i++ ) {
-           RemoveMonthAddLateData(results[i].uniID,_year,_month);
-           setTimeout(CalculateAddLate(results[i].uniID,_year,_month,results[i].userbrandtitle),2000);
-   //      CalculateAddLate(results[i].uniID,_year,_month,results[i].userbrandtitle);
+           RemoveMonthAddLateData(results[i].uniID,_Year,_Month);
+           setTimeout(CalculateAddLate(results[i].uniID,_Year,_Month,results[i].userbrandtitle),2000);
       }
   	});  
  }
@@ -49,7 +56,6 @@ exports.CalculateAddlateTime = function(BrandName)
     		for( var i = 0; i<results.length; i++ ) { arr.push([]);}
             for( var i = 0; i<results.length; i++ )
             {
-                var CannotFindSameOnlineDate = false;
                 //CannotFindSameDate主要是用來判斷有排班但沒上班的狀況
                 var CannotFindSameOfflineDate = false;
                 for( var j = 0; j<data.length; j++ )
@@ -150,3 +156,109 @@ function UpdateWorkScheduleData(_uniid,_year,_month,_day)
     if (err) return res.send(err)
   });
 }
+
+
+function RemoveHaveWorkButNoSchedule(_uniid,_year,_month)
+{
+  console.log('_uniid =',_uniid);console.log('_year =',_year);console.log('_month =',_month);
+  dbtest.collection('checkhaveworkbutnoschedule').remove({uniID:_uniid,Year:_year,Month:_month});
+}
+exports.CheckHaveWorkButNoSchedule = function(BrandName)
+{
+  //產生現在的年份與月份
+    var _Year = moment().format('YYYY');
+    var _Month = moment().format('MM') - MonthShift;
+
+    //為了月份做處理，單位數的補零，雙位數的轉字串
+    if(_Month<10){_Month='0'+_Month;}
+    _Month = _Month.toString();
+    console.log(' Date = ', _Year+'/'+_Month);
+    
+    dbtoken.collection('memberbrandinformation').find({'userbrandname':BrandName}).toArray(function(err, results) {
+      // console.log(' result = ',results);
+      for( var i = 0; i<results.length; i++ ) {
+           RemoveHaveWorkButNoSchedule(results[i].uniID,_Year,_Month);
+           setTimeout(HaveWorkButNoSchedule(results[i].uniID,_Year,_Month,results[i].userbrandtitle),2000);
+      }
+    });  
+ }
+function HaveWorkButNoSchedule(UniID,Year,Month,Title)
+ {
+
+    dbtest.collection('synconlineofflinedata').find({'uniID':UniID,'Year':Year,'Month':Month}).sort({"name": 1,"Day": 1}).toArray(function(err, data ) 
+    {
+      dbtest.collection('synworkscheduledata').find({'uniID':UniID,'workyear':Year,'workmonth':Month}).sort({"name": 1,"workday": 1,"Hour" :1}).toArray(function(err, results) {
+            for( var i = 0; i<data.length; i++ )
+            {
+                var IsHaveWorkButNoSchedule = true;
+                for( var j = 0; j<results.length; j++ )
+                {
+                    if( (results[j].workyear == data[i].Year) && (results[j].workmonth == data[i].Month) && (results[j].workday == data[i].Day))
+                    {
+                      IsHaveWorkButNoSchedule = false;
+                    }
+                }  
+                if(IsHaveWorkButNoSchedule == true)
+                {
+                  dbtest.collection('checkhaveworkbutnoschedule').save({TID:parseInt(Date.now(),10)+parseInt(data[i].Day,10),uniID:UniID,name:data[i].name,Year:data[i].Year,Month:data[i].Month,Day:data[i].Day,status:'有上下班資訊但沒排班'},function(err,result){
+                      if(err)return console.log(err);
+                  });
+                  console.log(' name = ',data[i].name,' date = ',data[i].Year,'/',data[i].Month,'/',data[i].Day); 
+                }           
+            }
+      });
+    });
+ }
+
+
+function RemoveHaveScheduleButNoWork(_uniid,_year,_month)
+{
+  //console.log('_uniid =',_uniid);console.log('_year =',_year);console.log('_month =',_month);
+  dbtest.collection('checkhaveschedulebutnowork').remove({uniID:_uniid,Year:_year,Month:_month});
+}
+exports.CheckHaveScheduleButNoWork = function(BrandName)
+{
+  //產生現在的年份與月份
+    var _Year = moment().format('YYYY');
+    var _Month = moment().format('MM') - MonthShift;
+
+    //為了月份做處理，單位數的補零，雙位數的轉字串
+    if(_Month<10){_Month='0'+_Month;}
+    _Month = _Month.toString();
+    console.log(' Date = ', _Year+'/'+_Month);
+    
+    dbtoken.collection('memberbrandinformation').find({'userbrandname':BrandName}).toArray(function(err, results) {
+      // console.log(' result = ',results);
+      for( var i = 0; i<results.length; i++ ) {
+           RemoveHaveScheduleButNoWork(results[i].uniID,_Year,_Month);
+           setTimeout(HaveScheduleButNoWork(results[i].uniID,_Year,_Month,results[i].userbrandtitle),2000);
+      }
+    });  
+ }
+ function HaveScheduleButNoWork(UniID,Year,Month,Title)
+ {
+
+    dbtest.collection('synconlineofflinedata').find({'uniID':UniID,'Year':Year,'Month':Month}).sort({"name": 1,"Day": 1}).toArray(function(err, data ) 
+    {
+      dbtest.collection('synworkscheduledata').find({'uniID':UniID,'workyear':Year,'workmonth':Month}).sort({"name": 1,"workday": 1,"Hour" :1}).toArray(function(err, results) {
+            for( var i = 0; i<results.length; i++ )
+            {
+                var IsHaveScheduleButNoWork = true;
+                for( var j = 0; j<data.length; j++ )
+                {
+                    if( (results[i].workyear == data[j].Year) && (results[i].workmonth == data[j].Month) && (results[i].workday == data[j].Day))
+                    {
+                      IsHaveScheduleButNoWork = false;
+                    }
+                }  
+                if(IsHaveScheduleButNoWork == true)
+                {
+                  dbtest.collection('checkhaveschedulebutnowork').save({TID:parseInt(Date.now(),10)+parseInt(results[i].workday,10),uniID:UniID,name:results[i].name,Year:results[i].workyear,Month:results[i].workmonth,Day:results[i].workday,status:'有排班資訊但沒上下班資訊'},function(err,result){
+                      if(err)return console.log(err);
+                  });
+                  console.log(' name = ',results[i].name,' date = ',results[i].workyear,'/',results[i].workmonth,'/',results[i].workday); 
+                }           
+            }
+      });
+    });
+ }

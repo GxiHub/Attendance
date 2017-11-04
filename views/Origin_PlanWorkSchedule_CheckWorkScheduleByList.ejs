@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>CheckEveryMonthWorkStatus</title>
+  <title>CheckOriginScheduleData</title>
 </head>
 <body>
 
-	<form action="/Plan_Work_Schedule_CheckEmployeeWorkScheduleByList/" method="POST">
+	<form action="/CheckOriginScheduleData/" method="POST">
 		<select name="checkPeriodYear">
 			<option selected value="2017">2017</option>
 		</select>
@@ -37,7 +37,6 @@
 	      <td> 下班 </td> 
 	      <td> 檢查 </td> 
 	      <td> 比數 </td> 
-	<%  var index=0;%>
 	<%  for(var i=0; i<passvariable.length; i++) {%>
 		<tr>
 			  <td><%= passvariable[i].TID %></td>
@@ -59,21 +58,9 @@
 		      				}
 		      			}
 		      	  }
-		      	  if(i>=1)
-		      	  {
-			      	  if(passvariable[i-1].name == passvariable[i].name)
-			      	  {
-			      	  	index=index+1;
-			      	  }
-			      	  else
-			      	  {
-			      	  	index =1;
-			      	  }
-		      	  }
-		      	  else{index =1;}		      	
 		      %>
 		      <td><%= duplicateCheck %></td>
-		      <td><%= index %></td>
+		      <td><%= i %></td>
 		</tr>
 	<% } %>
 

@@ -20,22 +20,22 @@ MongoClient.connect('mongodb://9kingson:mini0306@ds163294.mlab.com:63294/testdat
 
 var Promise = require('rsvp').Promise;
 
-var DayShift = 11;
-var MonthShift = 2;
+var MonthShift = 1;
 
 exports.OnlineOfflineStatus = function()
 {
+	//產生現在的年份與月份
   	var _Year = moment().format('YYYY');
   	var _Month = moment().format('MM') - MonthShift;
-  	var _Day = moment().format('DD') - DayShift ;
-  	if(_Day<10){_Day='0'+_Day;}
-  	if(_Month<10){_Month='0'+_Month;}
-	console.log(' Date = ', _Year+'/'+_Month+'/'+_Day);
 
+  	//為了月份做處理，單位數的補零，雙位數的轉字串
+  	if(_Month<10){_Month='0'+_Month;}
+  	_Month = _Month.toString();
+	console.log(' Date = ', _Year+'/'+_Month);
+
+	//比對原始上班資訊資料庫和備份上班資料庫
   	dbwork.collection('workperiod').find({'Year':_Year,'Month':_Month}).toArray(function(err, origin) {
-  	// dbwork.collection('workperiod').find({'Year':_Year,'Month':_Month,'Day':_Day}).toArray(function(err, origin) {
 		dbtest.collection('synconlineofflinedata').find({'Year':_Year,'Month':_Month}).toArray(function(err, backup) {
-		// dbtest.collection('synconlineofflinedata').find({'Year':_Year,'Month':_Month,'Day':_Day}).toArray(function(err, backup) {
 			for( var i = 0; i<origin.length; i++ )	
 			{
 				var NeedToChange = 'wait2confirm';

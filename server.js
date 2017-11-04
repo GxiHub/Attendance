@@ -40,6 +40,8 @@ ModifyMemberBrandData = require('./ModifyPersonalData/ModifyMemberBrandData');
 AddMemberData = require('./AddNewPersonalData/AddMemberData');
 PrintPersonalData = require('./AddNewPersonalData/PrintPersonalData');
 
+HandleStockInOut = require('./StockInAndOut/HandleStockInOut.js')
+
 //AddIncomeAndExpenditure = require('./IncomeAndExpenditure/AddIncomeAndExpenditure');
 
 var dbtoken;
@@ -365,6 +367,16 @@ app.post('/Plan_Work_Schedule_CheckEmployeeWorkScheduleByList/',function(req,res
     });
 });
 
+// [查詢] [排班] [列表] [PlanWorkSchedule] [備份]
+app.post('/Plan_Work_Schedule_CheckEmployeeWorkScheduleByList/',function(req,res){
+    PlanWorkSchedule.CheckWorkScheduleByList(req.body.checkPeriodYear,req.body.checkPeriodMonth).then(function(items) 
+    {
+          res.render('PlanWorkSchedule_CheckWorkScheduleByList.ejs',{passvariable:items});
+    }, function(err) {
+          console.error('The promise was rejected', err, err.stack);
+    });
+});
+
 // [查詢] [排班] [群組] [PlanWorkSchedule]
 app.post('/Plan_Work_Schedule_CheckEmployeeWorkScheduleByGroup/',function(req,res){
     PlanWorkSchedule.CheckWorkSchedule(req.body.checkPeriodYear,req.body.checkPeriodMonth).then(function(items) 
@@ -421,30 +433,11 @@ app.post('/QR_codeScan_UpdateOnlineOfflineDate/', (req, res) => {
   res.redirect('/');
 });
 
-// [查詢] [備份] [單月加班狀況] [PrintAddLateStatus]
-app.post('/PrintMonthSalary_CheckOriginAddLateStatus/',function(req,res){
-  PrintAddLateStatus.printOriginAddlateStatus(req.body.checkName,req.body.checkPeriodYear,req.body.checkPeriodMonth).then(function(items)
-  {
-        res.render('CheckAddLateTimeOriginStatus.ejs',{passvariable:items});
-  }, function(err) {
-        console.error('The promise was rejected', err, err.stack);
-  }); 
-});
 // [查詢] [備份] [單月加班狀況] [PrintAddLateStatus] 
 app.post('/PrintMonthSalary_CheckBackupAddLateStatus/',function(req,res){
   PrintAddLateStatus.printBackupAddlateStatus(req.body.checkName,req.body.checkPeriodYear,req.body.checkPeriodMonth).then(function(items)
   {
         res.render('CheckAddLateTimeBackupStatus.ejs',{passvariable:items});
-  }, function(err) {
-        console.error('The promise was rejected', err, err.stack);
-  }); 
-});
-
-// [查詢] [原始] [月份薪水] [PrintMonthSalary] 
-app.post('/Origin_PrintMonthSalary_CheckMonthSalary/',function(req,res){
-  PrintMonthSalary.printMonthSalaryStatus(req.body.checkName,req.body.checkPeriodYear,req.body.checkPeriodMonth).then(function(items)
-  {
-        res.render('Origin_MonthSalary.ejs',{passvariable:items});
   }, function(err) {
         console.error('The promise was rejected', err, err.stack);
   }); 
@@ -460,26 +453,12 @@ app.post('/Backup_PrintMonthSalary_CheckMonthSalary/',function(req,res){
   }); 
 });
 
-// [計算] [月份薪水] [CalculateMonthSalary] 
-app.get('/Sync_CalculateMonthSalary_MonthCalculate/',function(req,res){
-    var BrandButton = '食鍋藝';//需要知道店名稱來識別需要計算哪間店的資料
-    CalculateMonthSalary.CalculateMonthSalary(BrandButton); 
-    res.redirect('/');
-});
-
-// [計算] [加班計算] [AddLateWorkTimeCalculate] 
-app.get('/Sync_AddLateWorkTimeCalculate_result/',function(req,res){
-    var BrandButton = '食鍋藝';//需要知道店名稱來識別需要計算哪間店的資料
-    AddLateWorkTimeCalculate.CalculateAddlateTime(BrandButton); 
-    res.redirect('/');
-});
-
 // 掃描標籤條碼，入庫後分解前三碼，去比對庫存名稱資料庫。可以取得名稱、分類、等級
 // 去庫存庫裡面撈是否存在此商品，沒有就新增，有的話就把狀態改成out。
 // 新增 時間、名稱、條碼、分類、狀態
 // 確認條碼產生的方法
 
-// ===================== 新增收入支出 IncomeAndExpenditure
+// ===================== 新增收入支出 Start
 
 // [顯示] [營收支出]
 app.get('/ShowIncomeAndExpenditure/',function(req,res){
@@ -498,10 +477,37 @@ app.post('/AddIncomeAndExpenditure/',function(req,res){
    res.render('AddIncomeAndExpenditure.ejs'); 
 });
 
-
+// ===================== 新增收入支出 End
 
 //  ==================== 同步專區 Start
-var MonthShift = 0;
+
+// [計算] [月份薪水] [CalculateMonthSalary] 
+app.get('/Sync_CalculateMonthSalary_MonthCalculate/',function(req,res){
+    var BrandButton = '食鍋藝';//需要知道店名稱來識別需要計算哪間店的資料
+    CalculateMonthSalary.CalculateMonthSalary(BrandButton); 
+    res.redirect('/');
+});
+
+// [計算] [加班計算] [AddLateWorkTimeCalculate] 
+app.get('/Sync_AddLateWorkTimeCalculate_result/',function(req,res){
+    var BrandButton = '食鍋藝';//需要知道店名稱來識別需要計算哪間店的資料
+    AddLateWorkTimeCalculate.CalculateAddlateTime(BrandButton); 
+    res.redirect('/');
+});
+
+// [檢查] [有上班沒排班] 
+app.get('/Sync_CheckHaveWorkButNoSchedule/',function(req,res){
+    var BrandButton = '食鍋藝';//需要知道店名稱來識別需要計算哪間店的資料
+    AddLateWorkTimeCalculate.CheckHaveWorkButNoSchedule(BrandButton); 
+    res.redirect('/');
+});
+
+// [檢查] [有上班沒排班] 
+app.get('/Sync_CheckHaveScheduleButNoWork/',function(req,res){
+    var BrandButton = '食鍋藝';//需要知道店名稱來識別需要計算哪間店的資料
+    AddLateWorkTimeCalculate.CheckHaveScheduleButNoWork(BrandButton); 
+    res.redirect('/');
+});
 
 // [同步] [上下班資訊] [SyncOnlineOfflineData]
 app.get('/Sync_OriginAndBackupOnlineOffline/',function(req,res){
@@ -511,20 +517,14 @@ app.get('/Sync_OriginAndBackupOnlineOffline/',function(req,res){
 
 // [顯示] [原始] [上下班資訊] 
 app.post('/Origin_CheckOriginDataByDay/',function(req,res){
-    var _Year = moment().format('YYYY');
-    var _Month = moment().format('MM') - MonthShift ;
-    if(_Month<10){_Month='0'+_Month;}
-    dbwork.collection('workperiod').find({'Year':_Year,'Month':_Month}).sort({'Day':1,"name": 1,'status':1}).toArray(function(err, data) {
+    dbwork.collection('workperiod').find({'Year':req.body.checkPeriodYear,'Month':req.body.checkPeriodMonth}).sort({'Day':1,"name": 1,'status':1}).toArray(function(err, data) {
       res.render('Origin_CheckEveryMonthWorkStatus.ejs',{passvariable:data});
     });
 });
 
 // [顯示] [備份] [上下班資訊] 
 app.post('/Backup_CheckOriginDataByDay/',function(req,res){
-    var _Year = moment().format('YYYY');
-    var _Month = moment().format('MM') - MonthShift ;
-    if(_Month<10){_Month='0'+_Month;}
-    dbtest.collection('synconlineofflinedata').find({'Year':_Year,'Month':_Month}).sort({'Day':1,"name": 1,'status':1}).toArray(function(err, data) {
+    dbtest.collection('synconlineofflinedata').find({'Year':req.body.checkPeriodYear,'Month':req.body.checkPeriodMonth}).sort({'Month':1,'Day':1,"name": 1,'status':1}).toArray(function(err, data) {
       res.render('Backup_CheckEveryMonthWorkStatus.ejs',{passvariable:data});
     });
 });
@@ -536,27 +536,22 @@ app.get('/Sync_OriginAndBackupWorkSchedule/',function(req,res){
 });
 
 // [顯示] [原始] [排班] 
-app.get('/CheckOriginScheduleData/',function(req,res){
-    var _Year = moment().format('YYYY');
-    var _Month = moment().format('MM') - MonthShift;
-    if(_Month<10){_Month='0'+_Month;}
-    dbwork.collection('employeeworkschedule').find({'workyear':_Year,'workmonth':_Month}).sort({'workyear':1,'workmonth':1,"workday":1,"name": 1}).toArray(function(err, data) {
-      res.render('PlanWorkSchedule_CheckWorkScheduleByList.ejs',{passvariable:data});
+app.post('/CheckOriginScheduleData/',function(req,res){
+    dbwork.collection('employeeworkschedule').find({'workyear':req.body.checkPeriodYear,'workmonth':req.body.checkPeriodMonth}).sort({'workyear':1,'workmonth':1,"workday":1,"name": 1}).toArray(function(err, data) {
+      res.render('Origin_PlanWorkSchedule_CheckWorkScheduleByList.ejs',{passvariable:data});
     });
 });
 
 // [顯示] [備份] [排班]
-app.get('/CheckBackupScheduleData/',function(req,res){
-    var _Year = moment().format('YYYY');
-    var _Month = moment().format('MM') - MonthShift;
-    if(_Month<10){_Month='0'+_Month;}
-    dbtest.collection('synworkscheduledata').find({'workyear':_Year,'workmonth':_Month}).sort({'workyear':1,'workmonth':1,"workday":1,"name": 1}).toArray(function(err, data) {
-      res.render('PlanWorkSchedule_CheckWorkScheduleByList.ejs',{passvariable:data});
+app.post('/CheckBackupScheduleData/',function(req,res){
+    dbtest.collection('synworkscheduledata').find({'workyear':req.body.checkPeriodYear,'workmonth':req.body.checkPeriodMonth}).sort({'workyear':1,'workmonth':1,"workday":1,"name": 1}).toArray(function(err, data) {
+      res.render('Backup_PlanWorkSchedule_CheckWorkScheduleByList.ejs',{passvariable:data});
     });
 });
 
 //  ==================== 同步專區 End
 
+//  ==================== 員工專區 Start
 // [顯示] [員工基本資料]
 app.get('/ShowNewPersonalData_AddMemberData/',function(req,res){
     res.render('AddNewPersonalData_PrintAddMemberDataFrame.ejs'); 
@@ -595,6 +590,8 @@ app.get('/ShowAndModifyUserTokenData_UserTokenData/',function(req,res){
         console.error('The promise was rejected', err, err.stack);
   }); 
 });
+//  ==================== 員工專區 End
+
           
 https.createServer(options, app).listen(9081, function () {
     console.log('Https server listening on port ' + 9081);

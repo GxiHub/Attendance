@@ -21,41 +21,13 @@ MongoClient.connect('mongodb://9kingson:mini0306@ds163294.mlab.com:63294/testdat
 var Promise = require('rsvp').Promise;
 
 // #年月 #店名 #查詢 #加班資訊
-exports.printOriginAddlateStatus = function(_Name,_Year,_Month)
-{
-    return new Promise(function(resolve, reject) 
-    {
-   		if(_Name == '全部')
-  		{
-		    dbwork.collection('everydayonlineoffline').find({'Year':_Year,'Month':_Month}).sort({"name":1,"Day": 1}).toArray(function(err, results) {
-				if (err) { 
-		              reject(err);
-		        } else {
-		              resolve(results);
-		        }		          
-		    });
-  		}
-  		else
-  		{
-		    dbwork.collection('everydayonlineoffline').find({'name':_Name,'Year':_Year,'Month':_Month}).sort({"name":1,"Day": 1}).toArray(function(err, results) {
-				if (err) { 
-		              reject(err);
-		        } else {
-		              resolve(results);
-		        }			    
-		    });
-  		}
-    });
-}
-
-// #年月 #店名 #查詢 #加班資訊
 exports.printBackupAddlateStatus = function(_Name,_Year,_Month)
 {
     return new Promise(function(resolve, reject) 
     {
    		if(_Name == '全部')
   		{
-		    dbtest.collection('syneverydayaddlatestatus').find({'Year':_Year,'Month':_Month}).sort({"name":1,"Day": 1}).toArray(function(err, results) {
+		    dbtest.collection('syneverydayaddlatestatus').find({'Year':_Year,'Month':_Month}).sort({'Year':1,'Month':1,"name":1,"Day": 1}).toArray(function(err, results) {
 				if (err) { 
 		              reject(err);
 		        } else {
@@ -65,7 +37,7 @@ exports.printBackupAddlateStatus = function(_Name,_Year,_Month)
   		}
   		else
   		{
-		    dbtest.collection('syneverydayaddlatestatus').find({'name':_Name,'Year':_Year,'Month':_Month}).sort({"name":1,"Day": 1}).toArray(function(err, results) {
+		    dbtest.collection('syneverydayaddlatestatus').find({'name':_Name,'Year':_Year,'Month':_Month}).sort({'Year':1,'Month':1,"name":1,"Day": 1}).toArray(function(err, results) {
 				if (err) { 
 		              reject(err);
 		        } else {

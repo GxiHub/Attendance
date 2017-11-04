@@ -15,9 +15,9 @@
 				<button type="submit">顯示員工打卡資料</button>
 	</form>	
 	<br>
-	<form action="/Plan_Work_Schedule_SingleDirectPageToAddEmployeeWorkSchedule/" method="GET">
+<!-- 	<form action="/Plan_Work_Schedule_SingleDirectPageToAddEmployeeWorkSchedule/" method="GET">
 				<button type="submit">新增員工單天排班</button>
-	</form>
+	</form> -->
 	<form action="/Plan_Work_Schedule_MultipleDirectPageToAddEmployeeWorkSchedule/" method="GET">
 				<button type="submit">新增員工多天排班</button>
 	</form>
@@ -33,55 +33,50 @@
 				<button type="submit">[群組]查詢單月員工排班</button>
 	</form> -->
 	<form action="/Plan_Work_Schedule_CheckEmployeeWorkScheduleByList/" method="POST">
-				<button type="submit">[列表]查詢單月員工排班</button>
+				<button type="submit">顯示單月員工排班列表</button>
 	</form>
-	<br>
-<!-- 	<form action="/QR_codeSan_CheckEveryDayWorkStatus/" method="POST">
+<!-- 	<br>
+	<form action="/QR_codeSan_CheckEveryDayWorkStatus/" method="POST">
 				<button type="submit">查詢單日員工上班狀況</button>
 	</form> -->
 	<form action="/QR_codeSan_CheckEveryMonthWorkStatus/" method="POST">
-				<button type="submit">查詢單月員工上班狀況</button>
+				<button type="submit">顯示單月員工上班狀況</button>
 	</form>
-	<br>
 
-	<form action="/PrintMonthSalary_CheckOriginAddLateStatus/" method="POST">
-				<button type="submit">查詢原始加班遲到狀況</button>
+	<form action="/PrintMonthSalary_CheckBackupAddLateStatus/" method="POST">
+				<button type="submit">顯示單月加班遲到狀況</button>
 	</form>
-<!-- 	<form action="/PrintMonthSalary_CheckBackupAddLateStatus/" method="POST">
-				<button type="submit">備份加班遲到狀況</button>
-	</form> -->
-	<br>
-	<form action="/Origin_PrintMonthSalary_CheckMonthSalary/" method="POST">
-				<button type="submit">查詢單月薪資</button>
+	<form action="/Backup_PrintMonthSalary_CheckMonthSalary/" method="POST">
+				<button type="submit">顯示單月薪資列表</button>
 	</form>
-<!-- 	<form action="/Backup_PrintMonthSalary_CheckMonthSalary/" method="POST">
-				<button type="submit">查詢備份單月薪資</button>
-	</form> -->
-	<br>
+<!-- 	<br>
 	<form action="/ShowIncomeAndExpenditure/" method="GET">
 				<button type="submit">新增收入支出</button>
-	</form>
-<!-- 	<form action="/Backup_PrintMonthSalary_CheckMonthSalary/" method="POST">
-				<button type="submit">查詢備份單月薪資</button>
 	</form> -->
-	<br>
-<!-- 	<form action="/Origin_CheckOriginDataByDay/" method="POST">
+
+<!-- 	<br>
+	<form action="/Origin_CheckOriginDataByDay/" method="POST">
 				<button type="submit">顯示原始上班</button>
 	</form>
 	<form action="/Backup_CheckOriginDataByDay/" method="POST">
 				<button type="submit">顯示備份上班</button>
 	</form>
-	<br> -->
+	<br>
 
 
-<!-- 	<form action="/CheckOriginScheduleData/" method="GET">
+	<form action="/CheckOriginScheduleData/" method="POST">
 				<button type="submit">顯示原始排班</button>
 	</form>
-	<form action="/CheckBackupScheduleData/" method="GET">
+	<form action="/CheckBackupScheduleData/" method="POST">
 				<button type="submit">顯示備份排班</button>
-	</form> 
-	<br> -->
-
+	</form>  -->
+	<br>
+	<form action="/Sync_CheckHaveWorkButNoSchedule/" method="GET">
+				<button type="submit">檢查有上班沒排班</button>
+	</form>
+	<form action="/Sync_CheckHaveScheduleButNoWork/" method="GET">
+				<button type="submit">檢查有排班沒上班</button>
+	</form>
 
 <!-- 	<form action="/Sync_OriginAndBackupOnlineOffline/" method="GET">
 				<button type="submit">同步上班</button>
@@ -89,9 +84,9 @@
 	<form action="/Sync_OriginAndBackupWorkSchedule/" method="GET">
 				<button type="submit">同步排班</button>
 	</form>
-	<br> -->
+	<br>
 
-<!-- 	<form action="/Sync_CalculateMonthSalary_MonthCalculate/" method="GET">
+	<form action="/Sync_CalculateMonthSalary_MonthCalculate/" method="GET">
 				<button type="submit">同步單月薪資</button>
 	</form>
 	<form action="/Sync_AddLateWorkTimeCalculate_result/" method="GET">

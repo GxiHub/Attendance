@@ -45,6 +45,7 @@
 	<br> 
 	<table border='1'>
 	<tbody>
+		  <td> 刪除 </td>
 		  <td> 唯一碼 </td>
 	      <td> 員工姓名 </td>
 	      <td> 打卡日期 </td>  
@@ -53,8 +54,18 @@
 	      <td> 上下班檢查 </td> 
 	      <td> 計算上下班狀態 </td>
 	      <td> 重覆檢查 </td> 
-	<%  for(var i=0; i<passvariable.length; i++) {%>
+	      <td> 比數 </td> 
+	<%  var index=0;%>
+	<%	for(var i=0; i<passvariable.length; i++) {%>
 		<tr>
+		   <td><form action="/QR_codeScan_DeleteOnlineOfflineDate/" method="POST">
+		   	<input type="hidden" placeholder="name" name="name" value=<%= passvariable[i].name %>>
+		    <input type="hidden" placeholder="UniqueID" name="TID" value=<%= passvariable[i].TID %>>
+		    <input type="hidden" placeholder="Year" name="Year" value=<%= passvariable[i].Year %>>
+		    <input type="hidden" placeholder="Month" name="Month" value=<%= passvariable[i].Month %>>
+		    <input type="hidden" placeholder="Day" name="Day" value=<%= passvariable[i].Day %>>
+		    <button type="submit">刪除</button>
+		  </form></td>
 			  <td><%= passvariable[i].TID %></td>
 		      <td><%= passvariable[i].name %></td>
 		      <td><%= passvariable[i].Year +'/'+ passvariable[i].Month +'/'+ passvariable[i].Day %></td>
@@ -74,10 +85,24 @@
 
 		      			}
 		      	  }
+		      	  if(i>=1)
+		      	  {
+			      	  if(passvariable[i-1].name == passvariable[i].name)
+			      	  {
+			      	  	index=index+1;
+			      	  }
+			      	  else
+			      	  {
+			      	  	index =1;
+			      	  }
+		      	  }
+		      	  else{index =1;}
+		 
 		      %>
 		      <td><%= onofflineCompare %></td>
 		      <td><%= passvariable[i].SalaryCountStatus %></td>
 		      <td><%= duplicateCheck %></td>
+		      <td> <%= index %> </td> 
 
 		</tr>
 	<% } %>

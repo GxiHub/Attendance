@@ -54,7 +54,9 @@
 	      <td> 上班時間 </td> 
 	      <td> 加班時數 </td> 
 	      <td> 遲到時數 </td> 
-	      <td> 計薪確認 </td> 	      	      	      
+	      <td> 計薪確認 </td> 	
+	      <td> 比數 </td> 
+	<%  var index=0;%>     	      	      
 	<%  for(var i=0; i<passvariable.length; i++) {%>
 		<tr>
 			  <td><%= passvariable[i].TID %></td>
@@ -66,7 +68,21 @@
 		      <td><%= passvariable[i].addtime %></td>
 		      <td><%= passvariable[i].latetime %></td>
 		      <td><%= passvariable[i].countcheck %></td>
-		      <td> <%= i %> </td> 
+		      <%
+		      	  if(i>=1)
+		      	  {
+			      	  if(passvariable[i-1].name == passvariable[i].name)
+			      	  {
+			      	  	index=index+1;
+			      	  }
+			      	  else
+			      	  {
+			      	  	index =1;
+			      	  }
+		      	  }
+		      	  else{index =1;}
+		      %>
+		      <td> <%= index %> </td> 
 		</tr>
 	<% } %>
 	      
