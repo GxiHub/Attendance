@@ -20,7 +20,7 @@ MongoClient.connect('mongodb://9kingson:mini0306@ds163294.mlab.com:63294/testdat
 
 var Promise = require('rsvp').Promise;
 
-var MonthShift = 1;
+var MonthShift = 1 ;
 
 exports.OnlineOfflineStatus = function()
 {
@@ -57,6 +57,7 @@ exports.OnlineOfflineStatus = function()
 						if(origin[i].extrainfo2 != backup[j].extrainfo2){NeedToChange = 'update';}
 						
 						if( NeedToChange == 'wait2confirm'){NeedToChange = 'unchange';}
+
 					}
 				}	
 				if( NeedToChange == 'wait2confirm'){NeedToChange = 'create';}
@@ -66,9 +67,9 @@ exports.OnlineOfflineStatus = function()
 					DeleteSyncDataFromBackupDatabase(origin[i].TID,origin[i].name);
 					CreateNewSyncDataFromOriginalDatabase(origin[i].TID,origin[i].uniID,origin[i].name,origin[i].status,origin[i].Year,origin[i].Month,origin[i].Day,origin[i].Hour,origin[i].Minute,origin[i].SalaryCountStatus,origin[i].addworkstatus,origin[i].extrainfo1,origin[i].extrainfo2);
 				}
-				console.log(' NeedToChange = ',NeedToChange);	
-				console.log(' origin[',i,'].TID = ',origin[i].TID);
-				console.log('');
+				// console.log(' NeedToChange = ',NeedToChange);	
+				// console.log(' origin[',i,'].TID = ',origin[i].TID);
+				// console.log('');
 			}
 			CheckBackupIsMoreDataThanOrignalData(origin,backup);
 		    if(err)return console.log(err);
@@ -96,8 +97,8 @@ function CheckBackupIsMoreDataThanOrignalData(_Origin,_Backup)
 	for( var i = 0; i<_Backup.length; i++ )	
 	{
 		var NeedToChange = 'wait2confirm';
-		console.log('');
-		console.log(' _Backup[',i,'].TID = ',_Backup[i].TID);
+		//console.log('');
+		//console.log(' _Backup[',i,'].TID = ',_Backup[i].TID);
 		for( var j = 0; j<_Origin.length; j++ )
 		{	
 			if( (_Origin[j].TID == _Backup[i].TID) && (_Origin[j].uniID == _Backup[i].uniID) && (_Origin[j].Day == _Backup[i].Day) )
@@ -107,8 +108,8 @@ function CheckBackupIsMoreDataThanOrignalData(_Origin,_Backup)
 			// console.log(' origin[',j,'].TID = ',_Origin[j].TID);
 		}
 		if( NeedToChange == 'wait2confirm'){ NeedToChange = 'canfindmatchdata'; }
-		console.log(' NeedToChange = ',NeedToChange);
-		console.log('');		
+		//console.log(' NeedToChange = ',NeedToChange);
+		//console.log('');		
 		if( NeedToChange == 'canfindmatchdata' ){
 			DeleteSyncDataFromBackupDatabase(_Backup[i].TID,_Backup[i].name);
 		}

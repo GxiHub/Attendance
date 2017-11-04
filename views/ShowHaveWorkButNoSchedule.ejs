@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+</head>
+<body>
+	<form action="/" method="GET">
+				<button type="submit">返回老闆權限</button>
+	</form>
+	<br> 
+	<table border='1'>
+	<tbody>
+	      <td> 時間碼 </td>
+	      <td> 唯一碼 </td>
+	      <td> 員工姓名 </td> 
+	      <td> 年 </td> 
+	      <td> 月 </td> 
+	      <td> 日 </td> 	      	     
+	      <td> 狀態 </td>  
+	  <% for(var i=0; i<passvariable.length; i++) {%>
+		<tr>
+		  <td><%= passvariable[i].TID %></td>
+	      <td><%= passvariable[i].uniID %></td>
+	      <td><%= passvariable[i].name %></td>
+	      <td><%= passvariable[i].Year %></td>
+	      <td><%= passvariable[i].Month %></td>
+	      <td><%= passvariable[i].Day %></td>	      	      	    
+	      <td><%= passvariable[i].status %></td>
+	  <% } %>
+	</tr>
+	</tbody>
+	</table>
+
+</body>
+</html>

@@ -367,16 +367,6 @@ app.post('/Plan_Work_Schedule_CheckEmployeeWorkScheduleByList/',function(req,res
     });
 });
 
-// [查詢] [排班] [列表] [PlanWorkSchedule] [備份]
-app.post('/Plan_Work_Schedule_CheckEmployeeWorkScheduleByList/',function(req,res){
-    PlanWorkSchedule.CheckWorkScheduleByList(req.body.checkPeriodYear,req.body.checkPeriodMonth).then(function(items) 
-    {
-          res.render('PlanWorkSchedule_CheckWorkScheduleByList.ejs',{passvariable:items});
-    }, function(err) {
-          console.error('The promise was rejected', err, err.stack);
-    });
-});
-
 // [查詢] [排班] [群組] [PlanWorkSchedule]
 app.post('/Plan_Work_Schedule_CheckEmployeeWorkScheduleByGroup/',function(req,res){
     PlanWorkSchedule.CheckWorkSchedule(req.body.checkPeriodYear,req.body.checkPeriodMonth).then(function(items) 
@@ -502,11 +492,25 @@ app.get('/Sync_CheckHaveWorkButNoSchedule/',function(req,res){
     res.redirect('/');
 });
 
-// [檢查] [有上班沒排班] 
+// [顯示] [有上班沒排班] 
+app.get('/Show_CheckHaveWorkButNoSchedule/',function(req,res){
+    dbtest.collection('checkhaveworkbutnoschedule').find().toArray(function(err, data) {
+      res.render('ShowHaveWorkButNoSchedule.ejs',{passvariable:data});
+    });
+});
+
+// [檢查] [有排班沒上班] 
 app.get('/Sync_CheckHaveScheduleButNoWork/',function(req,res){
     var BrandButton = '食鍋藝';//需要知道店名稱來識別需要計算哪間店的資料
     AddLateWorkTimeCalculate.CheckHaveScheduleButNoWork(BrandButton); 
     res.redirect('/');
+});
+
+// [顯示] [有排班沒上班] 
+app.get('/Show_CheckHaveScheduleButNoWork/',function(req,res){
+    dbtest.collection('checkhaveschedulebutnowork').find().toArray(function(err, data) {
+      res.render('ShowHaveScheduleButNoWork.ejs',{passvariable:data});
+    });
 });
 
 // [同步] [上下班資訊] [SyncOnlineOfflineData]

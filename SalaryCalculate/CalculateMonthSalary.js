@@ -22,16 +22,24 @@ var Promise = require('rsvp').Promise;
 
 var PartTimeHourPrice = 150;
 
+var MonthShift = 3;
+
 exports.CalculateMonthSalary = function(BrandName)
 {
-	var Calculate_Year = '2017';
-	var Calculate_Month = '09';
+  //產生現在的年份與月份
+    var _Year = moment().format('YYYY');
+    var _Month = moment().format('MM') - MonthShift;
+
+    //為了月份做處理，單位數的補零，雙位數的轉字串
+    if(_Month<10){_Month='0'+_Month;}
+    _Month = _Month.toString();
+    console.log(' Date = ', _Year+'/'+_Month);
 
 	dbtoken.collection('memberbrandinformation').find({'userbrandname':BrandName}).toArray(function(err, minuteSalary) {
 		// console.log('minuteSalary.length =',minuteSalary.length);
 		for( var j = 0; j<minuteSalary.length; j++ ) {
-			RemoveMonthSalaryData(minuteSalary[j].uniID,Calculate_Year,Calculate_Month);
-			setTimeout(SaveMonthSalaryToDatabas(minuteSalary[j].userbrandtitle,minuteSalary[j].uniID,minuteSalary[j].name,Calculate_Year,Calculate_Month,minuteSalary[j].usermonthsalary,minuteSalary[j].userfoodsalary,minuteSalary[j].userwithoutsalary,minuteSalary[j].usertitlesalary,minuteSalary[j].userextrasalary,minuteSalary[j ].userlawsalary),2000);
+			RemoveMonthSalaryData(minuteSalary[j].uniID,_Year,_Month);
+			setTimeout(SaveMonthSalaryToDatabas(minuteSalary[j].userbrandtitle,minuteSalary[j].uniID,minuteSalary[j].name,_Year,_Month,minuteSalary[j].usermonthsalary,minuteSalary[j].userfoodsalary,minuteSalary[j].userwithoutsalary,minuteSalary[j].usertitlesalary,minuteSalary[j].userextrasalary,minuteSalary[j ].userlawsalary),2000);
 		}
 	});
 }
@@ -82,8 +90,8 @@ function basicprice(_uniID,_Year,_Month,_Userbrandtitle,_Workdaynumber,_Usermont
 {
 	if(_LateMinute>30){_Userwithoutsalary = 0;}
 	else{_Userwithoutsalary=_Userwithoutsalary;}
-	console.log('_LatetimeTotal =',_LatetimeTotal);
-	console.log('_Userwithoutsalary =',_Userwithoutsalary);
+	//console.log('_LatetimeTotal =',_LatetimeTotal);
+	//console.log('_Userwithoutsalary =',_Userwithoutsalary);
 	var WorkDayRatio = 0;
 	if(_Workdaynumber == 0){ WorkDayRatio = 0}
 	else if(_Workdaynumber>=0 && _Workdaynumber<5){WorkDayRatio = _Workdaynumber/30;}
@@ -114,15 +122,13 @@ function every_parttime_basic_price(_onlinehour,_onlineminute,_offlinehour,_offl
 		EveryDayWorkPeriod = (OfflineTime - OnlineTime)*PartTimeMinutePrice;
 	}
 	
-	 console.log('EveryDayWorkPeriod =',EveryDayWorkPeriod);
+	//console.log('EveryDayWorkPeriod =',EveryDayWorkPeriod);
 	return EveryDayWorkPeriod;
 }
 
 function SaveMonthSalaryToDatabas(_Userbrandtitle,_uniID,_name,_Year,_Month,_usermonthsalary,_userfoodsalary,_userwithoutsalary,_usertitlesalary,_userextrasalary,_userlawsalary)
-//function SaveMonthSalaryToDatabas(_uniID,_name,_YearMonth,_usermonthsalary,_userfoodsalary,_userwithoutsalary,_usertitlesalary,_userextrasalary,_userlawsalary,_addtimesalary,_latetimesalary,_totalsalary)
 {
 	var _YearMonth = _Year+'/'+_Month;
-	//dbwork.collection('everydayonlineoffline').find({'uniID':_uniID,'Year':_Year,'Month':_Month}).sort({"name":1,"Month": 1,"Day": 1}).toArray(function(err, results) {
 	dbtest.collection('syneverydayaddlatestatus').find({'uniID':_uniID,'Year':_Year,'Month':_Month}).sort({"name":1,"Month": 1,"Day": 1}).toArray(function(err, results) {
 	var AddtimeTotal = 0 ;var AddMinute = 0;var LateTimeTotal = 0;var LateMinute = 0;
 	var PartTimeEveryDaySalary;var PartTimeTotalSalary =0;
@@ -142,7 +148,6 @@ function SaveMonthSalaryToDatabas(_Userbrandtitle,_uniID,_name,_Year,_Month,_use
 			PartTimeTotalSalary = PartTimeTotalSalary+PartTimeEveryDaySalary;
 		}
 	}
-	// var BasicPrice = basicprice(_uniID,_Year,_Month,_Userbrandtitle,results.length,_usermonthsalary,_userfoodsalary,_userwithoutsalary,_usertitlesalary,_userextrasalary,LateTimeTotal);
 	var FullPrice = fullPrice(_usermonthsalary,_userfoodsalary,_userwithoutsalary,_usertitlesalary,_userextrasalary,AddtimeTotal,LateTimeTotal);
 	if(_Userbrandtitle == '正職'){
 		var BasicPrice = basicprice(_uniID,_Year,_Month,_Userbrandtitle,results.length,_usermonthsalary,_userfoodsalary,_userwithoutsalary,_usertitlesalary,_userextrasalary,LateTimeTotal,LateMinute);
@@ -152,8 +157,9 @@ function SaveMonthSalaryToDatabas(_Userbrandtitle,_uniID,_name,_Year,_Month,_use
 		var BasicPrice = PartTimeTotalSalary;
 
 	}
-				// console.log('= = = = = = =');
+				console.log('= = = = = = =');
 			   	console.log('_uniID =',_uniID);
+			   	console.log('_name =',_name);
 			   	console.log('results.length =',results.length);
 		    	console.log('_usermonthsalary =',_usermonthsalary);
 		    	console.log('_userfoodsalary =',_userfoodsalary);
@@ -161,7 +167,7 @@ function SaveMonthSalaryToDatabas(_Userbrandtitle,_uniID,_name,_Year,_Month,_use
 		    	console.log('_usertitlesalary =',_usertitlesalary);
 		    	console.log('_userextrasalary =',_userextrasalary);
 		    	// console.log('_userlawsalary =',_userlawsalary);
-		    	console.log('_name =',_name);
+		    	
 				console.log('PartTimeTotalSalary =',PartTimeTotalSalary);
 		    	console.log('AddtimeTotal =',AddtimeTotal);
 		    	console.log('LateTimeTotal =',LateTimeTotal);
@@ -169,11 +175,10 @@ function SaveMonthSalaryToDatabas(_Userbrandtitle,_uniID,_name,_Year,_Month,_use
 		    	console.log('BasicPrice =',BasicPrice);
 		    	// console.log('FullPrice =',FullPrice);
 		    	console.log('FinalPrice =',FinalPrice);
+		    	console.log('= = = = = = =');
 		    	console.log('');
 		    	
-		    //});
 		   
-   	// dbwork.collection('monthlysalaryinformation').save({TID:Date.now(),uniID:_uniID,name:_name,monthperiod:_YearMonth,workdaynumber:results.length,monthsalary:_usermonthsalary,
    	dbtest.collection('syncmonthlysalaryinformation').save({TID:Date.now(),uniID:_uniID,name:_name,monthperiod:_YearMonth,workdaynumber:results.length,monthsalary:_usermonthsalary,
                                                                       foodsalary:_userfoodsalary,withoutsalary:_userwithoutsalary,titlesalary:_usertitlesalary,
                                                                       extrabonus:_userextrasalary,lawsalary:_userlawsalary,addtimesalary:AddtimeTotal,latetimesalary:LateTimeTotal,
@@ -185,8 +190,8 @@ function SaveMonthSalaryToDatabas(_Userbrandtitle,_uniID,_name,_Year,_Month,_use
 
 function RemoveMonthSalaryData(_uniid,_year,_month)
 {
-  console.log('_uniid =',_uniid);console.log('_year =',_year);console.log('_month =',_month);
+  // console.log('_uniid =',_uniid);console.log('_year =',_year);console.log('_month =',_month);
   var MonthYear = _year+'/'+_month;
-  console.log('MonthYear =',MonthYear);
+  // console.log('MonthYear =',MonthYear);
   dbtest.collection('syncmonthlysalaryinformation').remove({uniID:_uniid,monthperiod:MonthYear});
 }
