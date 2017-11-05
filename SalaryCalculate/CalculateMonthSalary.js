@@ -22,7 +22,7 @@ var Promise = require('rsvp').Promise;
 
 var PartTimeHourPrice = 150;
 
-var MonthShift = 3;
+var MonthShift = 1;
 
 exports.CalculateMonthSalary = function(BrandName)
 {
@@ -47,9 +47,11 @@ exports.CalculateMonthSalary = function(BrandName)
 function addtimePrice(_Userbrandtitle,_Addtime,_Usermonthsalary,_Userfoodsalary,_Userwithoutsalary,_Usertitlesalary,_Userextrasalary)
 // function addtimePrice(_Addtime,_Userbrandtitle,_Usermonthsalary,_Userfoodsalary,_Userwithoutsalary,_Usertitlesalary,_Userextrasalary)
 {
-	var FullSalary = parseInt(_Usermonthsalary,10)+parseInt(_Userfoodsalary,10)+parseInt(_Userwithoutsalary,10)+parseInt(_Userwithoutsalary,10)+parseInt(_Usertitlesalary,10)+parseInt(_Userextrasalary,10);
+	//var FullSalary = parseInt(_Usermonthsalary,10)+parseInt(_Userfoodsalary,10)+parseInt(_Userwithoutsalary,10)+parseInt(_Userwithoutsalary,10)+parseInt(_Usertitlesalary,10)+parseInt(_Userextrasalary,10);
+	var FullSalary = parseInt(_Usermonthsalary,10)+parseInt(_Userfoodsalary,10)+parseInt(_Userwithoutsalary,10)+parseInt(_Usertitlesalary,10);
+
 	// var FullSalary = parseInt(_Usermonthsalary,10); 
-	 // console.log('FullSalary =',FullSalary);
+	  console.log('FullSalary =',FullSalary);
 	var day = 30;var hour = 8;var minute = 60;var times = 1.33;
 	var MinutePrice = FullSalary/day/hour/minute*times;
 	var PartTimeMinutePrice = PartTimeHourPrice/60;
@@ -66,7 +68,9 @@ function addtimePrice(_Userbrandtitle,_Addtime,_Usermonthsalary,_Userfoodsalary,
 function latetimePrice(_Userbrandtitle,_Latetime,_Usermonthsalary,_Userfoodsalary,_Userwithoutsalary,_Usertitlesalary,_Userextrasalary)
 // function latetimePrice(_Latetime,_Userbrandtitle,_Usermonthsalary,_Userfoodsalary,_Userwithoutsalary,_Usertitlesalary,_Userextrasalary)
 {
-	var FullSalary = parseInt(_Usermonthsalary,10)+parseInt(_Userfoodsalary,10)+parseInt(_Userwithoutsalary,10)+parseInt(_Userwithoutsalary,10)+parseInt(_Usertitlesalary,10)+parseInt(_Userextrasalary,10);
+	//var FullSalary = parseInt(_Usermonthsalary,10)+parseInt(_Userfoodsalary,10)+parseInt(_Userwithoutsalary,10)+parseInt(_Userwithoutsalary,10)+parseInt(_Usertitlesalary,10)+parseInt(_Userextrasalary,10);
+	var FullSalary = parseInt(_Usermonthsalary,10)+parseInt(_Userfoodsalary,10)+parseInt(_Userwithoutsalary,10)+parseInt(_Usertitlesalary,10);
+	
 	// console.log('FullSalary =',FullSalary);
 	var day = 30;var hour = 8;var minute = 60;
 	var MinutePrice = FullSalary/day/hour/minute;
@@ -129,12 +133,14 @@ function every_parttime_basic_price(_onlinehour,_onlineminute,_offlinehour,_offl
 function SaveMonthSalaryToDatabas(_Userbrandtitle,_uniID,_name,_Year,_Month,_usermonthsalary,_userfoodsalary,_userwithoutsalary,_usertitlesalary,_userextrasalary,_userlawsalary)
 {
 	var _YearMonth = _Year+'/'+_Month;
+	// 透過 uniID 撈出加班資訊，並計算出總體加班費
 	dbtest.collection('syneverydayaddlatestatus').find({'uniID':_uniID,'Year':_Year,'Month':_Month}).sort({"name":1,"Month": 1,"Day": 1}).toArray(function(err, results) {
 	var AddtimeTotal = 0 ;var AddMinute = 0;var LateTimeTotal = 0;var LateMinute = 0;
 	var PartTimeEveryDaySalary;var PartTimeTotalSalary =0;
 	for( var i = 0; i<results.length; i++ ) 
 	{
 		PartTimeEveryDaySalary =0;
+		//計算加班或遲到費用
 		var AddTimePrice = addtimePrice(_Userbrandtitle,results[i].addtime,_usermonthsalary,_userfoodsalary,_userwithoutsalary,_usertitlesalary,_userextrasalary); 
 		var LateTimePrice = latetimePrice(_Userbrandtitle,results[i].latetime,_usermonthsalary,_userfoodsalary,_userwithoutsalary,_usertitlesalary,_userextrasalary);
 		// console.log('addtime =',results[i].addtime,'  addPrice =',AddTimePrice);
@@ -148,6 +154,7 @@ function SaveMonthSalaryToDatabas(_Userbrandtitle,_uniID,_name,_Year,_Month,_use
 			PartTimeTotalSalary = PartTimeTotalSalary+PartTimeEveryDaySalary;
 		}
 	}
+	// 計算出按照比例的基本薪水和最後薪水
 	var FullPrice = fullPrice(_usermonthsalary,_userfoodsalary,_userwithoutsalary,_usertitlesalary,_userextrasalary,AddtimeTotal,LateTimeTotal);
 	if(_Userbrandtitle == '正職'){
 		var BasicPrice = basicprice(_uniID,_Year,_Month,_Userbrandtitle,results.length,_usermonthsalary,_userfoodsalary,_userwithoutsalary,_usertitlesalary,_userextrasalary,LateTimeTotal,LateMinute);

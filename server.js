@@ -85,10 +85,6 @@ app.get('/',function(req,res){
   res.render('index.ejs');
 });
 
-app.get('/QRcodeStockIn/',function(req,res){
-    console.log(req.query.thing);    
-});
-
 //QRcodeScan. 透過手機端掃描二維條碼，並添加個人上下班時間
 app.get('/QR_codeSan_GetTokenToServer/',function(req,res){
     //body = Object.assign({}, results); 
@@ -447,6 +443,9 @@ app.post('/Backup_PrintMonthSalary_CheckMonthSalary/',function(req,res){
 // 去庫存庫裡面撈是否存在此商品，沒有就新增，有的話就把狀態改成out。
 // 新增 時間、名稱、條碼、分類、狀態
 // 確認條碼產生的方法
+app.get('/QRcodeStockIn/',function(req,res){
+    console.log(req.query.thing);    
+});
 
 // ===================== 新增收入支出 Start
 
