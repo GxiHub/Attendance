@@ -131,3 +131,17 @@ exports.GetProductListInStock = function(StockTag,BrandName)
     });	
 }
 
+exports.GetProductPartialTag = function()
+{ 
+    return new Promise(function(resolve, reject) 
+    {
+      dbtest.collection('productpartialtag').find().toArray(function(err, results) {       
+         if (err) { 
+              reject(err);
+         } else {
+              resolve(results);
+         }
+
+      });
+    });	
+}

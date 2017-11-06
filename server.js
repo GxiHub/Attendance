@@ -465,6 +465,15 @@ app.post('/AddProductPartialTagInStock/',function(req,res){
     HandleStockInOut.SaveProductPartialTagToStock(req.body.brandname,req.body.productname,req.body.producttag,req.body.class,req.body.subclass,req.body.grade); 
     res.redirect('/');
 });
+
+app.post('/CheckProductPartialTag/',function(req,res){
+    HandleStockInOut.GetProductPartialTag().then(function(items) 
+    {
+          res.render('CheckProductPartialTag.ejs',{passvariable:items});
+    }, function(err) {
+          console.error('The promise was rejected', err, err.stack);
+    });
+});
 // ===================== 新增收入支出 Start
 
 // [顯示] [營收支出]
