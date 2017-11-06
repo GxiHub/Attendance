@@ -444,9 +444,27 @@ app.post('/Backup_PrintMonthSalary_CheckMonthSalary/',function(req,res){
 // 新增 時間、名稱、條碼、分類、狀態
 // 確認條碼產生的方法
 app.get('/QRcodeStockIn/',function(req,res){
-    console.log(req.query.thing);    
+    HandleStockInOut.CheckStockInOut(req.query.thing,'食鍋藝');
+    res.redirect('/');
 });
 
+app.post('/CheckProductInStock/',function(req,res){
+    HandleStockInOut.GetProductListInStock().then(function(items) 
+    {
+          res.render('CheckProductInStock.ejs',{passvariable:items});
+    }, function(err) {
+          console.error('The promise was rejected', err, err.stack);
+    });
+});
+//CheckProductInStock
+
+app.post('/AddProductPartialTag/',function(req,res){
+    res.render('AddProductPartialTag.ejs'); 
+});
+app.post('/AddProductPartialTagInStock/',function(req,res){
+    HandleStockInOut.SaveProductPartialTagToStock(req.body.brandname,req.body.productname,req.body.producttag,req.body.class,req.body.subclass,req.body.grade); 
+    res.redirect('/');
+});
 // ===================== 新增收入支出 Start
 
 // [顯示] [營收支出]
@@ -594,6 +612,12 @@ app.get('/ShowAndModifyUserTokenData_UserTokenData/',function(req,res){
   }); 
 });
 //  ==================== 員工專區 End
+app.post('/MakeSureForLoop/',function(req,res){
+  console.log(' value =',req.body.checkName);
+  dbtoken.collection('memberbrandinformation').find().toArray(function(err, results) {
+      res.render('ForLoopCheck.ejs',{passvariable:results});
+  });
+});
 
           
 https.createServer(options, app).listen(9081, function () {
