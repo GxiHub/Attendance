@@ -21,6 +21,7 @@
 	      <td> 產品細項 </td>  
 	      <td> 產品等級 </td>  
 	  	  <td> 產品狀態 </td> 
+	  	  <td> 入庫日期 </td>
 	  	  <td> 入庫時間 </td>  
 	<% for(var i=0; i<passvariable.length; i++) {%>
 		<tr>
@@ -37,7 +38,8 @@
 	      <td><%= passvariable[i].subclass %></td>
 	      <td><%= passvariable[i].grade %></td>
 	      <td><%= passvariable[i].status %></td>
-		  <td><%= passvariable[i].instocktime %></td>      
+	      <td><%= passvariable[i].instockdate %></td> 
+		  <td><%= passvariable[i].instocktime %></td>  	      
 	  <% } %>
 	</tr>
 	</tbody>

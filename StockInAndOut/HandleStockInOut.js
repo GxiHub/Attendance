@@ -75,7 +75,9 @@ function ProductFirstStockIn(_StockTag)
 
 function SaveProductToStock(_StockTag,_BrandName,_ProductName,_Tag,_Class,_SubClass,_Grade)
 {
-   	dbtest.collection('thinginstock').save({TID:Date.now(),brandname:_BrandName,productnumber:_StockTag,product:_ProductName,tag:_Tag,class:_Class,subclass:_SubClass,grade:_Grade,status:'在庫',instocktime:moment().format('L')},function(err,result){
+    InStockDate = moment().tz('Etc/GMT+8').format('YYYY-MM-DD');
+    InStockTime = moment().tz('Etc/GMT+8').format('HH:mm');
+   	dbtest.collection('thinginstock').save({TID:Date.now(),brandname:_BrandName,productnumber:_StockTag,product:_ProductName,tag:_Tag,class:_Class,subclass:_SubClass,grade:_Grade,status:'在庫',instockdate:InStockDate,instocktime:InStockTime},function(err,result){
                           if(err)return console.log(err);
     }); 
 }
