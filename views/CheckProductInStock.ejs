@@ -11,7 +11,7 @@
 	<br> 
 	<table border='1'>
 	<tbody>
-<!-- 	      <td> 刪除 </td> -->
+	      <td> 刪除 </td>
 	      <td> 時間碼 </td>
 	      <td> 品牌名稱 </td>
 	      <td> 產品編號 </td>
@@ -23,14 +23,10 @@
 	  	  <td> 產品狀態 </td>  
 	<% for(var i=0; i<passvariable.length; i++) {%>
 		<tr>
-<!-- 		   <td><form action="/QR_codeScan_DeleteOnlineOfflineDate/" method="POST">
-		   	<input type="hidden" placeholder="name" name="name" value=<%= passvariable[i].name %>>
-		    <input type="hidden" placeholder="UniqueID" name="TID" value=<%= passvariable[i].TID %>>
-		    <input type="hidden" placeholder="Year" name="Year" value=<%= passvariable[i].Year %>>
-		    <input type="hidden" placeholder="Month" name="Month" value=<%= passvariable[i].Month %>>
-		    <input type="hidden" placeholder="Day" name="Day" value=<%= passvariable[i].Day %>>
+		   <td><form action="/DeleteProductInStock/" method="POST">
+		   	<input type="hidden" placeholder="productnumber" name="productnumber" value=<%= passvariable[i].productnumber %>>
 		    <button type="submit">刪除</button>
-		  </form></td> -->
+		  </form></td>
 		  <td><%= passvariable[i].TID %></td>
 		  <td><%= passvariable[i].brandname %></td>
 	      <td><%= passvariable[i].productnumber %></td>
@@ -40,6 +36,7 @@
 	      <td><%= passvariable[i].subclass %></td>
 	      <td><%= passvariable[i].grade %></td>
 	      <td><%= passvariable[i].status %></td>
+		  <td><%= passvariable[i].instocktime %></td>      
 	  <% } %>
 	</tr>
 	</tbody>

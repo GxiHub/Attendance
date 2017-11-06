@@ -456,7 +456,11 @@ app.post('/CheckProductInStock/',function(req,res){
           console.error('The promise was rejected', err, err.stack);
     });
 });
-//CheckProductInStock
+app.post('/DeleteProductInStock/',function(req,res){
+    console.log(' productnumber = ',req.body.productnumber);
+    HandleStockInOut.DeleteProduct(req.body.productnumber);
+    res.redirect('/');
+});
 
 app.post('/AddProductPartialTag/',function(req,res){
     res.render('AddProductPartialTag.ejs'); 

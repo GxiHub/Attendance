@@ -40,7 +40,7 @@ exports.CheckStockInOut = function(StockTag,BrandName)
     }); 
 }
 
-function DeleteProduct(_StockTag)
+exports.DeleteProduct = function(_StockTag)
 {
     dbtest.collection('thinginstock').findOneAndDelete({productnumber:_StockTag},
     (err, result) => {
@@ -64,7 +64,7 @@ function UpdateProductStatus(_StockTag)
 
 function ProductFirstStockIn(_StockTag)
 {
-	var ProductTag = _StockTag[0]+_StockTag[1]+_StockTag[2]+_StockTag[3]+_StockTag[4];
+	  var ProductTag = _StockTag[0]+_StockTag[1]+_StockTag[2]+_StockTag[3]+_StockTag[4];
     GetProductPartialInformation(ProductTag).then(function(items) 
     {
           SaveProductToStock(_StockTag,items[0].brandname,items[0].product,items[0].tag,items[0].class,items[0].subclass,items[0].grade);
@@ -75,7 +75,8 @@ function ProductFirstStockIn(_StockTag)
 
 function SaveProductToStock(_StockTag,_BrandName,_ProductName,_Tag,_Class,_SubClass,_Grade)
 {
-   	dbtest.collection('thinginstock').save({TID:Date.now(),brandname:_BrandName,productnumber:_StockTag,product:_ProductName,tag:_Tag,class:_Class,subclass:_SubClass,grade:_Grade,status:'在庫'},function(err,result){
+    var now = new Date();
+   	dbtest.collection('thinginstock').save({TID:Date.now(),brandname:_BrandName,productnumber:_StockTag,product:_ProductName,tag:_Tag,class:_Class,subclass:_SubClass,grade:_Grade,status:'在庫',instocktime:date.format(now,'YYYY/MM/DD')},function(err,result){
                           if(err)return console.log(err);
     }); 
 }
