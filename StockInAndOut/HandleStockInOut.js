@@ -22,6 +22,7 @@ var Promise = require('rsvp').Promise;
 
 exports.CheckStockInOut = function(StockTag,BrandName)
 { 
+    console.log('StockTag = ',StockTag);
     CheckProductIsInStockOrNot(StockTag).then(function(items) 
     {
           if(items.length == 0)
