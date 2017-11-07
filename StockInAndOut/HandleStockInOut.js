@@ -75,9 +75,11 @@ function ProductFirstStockIn(_StockTag)
 
 function SaveProductToStock(_StockTag,_BrandName,_ProductName,_Tag,_Class,_SubClass,_Grade)
 {
-    InStockDate = moment().tz('Etc/GMT+8').format('YYYY-MM-DD');
-    InStockTime = moment().tz('Etc/GMT+8').format('HH:mm');
-   	dbtest.collection('thinginstock').save({TID:Date.now(),brandname:_BrandName,productnumber:_StockTag,product:_ProductName,tag:_Tag,class:_Class,subclass:_SubClass,grade:_Grade,status:'在庫',instockdate:InStockDate,instocktime:InStockTime},function(err,result){
+    console.log(calcTime('taipei' , 8));
+    var date_taipei = DateTimezone(8);
+    console.log(date_taipei.toLocaleString());
+
+   	dbtest.collection('thinginstock').save({TID:Date.now(),brandname:_BrandName,productnumber:_StockTag,product:_ProductName,tag:_Tag,class:_Class,subclass:_SubClass,grade:_Grade,status:'在庫',instockdate:'2017',instocktime:'11'},function(err,result){
                           if(err)return console.log(err);
     }); 
 }
@@ -147,4 +149,26 @@ exports.GetProductPartialTag = function()
 
       });
     });	
+}
+
+// 新增當地時區的時間物件
+function DateTimezone(offset) {
+    // 建立現在時間的物件
+    d = new Date();
+    // 取得 UTC time
+    utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+    // 新增不同時區的日期資料
+    return new Date(utc + (3600000*offset));
+}
+
+// 計算當地時區的時間
+function calcTime(city, offset) {
+    // 建立現在時間的物件
+    d = new Date();
+    // 取得 UTC time
+    utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+    // 新增不同時區的日期資料
+    nd = new Date(utc + (3600000*offset));
+    // 顯示當地時間
+    return "在 " + city + " 的本地時間是 " + nd.toLocaleString();
 }
