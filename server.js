@@ -110,8 +110,21 @@ app.get('/QR_codeSan_GetTokenToServer/',function(req,res){
     });  
 });
 
+// app.get('/FisrtLoginAndReturnMemberToken/',function(req,res){
+//   var deckey = decrypt(key, iv, req.headers['account']);
+//   var deciv = decrypt(key, iv, req.headers['password']);
+//     console.log(req.headers['account']);    
+//     console.log(req.headers['password']);
+//   dbtoken.collection('memberinformationcollection').findOne({'account':deckey,"password":deciv},function(err, results) {
+//   //dbtoken.collection('memberinformationcollection').findOne({'account':req.headers['account'],"password":req.headers['password']},function(err, results) {
+//     if(results==null){ json = { 'status':{'code':'E0002','msg':'帳號或密碼有錯，請重新輸入'},'data':results}; }
+//     else{ json = { 'status':{'code':'S0000','msg':'帳號密碼正確'},'data':results.uniID};}
+//         var SendDataToPhone = JSON.stringify(json); res.type('application/json'); res.send(SendDataToPhone);
+//   });
+// });
+
 //透過帳號與密碼比對資料庫，若正確則返回一組 token
-app.get('/FisrtLoginAndReturnMemberToken/',function(req,res){
+app.get('/V1/API/FisrtLoginAndReturnMemberToken/',function(req,res){
   var deckey = decrypt(key, iv, req.headers['account']);
   var deciv = decrypt(key, iv, req.headers['password']);
     console.log(req.headers['account']);    
@@ -124,8 +137,49 @@ app.get('/FisrtLoginAndReturnMemberToken/',function(req,res){
   });
 });
 
+
+// app.get('/GetManageNews/',function(req,res){
+//    console.log(' GetManageNews ');
+//     SettingPage.PromiseGetMonthSalaryOrHourSalary(req.headers['uniid']).then(function(items) 
+//     {
+//         console.log(' items.userbrandname = ',items.userbrandname);
+//         console.log(' items.userbrandplace = ',items.userbrandplace);
+//         dbwork.collection('managenews').find({'userbrandname':items.userbrandname,'userbrandplace':items.userbrandplace},{_id:0,TID:0,userbrandname:0,userbrandplace:0}).toArray(function(err, results) {
+//            if(results==null){ json = { 'status':{'code':'E0007','msg':'唯一碼有錯，請重新輸入'},'data':results}; }
+//            else{ json = { 'status':{'code':'S0000','msg':'唯一碼正確'},'data':results};}
+//            var SendDataToPhone = JSON.stringify(json); res.type('application/json'); res.send(SendDataToPhone);
+//         });
+//     }, function(err) {
+//           console.error('The promise was rejected', err, err.stack);
+//     });  
+// });
+
+//查詢佈告欄
+app.get('/V1/API/GetManageNews/',function(req,res){
+    console.log('/V1/API/GetManageNews');
+    SettingPage.PromiseGetMonthSalaryOrHourSalary(req.headers['uniid']).then(function(items) 
+    {
+        dbwork.collection('managenews').find({'userbrandname':items.userbrandname,'userbrandplace':items.userbrandplace},{_id:0,TID:0,userbrandname:0,userbrandplace:0}).toArray(function(err, results) {
+           if(results==null){ json = { 'status':{'code':'E0007','msg':'唯一碼有錯，請重新輸入'},'data':results}; }
+           else{ json = { 'status':{'code':'S0000','msg':'唯一碼正確'},'data':results};}
+           var SendDataToPhone = JSON.stringify(json); res.type('application/json'); res.send(SendDataToPhone);
+        });
+    }, function(err) {
+          console.error('The promise was rejected', err, err.stack);
+    });  
+});
+
+// app.get('/GetMemberBrandInformation/',function(req,res){
+//   dbtoken.collection('memberbrandinformation').find({'uniID':req.headers['uniid']},{_id:0,userfirstarrival:0,userlawsalary:0,userextrasalary:0,usertitlesalary:0,userwithoutsalary:0,userfoodsalary:0,usermonthsalary:0}).toArray(function(err, results) {
+//     var jsonReturn = {};jsonReturn ={'uniID':results[0].uniID,'name':results[0].name,'userbrandtitle':results[0].userbrandtitle,'userbrandname':results[0].userbrandname,'userbrandplace':results[0].userbrandplace};
+//     if(results==null){ json = { 'status':{'code':'E0003','msg':'唯一碼有錯，請重新輸入'},'data':results}; }
+//     else{ json = { 'status':{'code':'S0000','msg':'唯一碼正確'},'data':jsonReturn};}
+//         var SendDataToPhone = JSON.stringify(json); res.type('application/json'); res.send(SendDataToPhone);
+//   });
+// });
+
 //透過UID比對資料庫，若正確則返回一組 token
-app.get('/GetMemberBrandInformation/',function(req,res){
+app.get('/V1/API/GetMemberBrandInformation/',function(req,res){
   dbtoken.collection('memberbrandinformation').find({'uniID':req.headers['uniid']},{_id:0,userfirstarrival:0,userlawsalary:0,userextrasalary:0,usertitlesalary:0,userwithoutsalary:0,userfoodsalary:0,usermonthsalary:0}).toArray(function(err, results) {
     var jsonReturn = {};jsonReturn ={'uniID':results[0].uniID,'name':results[0].name,'userbrandtitle':results[0].userbrandtitle,'userbrandname':results[0].userbrandname,'userbrandplace':results[0].userbrandplace};
     if(results==null){ json = { 'status':{'code':'E0003','msg':'唯一碼有錯，請重新輸入'},'data':results}; }
@@ -172,18 +226,32 @@ app.get('/QueryPersonalSalaryList/',function(req,res){
     });  
 });
 
+// app.get('/GetMonthlySalaryForEachEmployee/',function(req,res){
+//   var month = req.headers['month'];
+//   var year = req.headers['year'];
+//   var b=year+'/'+month;
+//   dbwork.collection('monthlysalaryinformation').find({'uniID':req.headers['uniid'],'monthperiod':new RegExp(b)},{_id:0,TID:0,uniID:0}).toArray(function(err, results) {
+//     var jsonReturn = {};jsonReturn ={'monthperiod':results[0].monthperiod,'monthsalary':results[0].monthsalary,'withoutsalary':results[0].withoutsalary,'foodsalary':results[0].foodsalary,'titlesalary':results[0].titlesalary,'addtimesalary':results[0].addtimesalary,'latetimesalary':results[0].latetimesalary,'extrabonus':results[0].extrabonus,'lawsalary':results[0].lawsalary,'totalmonthsalaty':results[0].totalmonthsalaty};
+//     if(results==null){ json = { 'status':{'code':'E0005','msg':'唯一碼有錯，請重新輸入'},'data':results}; }
+//     else{ json = { 'status':{'code':'S0000','msg':'唯一碼正確'},'data':jsonReturn};}
+//         var SendDataToPhone = JSON.stringify(json); res.type('application/json'); res.send(SendDataToPhone);
+//   });
+// });
+
 // 查詢員工單月薪水資訊
-app.get('/GetMonthlySalaryForEachEmployee/',function(req,res){
+app.get('/V1/API/GetMonthlySalaryForEachEmployee/',function(req,res){
   var month = req.headers['month'];
   var year = req.headers['year'];
   var b=year+'/'+month;
-  dbwork.collection('monthlysalaryinformation').find({'uniID':req.headers['uniid'],'monthperiod':new RegExp(b)},{_id:0,TID:0,uniID:0}).toArray(function(err, results) {
-    var jsonReturn = {};jsonReturn ={'monthperiod':results[0].monthperiod,'monthsalary':results[0].monthsalary,'withoutsalary':results[0].withoutsalary,'foodsalary':results[0].foodsalary,'titlesalary':results[0].titlesalary,'addtimesalary':results[0].addtimesalary,'latetimesalary':results[0].latetimesalary,'extrabonus':results[0].extrabonus,'lawsalary':results[0].lawsalary,'totalmonthsalaty':results[0].totalmonthsalaty};
+  dbtest.collection('syncmonthlysalaryinformation').find({'uniID':req.headers['uniid'],'monthperiod':new RegExp(b)},{_id:0,TID:0,uniID:0}).toArray(function(err, results) {
+    var jsonReturn = {};jsonReturn ={'monthperiod':results[0].monthperiod,'monthsalary':results[0].monthsalary,'withoutsalary':results[0].withoutsalary,'foodsalary':results[0].foodsalary,'titlesalary':results[0].titlesalary,'addtimesalary':results[0].addtimesalary,'latetimesalary':results[0].latetimesalary,'extrabonus':results[0].extrabonus,'lawsalary':results[0].lawsalary,'addminute':results[0].addminute,'lateminute':results[0].lateminute,'basicsalary':results[0].basicsalary,'workdaynumber':results[0].workdaynumber,'totalmonthsalary':results[0].totalmonthsalary};
+
     if(results==null){ json = { 'status':{'code':'E0005','msg':'唯一碼有錯，請重新輸入'},'data':results}; }
     else{ json = { 'status':{'code':'S0000','msg':'唯一碼正確'},'data':jsonReturn};}
         var SendDataToPhone = JSON.stringify(json); res.type('application/json'); res.send(SendDataToPhone);
   });
 });
+
 
 // 查詢員工單月上班情形
 app.get('/GetMonthlyEmployeeWorkSchedule/',function(req,res){
@@ -221,23 +289,6 @@ app.get('/GetMonthlyEmployeeWorkSchedule/',function(req,res){
            results = jsonArray;
 
            if(results==null){ json = { 'status':{'code':'E0006','msg':'唯一碼有錯，請重新輸入'},'data':results}; }
-           else{ json = { 'status':{'code':'S0000','msg':'唯一碼正確'},'data':results};}
-           var SendDataToPhone = JSON.stringify(json); res.type('application/json'); res.send(SendDataToPhone);
-        });
-    }, function(err) {
-          console.error('The promise was rejected', err, err.stack);
-    });  
-});
-
-//查詢佈告欄
-app.get('/GetManageNews/',function(req,res){
-   console.log(' GetManageNews ');
-    SettingPage.PromiseGetMonthSalaryOrHourSalary(req.headers['uniid']).then(function(items) 
-    {
-        console.log(' items.userbrandname = ',items.userbrandname);
-        console.log(' items.userbrandplace = ',items.userbrandplace);
-        dbwork.collection('managenews').find({'userbrandname':items.userbrandname,'userbrandplace':items.userbrandplace},{_id:0,TID:0,userbrandname:0,userbrandplace:0}).toArray(function(err, results) {
-           if(results==null){ json = { 'status':{'code':'E0007','msg':'唯一碼有錯，請重新輸入'},'data':results}; }
            else{ json = { 'status':{'code':'S0000','msg':'唯一碼正確'},'data':results};}
            var SendDataToPhone = JSON.stringify(json); res.type('application/json'); res.send(SendDataToPhone);
         });
@@ -303,11 +354,12 @@ app.post('/AddMemberBrandInformation/',function(req,res){
 
 // 透過postman新增單店公告
 app.get('/AddManageNews/',function(req,res){
-    var news = req.headers['news'];
+    var news = req.headers['news'];var newsTitle = req.headers['newstitle'];var isImportant = req.headers['isimportant'];
+
     SettingPage.PromiseGetMonthSalaryOrHourSalary(req.headers['uniid']).then(function(items) 
     {
       console.log(' item is ',items.userbrandname, ' and ',items.userbrandplace,  ' and ',news); 
-      SettingPage.AddManageNews(news,items.name,items.userbrandname,items.userbrandplace);
+      SettingPage.AddManageNews(news,newsTitle,isImportant,items.name,items.userbrandname,items.userbrandplace);
     }, function(err) {
           console.error('The promise was rejected', err, err.stack);
     });  

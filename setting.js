@@ -24,13 +24,13 @@ exports.AddEmployeeMonthlySalaryInformation = function(OnlyID,YearMonth,UserName
 }
 
 // 新增單店公告
-exports.AddManageNews = function(News,Name,Brand,Place)
+exports.AddManageNews = function(News,NewsTitle,IsImportant,Name,Brand,Place)
 {
   var Work_Year = moment().format('YYYY');
   var Work_Month = moment().format('MM');
   var Work_Day = moment().format('DD');
   var Time = Work_Year+'/'+Work_Month+'/'+Work_Day;
-  dbwork.collection('managenews').save({TID:Date.now(),news:News,name:Name,publishtime:Time,userbrandname:Brand,userbrandplace:Place},function(err,result){
+  dbwork.collection('managenews').save({TID:Date.now(),news:News,newstitle:NewsTitle,isimportant:IsImportant,name:Name,publishtime:Time,userbrandname:Brand,userbrandplace:Place},function(err,result){
      if(err)return console.log(err);
   });
 }
@@ -109,4 +109,18 @@ exports.PromiseGetBrandInfo = function(Name)
               }
           });
       }); 
+}
+
+exports.GetManageNewsAPI = function(_UserBrandName,_UserBrandPlace)
+{
+      return new Promise(function(resolve,reject)
+      {
+          dbwork.collection('managenews').find({'userbrandname':_UserBrandName,'userbrandplace':_UserBrandPlace},{_id:0,TID:0,userbrandname:0,userbrandplace:0}).toArray(function(err, results) {
+              if (err) { 
+                  reject(err);
+              } else {
+                  resolve(results);
+              }
+          });
+      });     
 }
