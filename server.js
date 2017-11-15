@@ -18,8 +18,12 @@ var options = {
 app = express();
 //app.set('view engine', 'ejs');
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname,'public')));
+//app.use(express.static(path.join(__dirname,'public')));
+app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({extended:true}));
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
 
 SettingPage= require('./setting');
 
@@ -85,6 +89,10 @@ app.get('/',function(req,res){
   res.render('index.ejs');
 });
 
+app.get('/TestHtml/',function(req,res){
+    res.render('html.ejs'); 
+});
+
 //QRcodeScan. 透過手機端掃描二維條碼，並添加個人上下班時間
 app.get('/QR_codeSan_GetTokenToServer/',function(req,res){
     //body = Object.assign({}, results); 
@@ -101,7 +109,7 @@ app.get('/QR_codeSan_GetTokenToServer/',function(req,res){
             }
             else
             {
-                    var body = {'status':{'code':'E0001','msg':'DeviceID or Token is incorrect'}};
+                    var body = {'status':{'code':'E0001','msg':'DeviceID 或是 Token 錯誤，請重新輸入'}};
             }
             body = JSON.stringify(body); res.type('application/json'); res.send(body);
 
@@ -131,7 +139,7 @@ app.get('/V1/API/FisrtLoginAndReturnMemberToken/',function(req,res){
     console.log(req.headers['password']);
   dbtoken.collection('memberinformationcollection').findOne({'account':deckey,"password":deciv},function(err, results) {
   //dbtoken.collection('memberinformationcollection').findOne({'account':req.headers['account'],"password":req.headers['password']},function(err, results) {
-    if(results==null){ json = { 'status':{'code':'E0002','msg':'帳號或密碼有錯，請重新輸入'},'data':results}; }
+    if(results==null){ json = { 'status':{'code':'E0002','msg':'帳號 或 密碼 錯誤，請重新輸入'},'data':results}; }
     else{ json = { 'status':{'code':'S0000','msg':'帳號密碼正確'},'data':results.uniID};}
         var SendDataToPhone = JSON.stringify(json); res.type('application/json'); res.send(SendDataToPhone);
   });
@@ -160,7 +168,7 @@ app.get('/V1/API/GetManageNews/',function(req,res){
     SettingPage.PromiseGetMonthSalaryOrHourSalary(req.headers['uniid']).then(function(items) 
     {
         dbwork.collection('managenews').find({'userbrandname':items.userbrandname,'userbrandplace':items.userbrandplace},{_id:0,TID:0,userbrandname:0,userbrandplace:0}).toArray(function(err, results) {
-           if(results==null){ json = { 'status':{'code':'E0007','msg':'唯一碼有錯，請重新輸入'},'data':results}; }
+           if(results==null){ json = { 'status':{'code':'E0007','msg':'查無此資料，請重新輸入'},'data':results}; }
            else{ json = { 'status':{'code':'S0000','msg':'唯一碼正確'},'data':results};}
            var SendDataToPhone = JSON.stringify(json); res.type('application/json'); res.send(SendDataToPhone);
         });
@@ -182,7 +190,7 @@ app.get('/V1/API/GetManageNews/',function(req,res){
 app.get('/V1/API/GetMemberBrandInformation/',function(req,res){
   dbtoken.collection('memberbrandinformation').find({'uniID':req.headers['uniid']},{_id:0,userfirstarrival:0,userlawsalary:0,userextrasalary:0,usertitlesalary:0,userwithoutsalary:0,userfoodsalary:0,usermonthsalary:0}).toArray(function(err, results) {
     var jsonReturn = {};jsonReturn ={'uniID':results[0].uniID,'name':results[0].name,'userbrandtitle':results[0].userbrandtitle,'userbrandname':results[0].userbrandname,'userbrandplace':results[0].userbrandplace};
-    if(results==null){ json = { 'status':{'code':'E0003','msg':'唯一碼有錯，請重新輸入'},'data':results}; }
+    if(results==null){ json = { 'status':{'code':'E0003','msg':'查無此資料，請重新輸入'},'data':results}; }
     else{ json = { 'status':{'code':'S0000','msg':'唯一碼正確'},'data':jsonReturn};}
         var SendDataToPhone = JSON.stringify(json); res.type('application/json'); res.send(SendDataToPhone);
   });
@@ -211,7 +219,7 @@ app.get('/QueryPersonalSalaryList/',function(req,res){
                           // console.log(' results.name = ',results[i].status);
                           jsonArray.push({'WorkTime':onlineTime,'status':results[i].status});
                       }
-                      json = { 'status':{'code':'S0000','msg':'唯一碼正確'},'data':jsonArray};
+                      json = { 'status':{'code':'S0000','msg':'查無此資料，請重新輸入'},'data':jsonArray};
                       var SendDataToPhone = JSON.stringify(json); res.type('application/json'); res.send(SendDataToPhone);
                     });           
             }
@@ -246,7 +254,7 @@ app.get('/V1/API/GetMonthlySalaryForEachEmployee/',function(req,res){
   dbtest.collection('syncmonthlysalaryinformation').find({'uniID':req.headers['uniid'],'monthperiod':new RegExp(b)},{_id:0,TID:0,uniID:0}).toArray(function(err, results) {
     var jsonReturn = {};jsonReturn ={'monthperiod':results[0].monthperiod,'monthsalary':results[0].monthsalary,'withoutsalary':results[0].withoutsalary,'foodsalary':results[0].foodsalary,'titlesalary':results[0].titlesalary,'addtimesalary':results[0].addtimesalary,'latetimesalary':results[0].latetimesalary,'extrabonus':results[0].extrabonus,'lawsalary':results[0].lawsalary,'addminute':results[0].addminute,'lateminute':results[0].lateminute,'basicsalary':results[0].basicsalary,'workdaynumber':results[0].workdaynumber,'totalmonthsalary':results[0].totalmonthsalary};
 
-    if(results==null){ json = { 'status':{'code':'E0005','msg':'唯一碼有錯，請重新輸入'},'data':results}; }
+    if(results==null){ json = { 'status':{'code':'E0005','msg':'查無此資料，請重新輸入'},'data':results}; }
     else{ json = { 'status':{'code':'S0000','msg':'唯一碼正確'},'data':jsonReturn};}
         var SendDataToPhone = JSON.stringify(json); res.type('application/json'); res.send(SendDataToPhone);
   });
@@ -354,7 +362,15 @@ app.post('/AddMemberBrandInformation/',function(req,res){
 
 // 透過postman新增單店公告
 app.get('/AddManageNews/',function(req,res){
-    var news = req.headers['news'];var newsTitle = req.headers['newstitle'];var isImportant = req.headers['isimportant'];
+    var news = req.headers['news'];var newsTitle = req.headers['newstitle'];var isImportant;
+    if(req.headers['isimportant'] == 'true')
+    {
+      isImportant = true;
+    }
+    else
+    {
+      isImportant = false;
+    }
 
     SettingPage.PromiseGetMonthSalaryOrHourSalary(req.headers['uniid']).then(function(items) 
     {
@@ -392,7 +408,7 @@ app.post('/Plan_Work_Schedule_UseCheckBoxByAddEmployeeWorkSchedule/',function(re
 
 // [查詢] [排班] [PlanWorkSchedule]
 app.get('/Plan_Work_Schedule_AdjustWorkSchedule/',function(req,res){
-    PlanWorkSchedule.AdjustWorkSchedule(req.body.checkPeriodYear,req.body.checkPeriodMonth,req.body.checkPeriodDay).then(function(items) 
+    PlanWorkSchedule.AdjustWorkSchedule(req.query.checkPeriodYear,req.query.checkPeriodMonth,req.query.checkPeriodDay).then(function(items) 
     {
           res.render('AdjustWorkSchedule.ejs',{WorkHour:items});
     }, function(err) {
@@ -406,8 +422,8 @@ app.post('/Plan_Work_Schedule_DeleteWorkScheduleData/', (req, res) => {
 });
 
 // [查詢] [排班] [列表] [PlanWorkSchedule]
-app.post('/Plan_Work_Schedule_CheckEmployeeWorkScheduleByList/',function(req,res){
-    PlanWorkSchedule.CheckWorkScheduleByList(req.body.checkPeriodYear,req.body.checkPeriodMonth).then(function(items) 
+app.get('/Plan_Work_Schedule_CheckEmployeeWorkScheduleByList/',function(req,res){
+    PlanWorkSchedule.CheckWorkScheduleByList(req.query.checkPeriodYear,req.query.checkPeriodMonth).then(function(items) 
     {
           res.render('PlanWorkSchedule_CheckWorkScheduleByList.ejs',{passvariable:items});
     }, function(err) {
@@ -438,8 +454,8 @@ app.post('/QR_codeSan_CheckEveryDayWorkStatus/',function(req,res){
 });
 
 // [查詢] [每月] [上下班時間] [QRcodeScan]
-app.post('/QR_codeSan_CheckEveryMonthWorkStatus/',function(req,res){
-    QRcodeScan.CheckMonthOnlineOfflineByBrandNameAndMonth(req.body.checkPeriodYear,req.body.checkPeriodMonth,req.body.checkName).then(function(items) 
+app.get('/QR_codeSan_CheckEveryMonthWorkStatus/',function(req,res){
+    QRcodeScan.CheckMonthOnlineOfflineByBrandNameAndMonth(req.query.checkPeriodYear,req.query.checkPeriodMonth,req.query.checkName).then(function(items) 
     {
           res.render('CheckEveryMonthWorkStatus.ejs',{passvariable:items});
     }, function(err) {
@@ -472,8 +488,8 @@ app.post('/QR_codeScan_UpdateOnlineOfflineDate/', (req, res) => {
 });
 
 // [查詢] [備份] [單月加班狀況] [PrintAddLateStatus] 
-app.post('/PrintMonthSalary_CheckBackupAddLateStatus/',function(req,res){
-  PrintAddLateStatus.printBackupAddlateStatus(req.body.checkName,req.body.checkPeriodYear,req.body.checkPeriodMonth).then(function(items)
+app.get('/PrintMonthSalary_CheckBackupAddLateStatus/',function(req,res){
+  PrintAddLateStatus.printBackupAddlateStatus(req.query.checkName,req.query.checkPeriodYear,req.query.checkPeriodMonth).then(function(items)
   {
         res.render('CheckAddLateTimeBackupStatus.ejs',{passvariable:items});
   }, function(err) {
@@ -500,7 +516,7 @@ app.get('/QRcodeStockIn/',function(req,res){
     res.redirect('/');
 });
 
-app.post('/CheckProductInStock/',function(req,res){
+app.get('/CheckProductInStock/',function(req,res){
     HandleStockInOut.GetProductListInStock().then(function(items) 
     {
           res.render('CheckProductInStock.ejs',{passvariable:items});
@@ -514,7 +530,7 @@ app.post('/DeleteProductInStock/',function(req,res){
     res.redirect('/');
 });
 
-app.post('/AddProductPartialTag/',function(req,res){
+app.get('/AddProductPartialTag/',function(req,res){
     res.render('AddProductPartialTag.ejs'); 
 });
 app.post('/AddProductPartialTagInStock/',function(req,res){
@@ -522,7 +538,7 @@ app.post('/AddProductPartialTagInStock/',function(req,res){
     res.redirect('/');
 });
 
-app.post('/CheckProductPartialTag/',function(req,res){
+app.get('/CheckProductPartialTag/',function(req,res){
     HandleStockInOut.GetProductPartialTag().then(function(items) 
     {
           res.render('CheckProductPartialTag.ejs',{passvariable:items});

@@ -5,13 +5,16 @@
   <title> BossPriority </title>
 </head>
 <body>
+	<form action="/TestHtml/" method="GET">
+				<button type="submit">測試HTML</button>
+	</form>		
 	<form action="/AddProductPartialTag/" method="POST">
 				<button type="submit">新增產品庫存標籤</button>
 	</form>	
 	<form action="/CheckProductInStock/" method="POST">
 				<button type="submit">確認在庫產品庫存</button>
 	</form>	
-	<form action="/CheckProductPartialTag/" method="POST">
+	<form action="/CheckProductPartialTag/" method="GET">
 				<button type="submit">確認產品標籤</button>
 	</form>		
 	<br>
@@ -45,21 +48,21 @@
 <!-- 	<form action="/Plan_Work_Schedule_CheckEmployeeWorkScheduleByGroup/" method="POST">
 				<button type="submit">[群組]查詢單月員工排班</button>
 	</form> -->
-	<form action="/Plan_Work_Schedule_CheckEmployeeWorkScheduleByList/" method="POST">
+	<form action="/Plan_Work_Schedule_CheckEmployeeWorkScheduleByList/" method="GET">
 				<button type="submit">顯示單月員工排班列表</button>
 	</form>
 <!-- 	<br>
 	<form action="/QR_codeSan_CheckEveryDayWorkStatus/" method="POST">
 				<button type="submit">查詢單日員工上班狀況</button>
 	</form> -->
-	<form action="/QR_codeSan_CheckEveryMonthWorkStatus/" method="POST">
+	<form action="/QR_codeSan_CheckEveryMonthWorkStatus/" method="GET">
 				<button type="submit">顯示單月員工上班狀況</button>
 	</form>
 
-	<form action="/PrintMonthSalary_CheckBackupAddLateStatus/" method="POST">
+	<form action="/PrintMonthSalary_CheckBackupAddLateStatus/" method="GET">
 				<button type="submit">顯示單月加班遲到狀況</button>
 	</form>
-	<form action="/Backup_PrintMonthSalary_CheckMonthSalary/" method="POST">
+	<form action="/Backup_PrintMonthSalary_CheckMonthSalary/" method="GET">
 				<button type="submit">顯示單月薪資列表</button>
 	</form>
 	<br>

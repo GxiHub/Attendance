@@ -2,42 +2,110 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <link href="/css/table_style.css" rel="stylesheet" type="text/css">
+  <!-- <link href="/css/style.css" rel="stylesheet" type="text/css"> -->
 </head>
 <body>
-	<form action="/" method="GET">
-				<button type="submit">返回老闆權限</button>
-	</form>
-	<br> 
-	<table border='1'>
-	<tbody>
-	      <td> 唯一碼 </td>
-	      <td> 員工姓名 </td>
-	      <td> 職稱 </td>
-	      <td> 品牌 </td>  
-	      <td> 地點 </td>  
-	      <td> 基本底薪 </td>  
-	      <td> 伙食獎金 </td>  
-	  	  <td> 全勤獎金 </td>  
-	  	  <td> 職稱獎金 </td> 
-	  	  <td> 額外獎金 </td> 
-	  	  <td> 勞健保 </td>
-	  	  <td> 修改 </td> 
+<!-- <div class="navcont">
+<div class="nav">
+		<ul>
+			<li><a href="/">HOME</a></li>
+			<li class="drop">
+				<a href="#">庫存相關</a>
+				<div class="dropdownContain">
+					<div class="dropOut">
+						
+						<ul>
+						<li onclick='window.location.href="/CheckProductInStock/"''>確認現有庫存</li>
+						<li onclick='window.location.href="/AddProductPartialTag/"''>新增庫存標籤</li>
+						<li onclick='window.location.href="/CheckProductPartialTag/"''>確認產品標籤</li>
+						</ul>
+					</div>
+				</div>
+			
+			</li>
+            <li class="drop">
+            	<a href="#">員工資料</a>
+            	<div class="dropdownContain">
+					<div class="dropOut">
+						
+						<ul>
+						<li onclick='window.location.href="/ShowNewPersonalData_AddMemberData/"''>新增員工基本資料</li>
+						<li onclick='window.location.href="/ShowAndModifyMemberBrandData_ModifyBrandData/"''>顯示員工基本資料</li>
+						<li onclick='window.location.href="/ShowAndModifyUserTokenData_UserTokenData/"''>顯示員工打卡資料</li>
+						</ul>
+					</div>
+				</div>
+			
+			</li>
+			<li class="drop">
+				<a href="#">排班狀況</a>
+				
+				<div class="dropdownContain">
+					<div class="dropOut">
+						
+						<ul>
+						<li onclick='window.location.href="/Plan_Work_Schedule_MultipleDirectPageToAddEmployeeWorkSchedule/"''>新增員工多天排班</li>
+						<li onclick='window.location.href="/Plan_Work_Schedule_CheckEmployeeWorkScheduleByList/"''>顯示單月員工排班列表</li>
+						<li onclick='window.location.href="/Plan_Work_Schedule_AdjustWorkSchedule/"''>調整員工排班狀況</li>
+						</ul>
+					</div>
+				</div>
+			
+			</li>
+			<li class="drop">
+				<a href="#">上班狀況</a>
+				
+				<div class="dropdownContain">
+					<div class="dropOut">
+						
+						<ul>
+						<li onclick='window.location.href="/QR_codeSan_CheckEveryMonthWorkStatus/"''>顯示單月員工上班狀況</li>
+						<li onclick='window.location.href="/QR_codeSan_AdjustOnlineStatus/"''>調整員工上班時間</li>
+						<li onclick='window.location.href="/PrintMonthSalary_CheckBackupAddLateStatus/"''>顯示單月加班遲到狀況</li>
+						</ul>
+					</div>
+				</div>
+			
+			</li>
+		</ul>
+</div>
+</div> -->
+<!-- <div class="bottom-black"> -->
+	<ul class="test-list">
+		<li class="test-list-item-first">
+			<span class="position">唯一碼</span>
+			<span class="position">員工姓名</span>
+			<span class="position">職稱</span>
+			<span class="position">品牌</span>
+			<span class="position">地點</span>
+			<span class="position">基本底薪</span>
+			<span class="position">伙食獎金</span>
+			<span class="position">全勤獎金</span>
+			<span class="position">職稱獎金</span>
+			<span class="position">額外獎金</span>
+			<span class="position">勞健保</span>
+			<span class="position">修改</span>
 
+		</li>
+	</ul>
 	<% for(var i=0; i<passvariable.length; i++) {%>
-		<tr>
-	      <td><%= passvariable[i].uniID %></td>
-	      <td><%= passvariable[i].name %></td>
-	      <td><%= passvariable[i].userbrandtitle %></td>
-	      <td><%= passvariable[i].userbrandname %></td>
-	      <td><%= passvariable[i].userbrandplace %></td>
-	      <td><%= passvariable[i].usermonthsalary %></td>
-	      <td><%= passvariable[i].userfoodsalary %></td>
-	      <td><%= passvariable[i].userwithoutsalary %></td>
-	      <td><%= passvariable[i].usertitlesalary %></td>
-	      <td><%= passvariable[i].userextrasalary %></td>
-	      <td><%= passvariable[i].userlawsalary %></td>
-	      <td>
-	      	  <form action="/ShowAndModifyMemberBrandData_UpdateBrandData/" method="POST">
+	<ul class="test-list">
+		<li class="test-list-item">
+		
+			<span class="position"><%=passvariable[i].uniID %></span>
+			<span class="position"><%=passvariable[i].name %></span>
+			<span class="position"><%=passvariable[i].userbrandtitle%></span>
+			<span class="position"><%=passvariable[i].userbrandname%></span>
+			<span class="position"><%=passvariable[i].userbrandplace %></span>
+			<span class="position"><%=passvariable[i].usermonthsalary%></span>
+			<span class="position"><%=passvariable[i].userfoodsalary%></span>
+			<span class="position"><%=passvariable[i].userwithoutsalary%></span>
+			<span class="position"><%=passvariable[i].usertitlesalary%></span>
+			<span class="position"><%=passvariable[i].userextrasalary%></span>
+			<span class="position"><%=passvariable[i].userlawsalary%></span>	
+		  	<span class="position">
+			  <form action="/ShowAndModifyMemberBrandData_UpdateBrandData/" method="POST">
 	      	  <input type="hidden" placeholder="UniqueID" name="uniID" value=<%= passvariable[i].uniID %>>
 		      <input type="hidden" placeholder="name" name="name" value=<%= passvariable[i].name %>>
  
@@ -51,11 +119,10 @@
 	      	  <input type="text" placeholder="修改內容" name="content" value="">
 		      <button type="submit">更新</button>
 		      </form>
-		  </td>
-	  <% } %>
-	</tr>
-	</tbody>
-	</table>
-
+			</span>
+		</li>
+	</ul>
+	<% } %>
+<!-- </div>	 -->		
 </body>
 </html>

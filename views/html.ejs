@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link href="/css/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<!-- Vickom Morozov -->
+<div class="navcont">
+<div class="nav">
+		<ul>
+			<li><a href="/">HOME</a></li>
+			<li class="drop">
+				<a href="#">庫存相關</a>
+				<div class="dropdownContain">
+					<div class="dropOut">
+						
+						<ul>
+						<li onclick='window.location.href="/CheckProductInStock/"''>確認現有庫存</li>
+						<li onclick='window.location.href="/AddProductPartialTag/"''>新增庫存標籤</li>
+						<li onclick='window.location.href="/CheckProductPartialTag/"''>確認產品標籤</li>
+						</ul>
+					</div>
+				</div>
+			
+			</li>
+            <li class="drop">
+            	<a href="#">員工資料</a>
+            	<div class="dropdownContain">
+					<div class="dropOut">
+						
+						<ul>
+						<li onclick='window.location.href="/ShowNewPersonalData_AddMemberData/"''>新增員工基本資料</li>
+						<li onclick='window.location.href="/ShowAndModifyMemberBrandData_ModifyBrandData/"''>顯示員工基本資料</li>
+						<li onclick='window.location.href="/ShowAndModifyUserTokenData_UserTokenData/"''>顯示員工打卡資料</li>
+						</ul>
+					</div>
+				</div>
+			
+			</li>
+			<li class="drop">
+				<a href="#">排班狀況</a>
+				
+				<div class="dropdownContain">
+					<div class="dropOut">
+						
+						<ul>
+						<li onclick='window.location.href="/Plan_Work_Schedule_MultipleDirectPageToAddEmployeeWorkSchedule/"''>新增員工多天排班</li>
+						<li onclick='window.location.href="/Plan_Work_Schedule_CheckEmployeeWorkScheduleByList/"''>顯示單月員工排班列表</li>
+						<li onclick='window.location.href="/Plan_Work_Schedule_AdjustWorkSchedule/"''>調整員工排班狀況</li>
+						</ul>
+					</div>
+				</div>
+			
+			</li>
+			<li class="drop">
+				<a href="#">上班狀況</a>
+				
+				<div class="dropdownContain">
+					<div class="dropOut">
+						
+						<ul>
+						<li onclick='window.location.href="/QR_codeSan_CheckEveryMonthWorkStatus/"''>顯示單月員工上班狀況</li>
+						<li onclick='window.location.href="/QR_codeSan_AdjustOnlineStatus/"''>調整員工上班時間</li>
+						<li onclick='window.location.href="/PrintMonthSalary_CheckBackupAddLateStatus/"''>顯示單月加班遲到狀況</li>
+						</ul>
+					</div>
+				</div>
+			
+			</li>
+		</ul>
+</div>
+</div>
+</body>
+</html>
