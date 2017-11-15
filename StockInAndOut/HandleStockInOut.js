@@ -79,12 +79,15 @@ function SaveProductToStock(_StockTag,_BrandName,_ProductName,_Tag,_Class,_SubCl
     var date_taipei = DateTimezone(8);
     var date = date_taipei.toLocaleString();
     var YearMonthDay=date.slice(0,10).split('/');
-    var HourMinute=date.slice(11,19).split(':');
-    console.log(YearMonthDay);
-    console.log(HourMinute);
+    var HourMinute=date.slice(12,19).split(':');
+    var _instockdate = YearMonthDay[0]+''+YearMonthDay[1]+''+YearMonthDay[2];
+    var _instocktime = HourMinute[0]+''+HourMinute[1]+''+HourMinute[2];
+
+    console.log(_instockdate);
+    console.log(_instocktime);
     console.log(date_taipei.toLocaleString());
 
-   	dbtest.collection('thinginstock').save({TID:Date.now(),brandname:_BrandName,productnumber:_StockTag,product:_ProductName,tag:_Tag,class:_Class,subclass:_SubClass,grade:_Grade,status:'在庫',instockdate:'2017',instocktime:'11'},function(err,result){
+   	dbtest.collection('thinginstock').save({TID:Date.now(),brandname:_BrandName,productnumber:_StockTag,product:_ProductName,tag:_Tag,class:_Class,subclass:_SubClass,grade:_Grade,status:'在庫',instockdate:_instockdate,instocktime:_instocktime,outstockdate:'',outstocktime:''},function(err,result){
                           if(err)return console.log(err);
     }); 
 }

@@ -22,7 +22,9 @@
 	      <td> 產品等級 </td>  
 	  	  <td> 產品狀態 </td> 
 	  	  <td> 入庫日期 </td>
-	  	  <td> 入庫時間 </td>  
+	  	  <td> 入庫時間 </td> 
+	  	  <td> 出庫日期 </td>
+	  	  <td> 出庫時間 </td>   
 	<% for(var i=0; i<passvariable.length; i++) {%>
 		<tr>
 		   <td><form action="/DeleteProductInStock/" method="POST">
@@ -39,7 +41,9 @@
 	      <td><%= passvariable[i].grade %></td>
 	      <td><%= passvariable[i].status %></td>
 	      <td><%= passvariable[i].instockdate %></td> 
-		  <td><%= passvariable[i].instocktime %></td>  	      
+		  <td><%= passvariable[i].instocktime %></td>
+	      <td><%= passvariable[i].outstockdate %></td> 
+		  <td><%= passvariable[i].outstocktime %></td>  	      
 	  <% } %>
 	</tr>
 	</tbody>
