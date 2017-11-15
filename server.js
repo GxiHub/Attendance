@@ -100,7 +100,7 @@ app.get('/QR_codeSan_GetTokenToServer/',function(req,res){
     
     QRcodeScan.CheckDeviceIDAndToken(req.headers['deviceid'],req.headers['usertoken']).then(function(items) 
     {
-            if(items != null)
+            if(items != '')
             {
                     QRcodeScan.EmployeeWorkTimeAndStatus(items.uniID,items.name,items.status);
                     var msgString = items.name+''+items.status;
@@ -139,7 +139,7 @@ app.get('/V1/API/FisrtLoginAndReturnMemberToken/',function(req,res){
     console.log(req.headers['password']);
   dbtoken.collection('memberinformationcollection').findOne({'account':deckey,"password":deciv},function(err, results) {
   //dbtoken.collection('memberinformationcollection').findOne({'account':req.headers['account'],"password":req.headers['password']},function(err, results) {
-    if(results==null){ json = { 'status':{'code':'E0002','msg':'帳號 或 密碼 錯誤，請重新輸入'},'data':results}; }
+    if(results==''){ json = { 'status':{'code':'E0002','msg':'帳號 或 密碼 錯誤，請重新輸入'},'data':results}; }
     else{ json = { 'status':{'code':'S0000','msg':'帳號密碼正確'},'data':results.uniID};}
         var SendDataToPhone = JSON.stringify(json); res.type('application/json'); res.send(SendDataToPhone);
   });
@@ -168,7 +168,7 @@ app.get('/V1/API/GetManageNews/',function(req,res){
     SettingPage.PromiseGetMonthSalaryOrHourSalary(req.headers['uniid']).then(function(items) 
     {
         dbwork.collection('managenews').find({'userbrandname':items.userbrandname,'userbrandplace':items.userbrandplace},{_id:0,TID:0,userbrandname:0,userbrandplace:0}).toArray(function(err, results) {
-           if(results==null){ json = { 'status':{'code':'E0007','msg':'查無此資料，請重新輸入'},'data':results}; }
+           if(results==''){ json = { 'status':{'code':'E0003','msg':'查無此資料，請重新輸入'},'data':results}; }
            else{ json = { 'status':{'code':'S0000','msg':'唯一碼正確'},'data':results};}
            var SendDataToPhone = JSON.stringify(json); res.type('application/json'); res.send(SendDataToPhone);
         });
@@ -189,8 +189,14 @@ app.get('/V1/API/GetManageNews/',function(req,res){
 //透過UID比對資料庫，若正確則返回一組 token
 app.get('/V1/API/GetMemberBrandInformation/',function(req,res){
   dbtoken.collection('memberbrandinformation').find({'uniID':req.headers['uniid']},{_id:0,userfirstarrival:0,userlawsalary:0,userextrasalary:0,usertitlesalary:0,userwithoutsalary:0,userfoodsalary:0,usermonthsalary:0}).toArray(function(err, results) {
-    var jsonReturn = {};jsonReturn ={'uniID':results[0].uniID,'name':results[0].name,'userbrandtitle':results[0].userbrandtitle,'userbrandname':results[0].userbrandname,'userbrandplace':results[0].userbrandplace};
-    if(results==null){ json = { 'status':{'code':'E0003','msg':'查無此資料，請重新輸入'},'data':results}; }
+    var jsonReturn = {};
+    if(results==''){
+        jsonReturn = null;
+    }else{
+        jsonReturn ={'uniID':results[0].uniID,'name':results[0].name,'userbrandtitle':results[0].userbrandtitle,'userbrandname':results[0].userbrandname,'userbrandplace':results[0].userbrandplace};
+    }
+    
+    if(results==''){ json = { 'status':{'code':'E0003','msg':'查無此資料，請重新輸入'},'data':results}; }
     else{ json = { 'status':{'code':'S0000','msg':'唯一碼正確'},'data':jsonReturn};}
         var SendDataToPhone = JSON.stringify(json); res.type('application/json'); res.send(SendDataToPhone);
   });
@@ -205,7 +211,7 @@ app.get('/QueryPersonalSalaryList/',function(req,res){
     console.log(' req.headers[uniid] = ',req.headers['uniid']);
     SettingPage.GetUniIDAndUseItAsQueryParameter(req.headers['uniid']).then(function(items) 
     {
-            if(items != null)
+            if(items != '')
             {
                     console.log(' items.name = ',items.name);
                     dbwork.collection('workperiod').find({'name':items.name,'Year':year,'Month':month},{_id:0,TID:0,uniID:0,SalaryCountStatus:0,addworkstatus:0,extrainfo1:0,extrainfo2:0}).sort({"Day": 1}).toArray(function(err, results) {                
@@ -219,13 +225,13 @@ app.get('/QueryPersonalSalaryList/',function(req,res){
                           // console.log(' results.name = ',results[i].status);
                           jsonArray.push({'WorkTime':onlineTime,'status':results[i].status});
                       }
-                      json = { 'status':{'code':'S0000','msg':'查無此資料，請重新輸入'},'data':jsonArray};
+                      json = { 'status':{'code':'S0000','msg':'唯一碼正確'},'data':jsonArray};
                       var SendDataToPhone = JSON.stringify(json); res.type('application/json'); res.send(SendDataToPhone);
                     });           
             }
             else
             {
-                    var body = {'status':{'code':'E0004','msg':'唯一碼有錯，請重新輸入'}};
+                    var body = {'status':{'code':'E0003','msg':'查無此資料，請重新輸入'}};
                     console.log('  WithErrorUniID'); 
                     body = JSON.stringify(body); res.type('application/json'); res.send(body);
             }
@@ -264,7 +270,7 @@ app.get('/V1/API/GetMonthlySalaryForEachEmployee/',function(req,res){
         jsonReturn ={'monthperiod':results[0].monthperiod,'monthsalary':results[0].monthsalary,'withoutsalary':results[0].withoutsalary,'foodsalary':results[0].foodsalary,'titlesalary':results[0].titlesalary,'addtimesalary':results[0].addtimesalary,'latetimesalary':results[0].latetimesalary,'extrabonus':results[0].extrabonus,'lawsalary':results[0].lawsalary,'addminute':results[0].addminute,'lateminute':results[0].lateminute,'basicsalary':results[0].basicsalary,'workdaynumber':results[0].workdaynumber,'totalmonthsalary':results[0].totalmonthsalary};
     }
 
-    if(results==''){ json = { 'status':{'code':'E0005','msg':'查無此資料，請重新輸入'},'data':results}; }
+    if(results==''){ json = { 'status':{'code':'E0003','msg':'查無此資料，請重新輸入'},'data':results}; }
     else{ json = { 'status':{'code':'S0000','msg':'唯一碼正確'},'data':jsonReturn};}
         var SendDataToPhone = JSON.stringify(json); res.type('application/json'); res.send(SendDataToPhone);
   });
@@ -306,7 +312,7 @@ app.get('/GetMonthlyEmployeeWorkSchedule/',function(req,res){
            }  
            results = jsonArray;
 
-           if(results==null){ json = { 'status':{'code':'E0006','msg':'唯一碼有錯，請重新輸入'},'data':results}; }
+           if(results==null){ json = { 'status':{'code':'E0003','msg':'唯一碼有錯，請重新輸入'},'data':results}; }
            else{ json = { 'status':{'code':'S0000','msg':'唯一碼正確'},'data':results};}
            var SendDataToPhone = JSON.stringify(json); res.type('application/json'); res.send(SendDataToPhone);
         });
@@ -336,7 +342,7 @@ app.get('/GetSingleDayWorkScheduleDetail/',function(req,res){
               jsonArray.push({'name':results[i].name,'WorkTime':onlineTime,'status':results[i].status});
            }
           
-           if(results==null){ json = { 'status':{'code':'E0008','msg':'唯一碼有錯，請重新輸入'},'data':jsonArray}; }
+           if(results==''){ json = { 'status':{'code':'E0003','msg':'唯一碼有錯，請重新輸入'},'data':jsonArray}; }
            else{ json = { 'status':{'code':'S0000','msg':'唯一碼正確'},'data':jsonArray};}
            var SendDataToPhone = JSON.stringify(json); res.type('application/json'); res.send(SendDataToPhone);
         });
