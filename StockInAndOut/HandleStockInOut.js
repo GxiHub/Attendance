@@ -55,7 +55,7 @@ function UpdateProductStatus(_StockTag)
   var YearMonthDay=date.slice(0,10).split('/');
   var HourMinute=date.slice(12,20).split(':');
   var _outstockdate = YearMonthDay[2]+'/'+YearMonthDay[1]+'/'+YearMonthDay[0];
-  var _outstocktime = HourMinute[0]+''+HourMinute[1]+''+HourMinute[2];
+  var _outstocktime = HourMinute[0]+':'+HourMinute[1]+':'+HourMinute[2];
 
     console.log(_outstockdate);
     console.log(_outstocktime);
@@ -93,7 +93,7 @@ function SaveProductToStock(_StockTag,_BrandName,_ProductName,_Tag,_Class,_SubCl
     var YearMonthDay=date.slice(0,10).split('/');
     var HourMinute=date.slice(12,20).split(':');
     var _instockdate = YearMonthDay[2]+'/'+YearMonthDay[1]+'/'+YearMonthDay[0];
-    var _instocktime = HourMinute[0]+''+HourMinute[1]+''+HourMinute[2];
+    var _instocktime = HourMinute[0]+':'+HourMinute[1]+':'+HourMinute[2];
 
     console.log(_instockdate);
     console.log(_instocktime);
