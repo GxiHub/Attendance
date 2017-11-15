@@ -99,7 +99,7 @@ function SaveProductToStock(_StockTag,_BrandName,_ProductName,_Tag,_Class,_SubCl
     console.log(_instocktime);
     console.log(date_taipei.toLocaleString());
 
-   	dbtest.collection('thinginstock').save({TID:Date.now(),brandname:_BrandName,productnumber:_StockTag,product:_ProductName,tag:_Tag,class:_Class,subclass:_SubClass,grade:_Grade,status:'在庫',instockdate:_instockdate,instocktime:_instocktime,outstockdate:'',outstocktime:''},function(err,result){
+   	dbtest.collection('thinginstock').save({TID:Date.now(),brandname:_BrandName,productnumber:_StockTag,product:_ProductName,tag:_Tag,class:_Class,subclass:_SubClass,grade:_Grade,status:'入庫',instockdate:_instockdate,instocktime:_instocktime,outstockdate:'',outstocktime:''},function(err,result){
                           if(err)return console.log(err);
     }); 
 }
