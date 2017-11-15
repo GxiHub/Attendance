@@ -1,0 +1,86 @@
+
+.test-list-item:not(:first-child ), .forum-question, .sidebar-section:not(:last-child) {
+    border-bottom: 1px solid #777;
+    font: 12px Verdana, 'Lucida Grande';
+    
+}
+
+.test-list-item-first {
+    font-weight: 700;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    padding: 20px 0px 10px 0px;
+    font: 12px Verdana, 'Lucida Grande';
+/*    background: transparent url(http://i50.tinypic.com/303efm1.png) center bottom repeat-x;*/
+}
+
+.test-list-item {
+    font-weight: 700;
+    color: #777;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.position {
+    color: #777;
+    padding-right: 5px;
+}
+
+.bottom-black
+{
+    padding-left:20px;
+}
+
+
+span {
+    width:50px;
+    text-align:center;
+    vertical-align: middle; 
+    font: 12px Verdana, 'Lucida Grande';
+    border-width:1px;
+    padding: 0px 20px 0px 0px;
+/*    border-style:dashed;*/
+    line-height: 24px;
+}
+
+
+span:first-child {
+    width:120px;
+    text-align:center;
+    line-height: 24px;
+}
+
+span:last-child {
+    width:230px;
+    text-align:center;
+}
+
+span select{
+    width:70px;
+    color:#1ABC9C;
+    background:#FFF; border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+span input{
+    width:80px;
+    text-align:center;
+}
+
+span button{
+    width:40px;
+    color:#777;
+    background:#FFF; border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 1px;
+    border-radius: 1px;
+}
+
+
+
+
+

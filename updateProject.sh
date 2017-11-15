@@ -57,3 +57,9 @@ sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/UpdateOrigina
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/IncomeAndExpenditure/AddIncomeAndExpenditure.js ./IncomeAndExpenditure/.
 
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/StockInAndOut/HandleStockInOut.js ./StockInAndOut/.
+
+sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/selector_style.css ./public/css/.
+sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/table_style.css ./public/css/.
+sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/style.css ./public/css/.
+
+sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/js/index.js ./public/js/.
