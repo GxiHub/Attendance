@@ -145,7 +145,7 @@ exports.GetProductListInStock = function(StockTag,BrandName)
 { 
     return new Promise(function(resolve, reject) 
     {
-      dbtest.collection('thinginstock').find().toArray(function(err, results) {       
+      dbtest.collection('thinginstock').find().sort({"class": 1,"subclass": 1,"tag": 1,"productnumber": 1}).toArray(function(err, results) {       
          if (err) { 
               reject(err);
          } else {
