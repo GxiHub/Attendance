@@ -258,13 +258,13 @@ app.get('/V1/API/GetMonthlySalaryForEachEmployee/',function(req,res){
   dbtest.collection('syncmonthlysalaryinformation').find({'uniID':req.headers['uniid'],'monthperiod':new RegExp(b)},{_id:0,TID:0,uniID:0}).toArray(function(err, results) {
     console.log(results);
     var jsonReturn = {};
-    if(results==null){
+    if(results==''){
         jsonReturn = null;
     }else{
         jsonReturn ={'monthperiod':results[0].monthperiod,'monthsalary':results[0].monthsalary,'withoutsalary':results[0].withoutsalary,'foodsalary':results[0].foodsalary,'titlesalary':results[0].titlesalary,'addtimesalary':results[0].addtimesalary,'latetimesalary':results[0].latetimesalary,'extrabonus':results[0].extrabonus,'lawsalary':results[0].lawsalary,'addminute':results[0].addminute,'lateminute':results[0].lateminute,'basicsalary':results[0].basicsalary,'workdaynumber':results[0].workdaynumber,'totalmonthsalary':results[0].totalmonthsalary};
     }
 
-    if(results==null){ json = { 'status':{'code':'E0005','msg':'查無此資料，請重新輸入'},'data':results}; }
+    if(results==''){ json = { 'status':{'code':'E0005','msg':'查無此資料，請重新輸入'},'data':results}; }
     else{ json = { 'status':{'code':'S0000','msg':'唯一碼正確'},'data':jsonReturn};}
         var SendDataToPhone = JSON.stringify(json); res.type('application/json'); res.send(SendDataToPhone);
   });
