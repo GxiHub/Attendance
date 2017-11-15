@@ -50,10 +50,22 @@ exports.DeleteProduct = function(_StockTag)
 
 function UpdateProductStatus(_StockTag)
 {
+  var date_taipei = DateTimezone(8);
+  var date = date_taipei.toLocaleString();
+  var YearMonthDay=date.slice(0,10).split('/');
+  var HourMinute=date.slice(12,20).split(':');
+  var _outstockdate = YearMonthDay[2]+'/'+YearMonthDay[1]+'/'+YearMonthDay[0];
+  var _outstocktime = HourMinute[0]+''+HourMinute[1]+''+HourMinute[2];
+
+    console.log(_outstockdate);
+    console.log(_outstocktime);
+    console.log(date_taipei.toLocaleString());
 	dbtest.collection('thinginstock').findOneAndUpdate({productnumber:_StockTag},{
 	    $set: 
 	    {
-	      status: '出庫'
+	      status: '出庫',
+        outstockdate: _outstockdate,
+        outstocktime: _outstocktime
 	    }
 	},{
 	      upsert: true
@@ -75,12 +87,12 @@ function ProductFirstStockIn(_StockTag)
 
 function SaveProductToStock(_StockTag,_BrandName,_ProductName,_Tag,_Class,_SubClass,_Grade)
 {
-    console.log(calcTime('taipei' , 8));
+    // console.log(calcTime('taipei' , 8));
     var date_taipei = DateTimezone(8);
     var date = date_taipei.toLocaleString();
     var YearMonthDay=date.slice(0,10).split('/');
-    var HourMinute=date.slice(12,19).split(':');
-    var _instockdate = YearMonthDay[0]+''+YearMonthDay[1]+''+YearMonthDay[2];
+    var HourMinute=date.slice(12,20).split(':');
+    var _instockdate = YearMonthDay[2]+'/'+YearMonthDay[1]+'/'+YearMonthDay[0];
     var _instocktime = HourMinute[0]+''+HourMinute[1]+''+HourMinute[2];
 
     console.log(_instockdate);
