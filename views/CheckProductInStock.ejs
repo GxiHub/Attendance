@@ -39,7 +39,11 @@
 	      <td><%= passvariable[i].class %></td>
 	      <td><%= passvariable[i].subclass %></td>
 	      <td><%= passvariable[i].grade %></td>
+	      <% if(passvariable[i].status =='出庫'){%>
+	      <td><font color="red"><%= passvariable[i].status %></td>
+	      <% }else{%>
 	      <td><%= passvariable[i].status %></td>
+	      <% }%>	
 	      <td><%= passvariable[i].instockdate %></td> 
 		  <td><%= passvariable[i].instocktime %></td>
 	      <td><%= passvariable[i].outstockdate %></td> 
