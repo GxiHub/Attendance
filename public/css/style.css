@@ -285,7 +285,7 @@ ul li:hover .dropOut { opacity: 1; margin-top: 8px; }
 
 .table_second select{
     width:70px;
-    color:#1ABC9C;
+    color:#777;
     background:#FFF; border:0 none;
     cursor:pointer;
     -webkit-border-radius: 5px;
