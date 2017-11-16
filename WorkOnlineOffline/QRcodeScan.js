@@ -114,10 +114,12 @@ exports.CheckMonthOnlineOfflineByBrandNameAndMonth = function(year,month,name)
 exports.AdjustOnlineOfflineData = function()
 {
 	//#修改資料庫成 workperiod
+    var _Year = moment().format('YYYY');
+    var _Month = moment().format('MM');
     return new Promise(function(resolve, reject) 
     {
 
-      		dbwork.collection('workperiod').find().sort({"name": 1,"Year":1,"Month":1,"Day": 1}).toArray(function(err, data) {
+      		dbwork.collection('workperiod').find({'Year':_Year,'Month':_Month}).sort({"name": 1,"Year":1,"Month":1,"Day": 1}).toArray(function(err, data) {
 	              // console.log(data);
 	              if (err) { 
 	                  reject(err);
