@@ -3,55 +3,125 @@
 <head>
   <meta charset="UTF-8">
   <title>CheckProductInStock</title>
+  <meta charset="UTF-8">
+  <link href="/css/checkproductinstock.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-	<form action="/" method="GET">
-				<button type="submit">返回老闆權限</button>
-	</form>
-	<br> 
-	<table border='1'>
-	<tbody>
-	      <td> 刪除 </td>
-	      <td> 時間碼 </td>
-	      <td> 品牌名稱 </td>
-	      <td> 產品編號 </td>
-	      <td> 產品名稱 </td>
-	      <td> 產品標籤 </td>  
-	      <td> 產品分類 </td>  
-	      <td> 產品細項 </td>  
-	      <td> 產品等級 </td>  
-	  	  <td> 產品狀態 </td> 
-	  	  <td> 入庫日期 </td>
-	  	  <td> 入庫時間 </td> 
-	  	  <td> 出庫日期 </td>
-	  	  <td> 出庫時間 </td>   
+
+<div class="navcont">
+<div class="nav">
+		<ul>
+			<li><a href="/">HOME</a></li>
+			<li class="drop">
+				<a href="#">庫存相關</a>
+				<div class="dropdownContain">
+					<div class="dropOut">
+						
+						<ul>
+						<li onclick='window.location.href="/CheckProductInStock/"''>確認現有庫存</li>
+						<li onclick='window.location.href="/AddProductPartialTag/"''>新增庫存標籤</li>
+						<li onclick='window.location.href="/CheckProductPartialTag/"''>確認產品標籤</li>
+						</ul>
+					</div>
+				</div>
+			
+			</li>
+            <li class="drop">
+            	<a href="#">員工資料</a>
+            	<div class="dropdownContain">
+					<div class="dropOut">
+						
+						<ul>
+						<li onclick='window.location.href="/ShowNewPersonalData_AddMemberData/"''>新增員工基本資料</li>
+						<li onclick='window.location.href="/ShowAndModifyMemberBrandData_ModifyBrandData/"''>顯示員工基本資料</li>
+						<li onclick='window.location.href="/ShowAndModifyUserTokenData_UserTokenData/"''>顯示員工打卡資料</li>
+						</ul>
+					</div>
+				</div>
+			
+			</li>
+			<li class="drop">
+				<a href="#">排班狀況</a>
+				
+				<div class="dropdownContain">
+					<div class="dropOut">
+						
+						<ul>
+						<li onclick='window.location.href="/Plan_Work_Schedule_MultipleDirectPageToAddEmployeeWorkSchedule/"''>新增員工多天排班</li>
+						<li onclick='window.location.href="/Plan_Work_Schedule_CheckEmployeeWorkScheduleByList/"''>顯示單月員工排班列表</li>
+						<li onclick='window.location.href="/Plan_Work_Schedule_AdjustWorkSchedule/"''>調整員工排班狀況</li>
+						</ul>
+					</div>
+				</div>
+			
+			</li>
+			<li class="drop">
+				<a href="#">上班狀況</a>
+				
+				<div class="dropdownContain">
+					<div class="dropOut">
+						
+						<ul>
+						<li onclick='window.location.href="/QR_codeSan_CheckEveryMonthWorkStatus/"''>顯示單月員工上班狀況</li>
+						<li onclick='window.location.href="/QR_codeSan_AdjustOnlineStatus/"''>調整員工上班時間</li>
+						<li onclick='window.location.href="/PrintMonthSalary_CheckBackupAddLateStatus/"''>顯示單月加班遲到狀況</li>
+						</ul>
+					</div>
+				</div>
+			
+			</li>
+		</ul>
+</div>
+</div>
+	<div class='table'>
+	<ul>
+		<li>
+	      	<span> 刪除 </span>
+	      	<span> 時間碼 </span>
+	      	<span> 品牌名稱 </span>
+	      	<span> 編號 </span>
+	      	<span> 名稱 </span>
+	      	<span> 標籤 </span>  
+	      	<span> 分類 </span>  
+	     	<span> 細項 </span>  
+	     	<span> 等級 </span>  
+	  	  	<span> 狀態 </span> 
+	  	  	<span> 出入庫日期 </span>
+	  	  	<span> 出入庫時間 </span> 
+		</li>
+	</ul>
+	</div>   
+	<div class='table_second'>
 	<% for(var i=0; i<passvariable.length; i++) {%>
-		<tr>
-		   <td><form action="/DeleteProductInStock/" method="POST">
+	<ul>
+		<li>
+		   <span><form action="/DeleteProductInStock/" method="POST">
 		   	<input type="hidden" placeholder="productnumber" name="productnumber" value=<%= passvariable[i].productnumber %>>
 		    <button type="submit">刪除</button>
-		  </form></td>
-		  <td><%= passvariable[i].TID %></td>
-		  <td><%= passvariable[i].brandname %></td>
-	      <td><%= passvariable[i].productnumber %></td>
-	      <td><%= passvariable[i].product %></td>
-	      <td><%= passvariable[i].tag %></td>
-	      <td><%= passvariable[i].class %></td>
-	      <td><%= passvariable[i].subclass %></td>
-	      <td><%= passvariable[i].grade %></td>
+		  </form></span>
+		  <span><%= passvariable[i].TID %></span>
+		  <span><%= passvariable[i].brandname %></span>
+	      <span><%= passvariable[i].productnumber %></span>
+	      <span><%= passvariable[i].product %></span>
+	      <span><%= passvariable[i].tag %></span>
+	      <span><%= passvariable[i].class %></span>
+	      <span><%= passvariable[i].subclass %></span>
+	      <span><%= passvariable[i].grade %></span>
 	      <% if(passvariable[i].status =='出庫'){%>
-	      <td><font color="red"><%= passvariable[i].status %></td>
+	      <span style="color:red;"><%= passvariable[i].status %></span>
 	      <% }else{%>
-	      <td><%= passvariable[i].status %></td>
-	      <% }%>	
-	      <td><%= passvariable[i].instockdate %></td> 
-		  <td><%= passvariable[i].instocktime %></td>
-	      <td><%= passvariable[i].outstockdate %></td> 
-		  <td><%= passvariable[i].outstocktime %></td>  	      
-	  <% } %>
-	</tr>
-	</tbody>
-	</table>
-
+	      <span><%= passvariable[i].status %></span>
+	      <% }%>
+	      <% if(passvariable[i].status =='入庫'){%>	
+	      <span><%= passvariable[i].instockdate %></span> 
+		  <span><%= passvariable[i].instocktime %></span>
+		  <% }else{%>
+	      <span><%= passvariable[i].outstockdate %></span> 
+		  <span><%= passvariable[i].outstocktime %></span>  	  
+		  <% }%>    
+		</li>
+	</ul>
+	<% } %>
+	</div>	
 </body>
 </html>

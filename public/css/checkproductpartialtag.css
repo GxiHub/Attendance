@@ -198,7 +198,7 @@ ul li:hover .dropOut { opacity: 1; margin-top: 8px; }
     background:#FFF;
     margin-top: 20px;
     margin-bottom: 12px;
-    margin-left:20px;
+    margin-left:40px;
 }
 
 .table ul li{
@@ -209,39 +209,19 @@ ul li:hover .dropOut { opacity: 1; margin-top: 8px; }
     display: flex;
 }
 
-.table ul li span:first-child{
+.table ul li span{
     width:120px;
     text-align:center;
     vertical-align: middle; 
     font: 14px Verdana, 'Lucida Grande';
     color: #000;
-    padding-right: 4px;
-    line-height: 12px;
-}
-
-.table ul li span{
-    width:60px;
-    text-align:center;
-    vertical-align: middle; 
-    font: 14px Verdana, 'Lucida Grande';
-    color: #000;
-    padding-right: 4px;
-    line-height: 12px;
-}
-
-.table ul li span:last-child{
-    width:200px;
-    text-align:center;
-    vertical-align: middle; 
-    font: 14px Verdana, 'Lucida Grande';
-    color: #000;
-    padding-right: 1px;
+    padding-right: 5px;
     line-height: 12px;
 }
 
 .table_second{
     background:#FFF;
-    margin-left:20px;
+    margin-left:40px;
 }
 
 .table_second ul li{
@@ -253,35 +233,16 @@ ul li:hover .dropOut { opacity: 1; margin-top: 8px; }
     display: flex;
 }
 
-.table_second ul li span:first-child{
+.table_second ul li span{
     width:120px;
     text-align:center;
     vertical-align: middle; 
-    font: 12.5px Verdana, 'Lucida Grande';
-    color: #777;
-    padding-right: 1px;
-    line-height: 24px;
-}
-
-.table_second ul li span{
-    width:60px;
-    text-align:center;
-    vertical-align: middle; 
-    font: 12.5px Verdana, 'Lucida Grande';
+    font: 12px Verdana, 'Lucida Grande';
     color: #777;
     padding-right: 5px;
     line-height: 24px;
 }
 
-.table_second ul li span:last-child{
-    width:200px;
-    text-align:left;
-    vertical-align: middle; 
-    font: 12.5px Verdana, 'Lucida Grande';
-    color: #777;
-    padding-right: 1px;
-    line-height: 24px;
-}
 
 .table_second select{
     width:70px;
@@ -291,6 +252,7 @@ ul li:hover .dropOut { opacity: 1; margin-top: 8px; }
     -webkit-border-radius: 5px;
     border-radius: 5px;
 }
+
 
 .table_second input{
     width:75px;
@@ -306,77 +268,5 @@ ul li:hover .dropOut { opacity: 1; margin-top: 8px; }
     border-radius: 1px;
 }
 /*END -> ShowAndModifyMemberBrandData.ejs*/
-
-/*START -> AddProductPartialTag.ejs*/
-.form-style-8{
-    font-family: 'Open Sans Condensed', arial, sans;
-    width: 500px;
-    padding: 30px;
-    background: #FFFFFF;
-    margin: 50px auto;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
-    -moz-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
-    -webkit-box-shadow:  0px 0px 15px rgba(0, 0, 0, 0.22);
-
-}
-.form-style-8 h2{
-    background: #4D4D4D;
-    text-transform: uppercase;
-    font-family: 'Open Sans Condensed', sans-serif;
-    color: #FFF;
-    font-size: 18px;
-    font-weight: 100;
-    padding: 20px;
-    margin: -30px -30px 30px -30px;
-}
-.form-style-8 input[type="text"],
-.form-style-8 input[type="date"],
-.form-style-8 input[type="datetime"],
-.form-style-8 input[type="email"],
-.form-style-8 input[type="number"],
-.form-style-8 input[type="search"],
-.form-style-8 input[type="time"],
-.form-style-8 input[type="url"],
-.form-style-8 input[type="password"],
-.form-style-8 select
-{
-    box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    outline: none;
-    display: block;
-    width: 100%;
-    padding: 7px;
-    border: none;
-    border-bottom: 1px solid #ddd;
-    background: transparent;
-    margin-bottom: 10px;
-    font: 16px Arial, Helvetica, sans-serif;
-    height: 30px;
-}
-
-.form-style-8 input[type="button"], 
-.form-style-8 input[type="submit"]{
-    -moz-box-shadow: inset 0px 1px 0px 0px #45D6D6;
-    -webkit-box-shadow: inset 0px 1px 0px 0px #45D6D6;
-    box-shadow: inset 0px 1px 0px 0px #45D6D6;
-    background-color: #2CBBBB;
-    border: 1px solid #27A0A0;
-    display: inline-block;
-    cursor: pointer;
-    color: #FFFFFF;
-    font-family: 'Open Sans Condensed', sans-serif;
-    font-size: 14px;
-    padding: 8px 18px;
-    margin-top:10px;
-    text-decoration: none;
-    text-transform: uppercase;
-}
-.form-style-8 input[type="button"]:hover, 
-.form-style-8 input[type="submit"]:hover {
-    background:linear-gradient(to bottom, #34CACA 5%, #30C9C9 100%);
-    background-color:#34CACA;
-}
-/*END -> AddProductPartialTag.ejs*/
 
 /*menu style*/

@@ -1,63 +1,52 @@
 
-.test-list-item:not(:first-child ), .forum-question, .sidebar-section:not(:last-child) {
+#test-list-item {
+    font-weight: 700;
+    color: #777;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+#test-list-item:not(:first-child ), .forum-question, .sidebar-section:not(:last-child) {
     border-bottom: 1px solid #777;
     font: 12px Verdana, 'Lucida Grande';
     
 }
 
-.test-list-item-first {
-    font-weight: 700;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    padding: 20px 0px 10px 0px;
+#position:first-child{
+    width:120px;
+    text-align:center;
+    vertical-align: middle; 
     font: 12px Verdana, 'Lucida Grande';
-/*    background: transparent url(http://i50.tinypic.com/303efm1.png) center bottom repeat-x;*/
-}
-
-.test-list-item {
-    font-weight: 700;
     color: #777;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
+    padding-right: 1px;
+    text-align:center;
+    line-height: 12px;
 }
 
-.position {
-    color: #777;
-    padding-right: 5px;
-}
-
-.bottom-black
-{
-    padding-left:20px;
-}
-
-
-span {
+#position{
     width:50px;
     text-align:center;
     vertical-align: middle; 
     font: 12px Verdana, 'Lucida Grande';
-    border-width:1px;
-    padding: 0px 20px 0px 0px;
-/*    border-style:dashed;*/
-    line-height: 24px;
-}
-
-
-span:first-child {
-    width:120px;
+    color: #777;
+    padding-right: 5px;
     text-align:center;
-    line-height: 24px;
+    line-height: 12px;
 }
 
-span:last-child {
+#position:last-child {
     width:230px;
     text-align:center;
+    vertical-align: middle; 
+    font: 12px Verdana, 'Lucida Grande';
+    color: #777;
+    padding-right: 5px;
+    text-align:center;
+    line-height: 12px;
 }
 
-span select{
+#position:last-child select{
     width:70px;
     color:#1ABC9C;
     background:#FFF; border:0 none;
@@ -66,12 +55,12 @@ span select{
     border-radius: 5px;
 }
 
-span input{
+#position:last-child input{
     width:80px;
     text-align:center;
 }
 
-span button{
+#position:last-child button{
     width:40px;
     color:#777;
     background:#FFF; border:0 none;
@@ -80,7 +69,46 @@ span button{
     border-radius: 1px;
 }
 
+.table{
+    background:#FFF;
+}
 
+.table ul li{
+    font: 12px Verdana, 'Lucida Grande';
+    font-weight: 700;
+    color: #777;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
 
+.table ul li span:first-child{
+    width:120px;
+    text-align:center;
+    vertical-align: middle; 
+    font: 12px Verdana, 'Lucida Grande';
+    color: #777;
+    padding-right: 1px;
+    line-height: 12px;
+}
 
+.table ul li span{
+    width:50px;
+    text-align:center;
+    vertical-align: middle; 
+    font: 12px Verdana, 'Lucida Grande';
+    color: #777;
+    padding-right: 5px;
+    line-height: 12px;
+}
+
+.table ul li span:last-child{
+    width:230;
+    text-align:right;
+    vertical-align: middle; 
+    font: 12px Verdana, 'Lucida Grande';
+    color: #777;
+    padding-right: 1px;
+    line-height: 12px;
+}
 

@@ -2,43 +2,110 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>MushiSetting</title>
+  <link href="/css/adjustworkschedule.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-	<form action="/" method="GET">
-				<button type="submit">返回老闆權限</button>
-	</form>
-	<br>  
-	<table border='1'>
-	<tbody>
-	      <td> 刪除 </td>
-	      <td> 時間碼 </td>
-	      <td> 唯一碼 </td>
-	      <td> 員工姓名 </td>
-	      <td> 品牌名稱 </td>
-	      <td> 品牌地點 </td>
-	      <td> 年/月/日</td>  
-	      <td> 上下班時間</td>  
+<div class="navcont">
+<div class="nav">
+		<ul>
+			<li><a href="/">HOME</a></li>
+			<li class="drop">
+				<a href="#">庫存相關</a>
+				<div class="dropdownContain">
+					<div class="dropOut">
+						
+						<ul>
+						<li onclick='window.location.href="/CheckProductInStock/"''>確認現有庫存</li>
+						<li onclick='window.location.href="/AddProductPartialTag/"''>新增庫存標籤</li>
+						<li onclick='window.location.href="/CheckProductPartialTag/"''>確認產品標籤</li>
+						</ul>
+					</div>
+				</div>
+			
+			</li>
+            <li class="drop">
+            	<a href="#">員工資料</a>
+            	<div class="dropdownContain">
+					<div class="dropOut">
+						
+						<ul>
+						<li onclick='window.location.href="/ShowNewPersonalData_AddMemberData/"''>新增員工基本資料</li>
+						<li onclick='window.location.href="/ShowAndModifyMemberBrandData_ModifyBrandData/"''>顯示員工基本資料</li>
+						<li onclick='window.location.href="/ShowAndModifyUserTokenData_UserTokenData/"''>顯示員工打卡資料</li>
+						</ul>
+					</div>
+				</div>
+			
+			</li>
+			<li class="drop">
+				<a href="#">排班狀況</a>
+				
+				<div class="dropdownContain">
+					<div class="dropOut">
+						
+						<ul>
+						<li onclick='window.location.href="/Plan_Work_Schedule_MultipleDirectPageToAddEmployeeWorkSchedule/"''>新增員工多天排班</li>
+						<li onclick='window.location.href="/Plan_Work_Schedule_CheckEmployeeWorkScheduleByList/"''>顯示單月員工排班列表</li>
+						<li onclick='window.location.href="/Plan_Work_Schedule_AdjustWorkSchedule/"''>調整員工排班狀況</li>
+						</ul>
+					</div>
+				</div>
+			
+			</li>
+			<li class="drop">
+				<a href="#">上班狀況</a>
+				
+				<div class="dropdownContain">
+					<div class="dropOut">
+						
+						<ul>
+						<li onclick='window.location.href="/QR_codeSan_CheckEveryMonthWorkStatus/"''>顯示單月員工上班狀況</li>
+						<li onclick='window.location.href="/QR_codeSan_AdjustOnlineStatus/"''>調整員工上班時間</li>
+						<li onclick='window.location.href="/PrintMonthSalary_CheckBackupAddLateStatus/"''>顯示單月加班遲到狀況</li>
+						</ul>
+					</div>
+				</div>
+			
+			</li>
+		</ul>
+</div>
+</div>
+
+	<div class='table'>
+	<ul>
+		<li>
+	      <span> 刪除 </span>
+	      <span> 時間碼 </span>
+	      <span> 唯一碼 </span>
+	      <span> 員工姓名 </span>
+	      <span> 品牌名稱 </span>
+	      <span> 品牌地點 </span>
+	      <span> 年/月/日</span>  
+	      <span> 上下班時間</span>  
+		</ul>
+	</div>   
+	<div class='table_second'>
 	<% for(var i=0; i<WorkHour.length; i++) {%>
-		<tr>
-		   <td><form action="/Plan_Work_Schedule_DeleteWorkScheduleData/" method="POST">
+	<ul>
+		<li>
+		   <span><form action="/Plan_Work_Schedule_DeleteWorkScheduleData/" method="POST">
 		   <input type="hidden" placeholder="UniqueID" name="TID" value=<%= WorkHour[i].TID %>>
 		   <input type="hidden" placeholder="workyear" name="workyear" value=<%= WorkHour[i].workyear %>>
 		   <input type="hidden" placeholder="workmonth" name="workmonth" value=<%= WorkHour[i].workmonth %>>
 		   <input type="hidden" placeholder="workday" name="workday" value=<%= WorkHour[i].workday %>>
 		      		<button type="submit">刪除</button>
-		  </form></td>
-		  <td><%= WorkHour[i].TID %></td>
-	      <td><%= WorkHour[i].uniID %></td>
-	      <td><%= WorkHour[i].name %></td>
-	      <td><%= WorkHour[i].userbrandname %></td>
-	      <td><%= WorkHour[i].userbrandplace %></td>
-	      <td><%= WorkHour[i].workyear %>/<%= WorkHour[i].workmonth %>/<%= WorkHour[i].workday %></td>
-	      <td><%= WorkHour[i].onlinehour %>:<%=WorkHour[i].onlineminute %>-<%= WorkHour[i].offlinehour %>:<%=WorkHour[i].offlineminute %></td>
-	  <% } %>
-	</tr>
-	</tbody>
-	</table>
+		  </form></span>
+		  <span><%= WorkHour[i].TID %></span>
+	      <span><%= WorkHour[i].uniID %></span>
+	      <span><%= WorkHour[i].name %></span>
+	      <span><%= WorkHour[i].userbrandname %></span>
+	      <span><%= WorkHour[i].userbrandplace %></span>
+	      <span><%= WorkHour[i].workyear %>/<%= WorkHour[i].workmonth %>/<%= WorkHour[i].workday %></span>
+	      <span><%= WorkHour[i].onlinehour %>:<%=WorkHour[i].onlineminute %>-<%= WorkHour[i].offlinehour %>:<%=WorkHour[i].offlineminute %></span>
+		</li>
+	</ul>
+	<% } %>
+	</div>
 
 </body>
 </html>

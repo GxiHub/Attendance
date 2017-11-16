@@ -23,7 +23,7 @@ var Promise = require('rsvp').Promise;
 // 正職須額外扣除的時間
 var addTimeConditionHour = 2;
 
-var MonthShift = 1;
+var MonthShift = 0;
 
 // #計算 #店名 #計算數量 #UID
 exports.CalculateAddlateTime = function(BrandName)

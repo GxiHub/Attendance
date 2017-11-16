@@ -2,11 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <link href="/css/table_style.css" rel="stylesheet" type="text/css">
-  <!-- <link href="/css/style.css" rel="stylesheet" type="text/css"> -->
+  <link href="/css/style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<!-- <div class="navcont">
+<div class="navcont">
 <div class="nav">
 		<ul>
 			<li><a href="/">HOME</a></li>
@@ -70,41 +69,41 @@
 			</li>
 		</ul>
 </div>
-</div> -->
-<!-- <div class="bottom-black"> -->
-	<ul class="test-list">
-		<li class="test-list-item-first">
-			<span class="position">唯一碼</span>
-			<span class="position">員工姓名</span>
-			<span class="position">職稱</span>
-			<span class="position">品牌</span>
-			<span class="position">地點</span>
-			<span class="position">基本底薪</span>
-			<span class="position">伙食獎金</span>
-			<span class="position">全勤獎金</span>
-			<span class="position">職稱獎金</span>
-			<span class="position">額外獎金</span>
-			<span class="position">勞健保</span>
-			<span class="position">修改</span>
-
+</div>
+	<div class='table'>
+	<ul>
+		<li>
+			<span>唯一碼</span>
+			<span >員工姓名</span>
+			<span>職稱</span>
+			<span>品牌</span>
+			<span>地點</span>
+			<span>基本底薪</span>
+			<span>伙食獎金</span>
+			<span>全勤獎金</span>
+			<span>職稱獎金</span>
+			<span>額外獎金</span>
+			<span>勞健保</span>
+			<span>修改</span>
 		</li>
 	</ul>
+	</div>
+	<div class='table_second'>
 	<% for(var i=0; i<passvariable.length; i++) {%>
-	<ul class="test-list">
-		<li class="test-list-item">
-		
-			<span class="position"><%=passvariable[i].uniID %></span>
-			<span class="position"><%=passvariable[i].name %></span>
-			<span class="position"><%=passvariable[i].userbrandtitle%></span>
-			<span class="position"><%=passvariable[i].userbrandname%></span>
-			<span class="position"><%=passvariable[i].userbrandplace %></span>
-			<span class="position"><%=passvariable[i].usermonthsalary%></span>
-			<span class="position"><%=passvariable[i].userfoodsalary%></span>
-			<span class="position"><%=passvariable[i].userwithoutsalary%></span>
-			<span class="position"><%=passvariable[i].usertitlesalary%></span>
-			<span class="position"><%=passvariable[i].userextrasalary%></span>
-			<span class="position"><%=passvariable[i].userlawsalary%></span>	
-		  	<span class="position">
+	<ul>
+		<li>
+			<span><%=passvariable[i].uniID %></span>
+			<span><%=passvariable[i].name %></span>
+			<span><%=passvariable[i].userbrandtitle%></span>
+			<span><%=passvariable[i].userbrandname%></span>
+			<span><%=passvariable[i].userbrandplace %></span>
+			<span><%=passvariable[i].usermonthsalary%></span>
+			<span><%=passvariable[i].userfoodsalary%></span>
+			<span><%=passvariable[i].userwithoutsalary%></span>
+			<span><%=passvariable[i].usertitlesalary%></span>
+			<span><%=passvariable[i].userextrasalary%></span>
+			<span><%=passvariable[i].userlawsalary%></span>	
+		  	<span>
 			  <form action="/ShowAndModifyMemberBrandData_UpdateBrandData/" method="POST">
 	      	  <input type="hidden" placeholder="UniqueID" name="uniID" value=<%= passvariable[i].uniID %>>
 		      <input type="hidden" placeholder="name" name="name" value=<%= passvariable[i].name %>>
@@ -123,6 +122,6 @@
 		</li>
 	</ul>
 	<% } %>
-<!-- </div>	 -->		
+	</div>			
 </body>
 </html>

@@ -3,14 +3,81 @@
 <head>
   <meta charset="UTF-8">
   <title>CheckEveryMonthWorkStatus</title>
+  <script src="dateselect.js"></script>
+  <link href="/css/planworkschedulecheckemployeeworkschedulebylist.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-
+<div class="navcont">
+<div class="nav">
+		<ul>
+			<li><a href="/">HOME</a></li>
+			<li class="drop">
+				<a href="#">庫存相關</a>
+				<div class="dropdownContain">
+					<div class="dropOut">
+						
+						<ul>
+						<li onclick='window.location.href="/CheckProductInStock/"''>確認現有庫存</li>
+						<li onclick='window.location.href="/AddProductPartialTag/"''>新增庫存標籤</li>
+						<li onclick='window.location.href="/CheckProductPartialTag/"''>確認產品標籤</li>
+						</ul>
+					</div>
+				</div>
+			
+			</li>
+            <li class="drop">
+            	<a href="#">員工資料</a>
+            	<div class="dropdownContain">
+					<div class="dropOut">
+						
+						<ul>
+						<li onclick='window.location.href="/ShowNewPersonalData_AddMemberData/"''>新增員工基本資料</li>
+						<li onclick='window.location.href="/ShowAndModifyMemberBrandData_ModifyBrandData/"''>顯示員工基本資料</li>
+						<li onclick='window.location.href="/ShowAndModifyUserTokenData_UserTokenData/"''>顯示員工打卡資料</li>
+						</ul>
+					</div>
+				</div>
+			
+			</li>
+			<li class="drop">
+				<a href="#">排班狀況</a>
+				
+				<div class="dropdownContain">
+					<div class="dropOut">
+						
+						<ul>
+						<li onclick='window.location.href="/Plan_Work_Schedule_MultipleDirectPageToAddEmployeeWorkSchedule/"''>新增員工多天排班</li>
+						<li onclick='window.location.href="/Plan_Work_Schedule_CheckEmployeeWorkScheduleByList/"''>顯示單月員工排班列表</li>
+						<li onclick='window.location.href="/Plan_Work_Schedule_AdjustWorkSchedule/"''>調整員工排班狀況</li>
+						</ul>
+					</div>
+				</div>
+			
+			</li>
+			<li class="drop">
+				<a href="#">上班狀況</a>
+				
+				<div class="dropdownContain">
+					<div class="dropOut">
+						
+						<ul>
+						<li onclick='window.location.href="/QR_codeSan_CheckEveryMonthWorkStatus/"''>顯示單月員工上班狀況</li>
+						<li onclick='window.location.href="/QR_codeSan_AdjustOnlineStatus/"''>調整員工上班時間</li>
+						<li onclick='window.location.href="/PrintMonthSalary_CheckBackupAddLateStatus/"''>顯示單月加班遲到狀況</li>
+						</ul>
+					</div>
+				</div>
+			
+			</li>
+		</ul>
+</div>
+</div>
+<div class="date">
 	<form action="/Plan_Work_Schedule_CheckEmployeeWorkScheduleByList/" method="GET">
-		<select name="checkPeriodYear">
-			<option selected value="2017">2017</option>
+		<select name="checkPeriodYear" id="month">
+			<option selected value="2017" name="checkPeriodYear">2017</option>
 		</select>
-		<select name="checkPeriodMonth">
+		<select name="checkPeriodMonth" id="year">
 			<option value="01">01</option><option  value="02">02</option>
 			<option value="03">03</option><option  value="04">04</option>
 			<option value="05">05</option><option  value="06">06</option>
@@ -20,34 +87,36 @@
 		</select>
 		<button type="submit">查詢</button>
 	</form>	 
-	<br>
-	<form action="/" method="GET">
-				<button type="submit">返回老闆權限</button>
-	</form>
-	<br> 
-	<table border='1'>
-	<tbody>
-		  <td> 時間碼 </td>
-	      <td> 唯一碼 </td>
-	      <td> 品牌名稱 </td>  
-	      <td> 品牌地點 </td> 
-	      <td> 姓名 </td> 
-	      <td> 日期 </td> 
-	      <td> 上班 </td> 
-	      <td> 下班 </td> 
-	      <td> 檢查 </td> 
-	      <td> 比數 </td> 
+</div>
+	<div class='table'>
+	<ul>
+		<li>
+		  <span> 時間碼 </span>
+	      <span> 唯一碼 </span>
+	      <span> 品牌名稱 </span>  
+	      <span> 品牌地點 </span> 
+	      <span> 姓名 </span> 
+	      <span> 日期 </span> 
+	      <span> 上班 </span> 
+	      <span> 下班 </span> 
+	      <span> 檢查 </span> 
+	      <span> 比數 </span> 
+	    </li>
+	</ul>
+	</div>   
+	<div class='table_second'>
 	<%  var index=0;%>
 	<%  for(var i=0; i<passvariable.length; i++) {%>
-		<tr>
-			  <td><%= passvariable[i].TID %></td>
-		      <td><%= passvariable[i].uniID %></td>
-		      <td><%= passvariable[i].userbrandname  %></td>
-		      <td><%= passvariable[i].userbrandplace %></td>
-		      <td><%= passvariable[i].name %></td>
-			  <td><%= passvariable[i].workyear%>/<%= passvariable[i].workmonth %>/<%= passvariable[i].workday  %></td>
-		      <td><%= passvariable[i].onlinehour %>:<%= passvariable[i].onlineminute %></td>
-		      <td><%= passvariable[i].offlinehour %>:<%= passvariable[i].offlineminute %></td>     
+	<ul>
+		<li>
+			  <span><%= passvariable[i].TID %></span>
+		      <span><%= passvariable[i].uniID %></span>
+		      <span><%= passvariable[i].userbrandname  %></span>
+		      <span><%= passvariable[i].userbrandplace %></span>
+		      <span><%= passvariable[i].name %></span>
+			  <span><%= passvariable[i].workyear%>/<%= passvariable[i].workmonth %>/<%= passvariable[i].workday  %></span>
+		      <span><%= passvariable[i].onlinehour %>:<%= passvariable[i].onlineminute %></span>
+		      <span><%= passvariable[i].offlinehour %>:<%= passvariable[i].offlineminute %></span>     
 		      <%  var duplicateCheck = 0; 
 				  for(var j=0; j<passvariable.length; j++) {
 
@@ -72,13 +141,12 @@
 		      	  }
 		      	  else{index =1;}		      	
 		      %>
-		      <td><%= duplicateCheck %></td>
-		      <td><%= index %></td>
-		</tr>
+		      <span><%= duplicateCheck %></span>
+		      <span><%= index %></span>
+		</li>
+	</ul>
 	<% } %>
-
-	</tbody>
-	</table>
+	</div>	
 
 </body>
 </html>

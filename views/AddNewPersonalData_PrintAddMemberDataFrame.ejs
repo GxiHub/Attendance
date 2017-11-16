@@ -3,24 +3,130 @@
 <head>
   <meta charset="UTF-8">
   <title>AddNewPersonalData</title>
+  <link href="/css/style.css" rel="stylesheet" type="text/css">
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
 </head>
 <body>
+<div class="navcont">
+<div class="nav">
+		<ul>
+			<li><a href="/">HOME</a></li>
+			<li class="drop">
+				<a href="#">庫存相關</a>
+				<div class="dropdownContain">
+					<div class="dropOut">
+						
+						<ul>
+						<li onclick='window.location.href="/CheckProductInStock/"''>確認現有庫存</li>
+						<li onclick='window.location.href="/AddProductPartialTag/"''>新增庫存標籤</li>
+						<li onclick='window.location.href="/CheckProductPartialTag/"''>確認產品標籤</li>
+						</ul>
+					</div>
+				</div>
+			
+			</li>
+            <li class="drop">
+            	<a href="#">員工資料</a>
+            	<div class="dropdownContain">
+					<div class="dropOut">
+						
+						<ul>
+						<li onclick='window.location.href="/ShowNewPersonalData_AddMemberData/"''>新增員工基本資料</li>
+						<li onclick='window.location.href="/ShowAndModifyMemberBrandData_ModifyBrandData/"''>顯示員工基本資料</li>
+						<li onclick='window.location.href="/ShowAndModifyUserTokenData_UserTokenData/"''>顯示員工打卡資料</li>
+						</ul>
+					</div>
+				</div>
+			
+			</li>
+			<li class="drop">
+				<a href="#">排班狀況</a>
+				
+				<div class="dropdownContain">
+					<div class="dropOut">
+						
+						<ul>
+						<li onclick='window.location.href="/Plan_Work_Schedule_MultipleDirectPageToAddEmployeeWorkSchedule/"''>新增員工多天排班</li>
+						<li onclick='window.location.href="/Plan_Work_Schedule_CheckEmployeeWorkScheduleByList/"''>顯示單月員工排班列表</li>
+						<li onclick='window.location.href="/Plan_Work_Schedule_AdjustWorkSchedule/"''>調整員工排班狀況</li>
+						</ul>
+					</div>
+				</div>
+			
+			</li>
+			<li class="drop">
+				<a href="#">上班狀況</a>
+				
+				<div class="dropdownContain">
+					<div class="dropOut">
+						
+						<ul>
+						<li onclick='window.location.href="/QR_codeSan_CheckEveryMonthWorkStatus/"''>顯示單月員工上班狀況</li>
+						<li onclick='window.location.href="/QR_codeSan_AdjustOnlineStatus/"''>調整員工上班時間</li>
+						<li onclick='window.location.href="/PrintMonthSalary_CheckBackupAddLateStatus/"''>顯示單月加班遲到狀況</li>
+						</ul>
+					</div>
+				</div>
+			
+			</li>
+		</ul>
+</div>
+</div>
 
-	<form action="/AddNewPersonalData_AddMemberData/" method="POST">
-	<br>員工姓名<input type="text" placeholder="陳柏農" name="name" value="">
-	<br>員工職稱 <select name="userbrandtitle">
+<div class="form-style-8">
+  <h2>添加員工基本資料</h2>
+  <form action="/AddNewPersonalData_AddMemberData/" method="POST" onSubmit="return check()">
+    <input type="text" name="name" placeholder="員工姓名" />
+    <select name="userbrandtitle" placeholder="員工職稱">
 		<option value="正職">正職</option><option value="兼職">兼職</option>
 	</select>
-	<br>品牌<input type="text" placeholder="食鍋藝" name="userbrandname" value="">
-	<br>地點<input type="text" placeholder="竹北" name="userbrandplace" value="">
-	<br>基本底薪<input type="text" placeholder="22000" name="usermonthsalary" value="">
-	<br>伙食獎金<input type="text" placeholder="2000" name="userfoodsalary" value="">
-	<br>全勤獎金<input type="text" placeholder="2500" name="userwithoutsalary" value="">
-	<br>職稱獎金<input type="text" placeholder="0" name="usertitlesalary" value="">
-	<br>額外獎金<input type="text" placeholder="0" name="userextrasalary" value="">
-	<br>勞健保<input type="text" placeholder="0" name="userlawsalary" value="">
-
-	<button type="submit">更新</button>
-	</form>
+    <input type="text" name="userbrandname" placeholder="品牌" />
+    <input type="text" name="userbrandplace" placeholder="地點" />
+    <input type="text" name="usermonthsalary" placeholder="基本底薪" />
+    <input type="text" name="userfoodsalary" placeholder="伙食獎金" />
+    <input type="text" name="userwithoutsalary" placeholder="全勤獎金" />
+    <input type="text" name="usertitlesalary" placeholder="職稱獎金" />
+    <input type="text" name="userextrasalary" placeholder="額外獎金" />
+    <input type="text" name="userlawsalary" placeholder="勞健保" />
+    <input type="submit" value="新增員工基本資料" />
+  </form>
+</div>
+<script>
+function check() {
+  	if(document.forms[0].name.value=="") {
+		alert("未輸入員工姓名");
+		return false;
+	}else if(document.forms[0].userbrandname.value=="") {
+		alert("未輸入品牌名稱");
+		return false;
+	}else if(document.forms[0].userbrandplace.value=="") {
+		alert("未輸入品牌地點");
+		return false;
+	}else if(document.forms[0].usermonthsalary.value=="") {
+		alert("未輸入基本底薪");
+		return false;
+	}else if(document.forms[0].userfoodsalary.value=="") {
+		alert("未輸入伙食獎金");
+		return false;
+	}else if(document.forms[0].userwithoutsalary.value=="") {
+		alert("未輸入全勤獎金");
+		return false;
+	}else if(document.forms[0].usertitlesalary.value=="") {
+		alert("未輸入職稱獎金");
+		return false;
+	}else if(document.forms[0].userextrasalary.value=="") {
+		alert("未輸入額外獎金");
+		return false;
+	}else if(document.forms[0].userlawsalary.value=="") {
+		alert("未輸入勞健保");
+		return false;
+	}
+	// var re = /\s|[　]/g;  //[]裡面是一個全型空白
+	// if(re.test(document.forms[0].t1.value)) {
+	// 	alert("不能含有全型及半型的空白");
+	// 	return false;
+	// }
+}
+</script>
 </body>
 </html>

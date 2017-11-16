@@ -20,7 +20,7 @@ MongoClient.connect('mongodb://9kingson:mini0306@ds163294.mlab.com:63294/testdat
 
 var Promise = require('rsvp').Promise;
 
-var MonthShift = 1;
+var MonthShift = 0;
 
 exports.WorkSchedulStatus = function()
 {

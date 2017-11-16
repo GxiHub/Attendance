@@ -3,10 +3,78 @@
 <head>
   <meta charset="UTF-8">
   <title>Plan_Work_Schedule_UseCheckBoxByAddEmployeeWorkSchedule</title>
+  <link href="/css/usecheckboxbyaddemployeeworkschedule.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-
+<div class="navcont">
+<div class="nav">
+		<ul>
+			<li><a href="/">HOME</a></li>
+			<li class="drop">
+				<a href="#">庫存相關</a>
+				<div class="dropdownContain">
+					<div class="dropOut">
+						
+						<ul>
+						<li onclick='window.location.href="/CheckProductInStock/"''>確認現有庫存</li>
+						<li onclick='window.location.href="/AddProductPartialTag/"''>新增庫存標籤</li>
+						<li onclick='window.location.href="/CheckProductPartialTag/"''>確認產品標籤</li>
+						</ul>
+					</div>
+				</div>
+			
+			</li>
+            <li class="drop">
+            	<a href="#">員工資料</a>
+            	<div class="dropdownContain">
+					<div class="dropOut">
+						
+						<ul>
+						<li onclick='window.location.href="/ShowNewPersonalData_AddMemberData/"''>新增員工基本資料</li>
+						<li onclick='window.location.href="/ShowAndModifyMemberBrandData_ModifyBrandData/"''>顯示員工基本資料</li>
+						<li onclick='window.location.href="/ShowAndModifyUserTokenData_UserTokenData/"''>顯示員工打卡資料</li>
+						</ul>
+					</div>
+				</div>
+			
+			</li>
+			<li class="drop">
+				<a href="#">排班狀況</a>
+				
+				<div class="dropdownContain">
+					<div class="dropOut">
+						
+						<ul>
+						<li onclick='window.location.href="/Plan_Work_Schedule_MultipleDirectPageToAddEmployeeWorkSchedule/"''>新增員工多天排班</li>
+						<li onclick='window.location.href="/Plan_Work_Schedule_CheckEmployeeWorkScheduleByList/"''>顯示單月員工排班列表</li>
+						<li onclick='window.location.href="/Plan_Work_Schedule_AdjustWorkSchedule/"''>調整員工排班狀況</li>
+						</ul>
+					</div>
+				</div>
+			
+			</li>
+			<li class="drop">
+				<a href="#">上班狀況</a>
+				
+				<div class="dropdownContain">
+					<div class="dropOut">
+						
+						<ul>
+						<li onclick='window.location.href="/QR_codeSan_CheckEveryMonthWorkStatus/"''>顯示單月員工上班狀況</li>
+						<li onclick='window.location.href="/QR_codeSan_AdjustOnlineStatus/"''>調整員工上班時間</li>
+						<li onclick='window.location.href="/PrintMonthSalary_CheckBackupAddLateStatus/"''>顯示單月加班遲到狀況</li>
+						</ul>
+					</div>
+				</div>
+			
+			</li>
+		</ul>
+</div>
+</div>
+<div class="form-style-8">
+<h2>添加單月多筆排班</h2>
 	<form action="/Plan_Work_Schedule_UseCheckBoxByAddEmployeeWorkSchedule/" method="POST">
+		<span>姓名</span>
 		<select name="checkName">
 			<option  selected value="陳柏農">陳柏農</option>
 			<option value="林祐華">林祐華</option>
@@ -27,10 +95,12 @@
 			<option value="范袁昊">范袁昊</option>
 			<option value="張嘉庭">張嘉庭</option>			
 		</select>
+		<span>年份</span>
 		<select name="checkPeriodYear">
-			<option value="2016">2016</option><option selected value="2017">2017</option>
+			<option value="2016">2016</option>
+			<option selected value="2017">2017</option>
 		</select>
-		年
+		<span>月份</span>
 		<select name="checkPeriodMonth">
 			<option value="01">01</option><option  value="02">02</option>
 			<option value="03">03</option><option  value="04">04</option>
@@ -39,9 +109,7 @@
 			<option value="09">09</option><option selected value="10">10</option>
 			<option value="11">11</option><option  value="12">12</option>
 		</select>
-		月
-		
-		上班時間
+		<span>上班時間</span>
 		<select name="checkPeriodOnlineHour">
 			<option value="1">1</option><option  value="2">2</option>
 			<option value="3">3</option><option  value="4">4</option>
@@ -60,7 +128,7 @@
 			<option selected value="00">00</option><option  value="15">15</option>
 			<option value="30">30</option><option  value="45">45</option>
 		</select>
-		下班時間
+		<span>下班時間</span>
 		<select name="checkPeriodOfflineHour">
 			<option value="1">1</option><option  value="2">2</option>
 			<option value="3">3</option><option  value="4">4</option>
@@ -79,20 +147,23 @@
 			<option selected value="00">00</option><option  value="15">15</option>
 			<option value="30">30</option><option  value="45">45</option>
 		</select>
-		<br>
+		<span>排班日期</span>
+		<div class='inner'>
 		<% for(var i=1;i<32;i++){ %>
   			<% if( i < 10 ){ %>
-  				<input type="checkbox" name="checkbox0<%=i%>" check="<%=i%>">0<%=i%>	  	
+  			<label>
+  				<input type="checkbox" name="checkbox0<%=i%>" check="<%=i%>">0<%=i%>	
+  			</label>  	
   			<% }else{%>
+  			<label>
   				<input type="checkbox" name="checkbox<%=i%>" check="<%=i%>"><%=i%>
+  			</label>
   			<%} %>
-  			<% if( i == 15 || i == 31 ){ %><br><% } %>
+  			<!-- <% if( i == 15 || i == 31 ){ %><br><% } %> -->
 		<%}%>
-		<button type="submit">加入班表</button>
+		</div>
+		<input type="submit" value="新增">
 	</form>	 
-	<br>
-	<form action="/" method="GET">
-				<button type="submit">返回老闆權限</button>
-	</form> 
+</div>
 </body>
 </html>

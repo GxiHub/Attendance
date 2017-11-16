@@ -22,7 +22,7 @@ var Promise = require('rsvp').Promise;
 
 var PartTimeHourPrice = 150;
 
-var MonthShift = 1;
+var MonthShift = 0;
 
 exports.CalculateMonthSalary = function(BrandName)
 {

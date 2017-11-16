@@ -3,34 +3,118 @@
 <head>
   <meta charset="UTF-8">
   <title>AddProductPartialTag</title>
+  <link href="/css/style.css" rel="stylesheet" type="text/css">
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+
 </head>
 <body>
-
-	<form action="/AddProductPartialTagInStock/" method="POST">
-	<br>店名<input type="text" placeholder="食鍋藝" name="brandname" value="食鍋藝">
-	<br>入庫產品名稱<input type="text" placeholder="" name="productname" value="">
-	<br>入庫產品標籤<input type="text" placeholder="" name="producttag" value="">
-	<br>產品大分類 <select name="class">
+<div class="navcont">
+<div class="nav">
+		<ul>
+			<li><a href="/">HOME</a></li>
+			<li class="drop">
+				<a href="#">庫存相關</a>
+				<div class="dropdownContain">
+					<div class="dropOut">
+						
+						<ul>
+						<li onclick='window.location.href="/CheckProductInStock/"''>確認現有庫存</li>
+						<li onclick='window.location.href="/AddProductPartialTag/"''>新增庫存標籤</li>
+						<li onclick='window.location.href="/CheckProductPartialTag/"''>確認產品標籤</li>
+						</ul>
+					</div>
+				</div>
+			
+			</li>
+            <li class="drop">
+            	<a href="#">員工資料</a>
+            	<div class="dropdownContain">
+					<div class="dropOut">
+						
+						<ul>
+						<li onclick='window.location.href="/ShowNewPersonalData_AddMemberData/"''>新增員工基本資料</li>
+						<li onclick='window.location.href="/ShowAndModifyMemberBrandData_ModifyBrandData/"''>顯示員工基本資料</li>
+						<li onclick='window.location.href="/ShowAndModifyUserTokenData_UserTokenData/"''>顯示員工打卡資料</li>
+						</ul>
+					</div>
+				</div>
+			
+			</li>
+			<li class="drop">
+				<a href="#">排班狀況</a>
+				
+				<div class="dropdownContain">
+					<div class="dropOut">
+						
+						<ul>
+						<li onclick='window.location.href="/Plan_Work_Schedule_MultipleDirectPageToAddEmployeeWorkSchedule/"''>新增員工多天排班</li>
+						<li onclick='window.location.href="/Plan_Work_Schedule_CheckEmployeeWorkScheduleByList/"''>顯示單月員工排班列表</li>
+						<li onclick='window.location.href="/Plan_Work_Schedule_AdjustWorkSchedule/"''>調整員工排班狀況</li>
+						</ul>
+					</div>
+				</div>
+			
+			</li>
+			<li class="drop">
+				<a href="#">上班狀況</a>
+				
+				<div class="dropdownContain">
+					<div class="dropOut">
+						
+						<ul>
+						<li onclick='window.location.href="/QR_codeSan_CheckEveryMonthWorkStatus/"''>顯示單月員工上班狀況</li>
+						<li onclick='window.location.href="/QR_codeSan_AdjustOnlineStatus/"''>調整員工上班時間</li>
+						<li onclick='window.location.href="/PrintMonthSalary_CheckBackupAddLateStatus/"''>顯示單月加班遲到狀況</li>
+						</ul>
+					</div>
+				</div>
+			
+			</li>
+		</ul>
+</div>
+</div>
+<div class="form-style-8">
+  <h2>添加庫存標籤</h2>
+  <form action="/AddProductPartialTagInStock/" method="POST" onSubmit="return check()">
+    <input type="text" name="brandname" placeholder="品牌名稱" />
+    <input type="text" name="productname" placeholder="入庫產品名稱" />
+    <input type="text" name="producttag" placeholder="入庫產品標籤" />
+    <select name="class" placeholder="產品大分類">
 		<option value="肉類">肉類</option><option value="海鮮">海鮮</option>
 	</select>
-	<br>產品子分類 <select name="subclass">
+	<select name="subclass" placeholder="產品子分類">
 		<option value="牛肉">牛肉</option><option value="豬肉">豬肉</option>
 		<option value="雞肉">雞肉</option><option value="羊肉">羊肉</option>
 		<option value="和牛">和牛</option>
 		<option value="蝦類">蝦類</option><option value="貝類">貝類</option>
 		<option value="蟹類">蟹類</option><option value="魚類">魚類</option>
 	</select>
-	<br>產品等級 <select name="grade">
+	<select name="grade" placeholder="產品等級">
 		<option value="Prime">Prime</option><option value="Choice">Choice</option>
 		<option value="Normal">Normal</option><option value="9plus">9plus</option>
 		<option value="Japan">Japan</option>
 	</select>
-	<br>
-	<button type="submit">新增</button>
-	</form>
-	<br>
-	<form action="/" method="GET">
-				<button type="submit">返回老闆權限</button>
-	</form>
+    <input type="submit" value="新增庫存標籤" />
+  </form>
+</div>
+<script>
+function check() {
+  	if(document.forms[0].brandname.value=="") {
+		alert("未輸入品牌名稱");
+		return false;
+	}else if(document.forms[0].productname.value=="") {
+		alert("未輸入入庫產品名稱");
+		return false;
+	}else if(document.forms[0].producttag.value=="") {
+		alert("未輸入入庫產品標籤");
+		return false;
+	}
+	// var re = /\s|[　]/g;  //[]裡面是一個全型空白
+	// if(re.test(document.forms[0].t1.value)) {
+	// 	alert("不能含有全型及半型的空白");
+	// 	return false;
+	// }
+}
+</script>
 </body>
 </html>
