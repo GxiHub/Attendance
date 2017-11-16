@@ -86,11 +86,11 @@ var decrypt = function (key, iv, crypted) {
 };
 
 app.get('/',function(req,res){
-  res.render('index.ejs');
+  res.render('html.ejs');
 });
 
 app.get('/TestHtml/',function(req,res){
-    res.render('html.ejs'); 
+    res.render('index.ejs'); 
 });
 
 //QRcodeScan. 透過手機端掃描二維條碼，並添加個人上下班時間
@@ -469,11 +469,13 @@ app.post('/QR_codeSan_CheckEveryDayWorkStatus/',function(req,res){
     }); 
 });
 
-// [查詢] [每月] [上下班時間] [QRcodeScan]
+// [查詢] [每月] [上下班時間] [QRcodeScan] 1111
 app.get('/QR_codeSan_CheckEveryMonthWorkStatus/',function(req,res){
     QRcodeScan.CheckMonthOnlineOfflineByBrandNameAndMonth(req.query.checkPeriodYear,req.query.checkPeriodMonth,req.query.checkName).then(function(items) 
     {
-          res.render('CheckEveryMonthWorkStatus.ejs',{passvariable:items});
+        dbtoken.collection('memberbrandinformation').find().toArray(function(err, results) {
+          res.render('CheckEveryMonthWorkStatus.ejs',{passvariable:items,member:results});
+        });
     }, function(err) {
           console.error('The promise was rejected', err, err.stack);
     }); 
@@ -507,7 +509,9 @@ app.post('/QR_codeScan_UpdateOnlineOfflineDate/', (req, res) => {
 app.get('/PrintMonthSalary_CheckBackupAddLateStatus/',function(req,res){
   PrintAddLateStatus.printBackupAddlateStatus(req.query.checkName,req.query.checkPeriodYear,req.query.checkPeriodMonth).then(function(items)
   {
-        res.render('CheckAddLateTimeBackupStatus.ejs',{passvariable:items});
+        dbtoken.collection('memberbrandinformation').find().toArray(function(err, results) {
+          res.render('CheckAddLateTimeBackupStatus.ejs',{passvariable:items,member:results});
+        });
   }, function(err) {
         console.error('The promise was rejected', err, err.stack);
   }); 
@@ -570,7 +574,7 @@ app.get('/ShowIncomeAndExpenditure/',function(req,res){
 });
 
 // [顯示] [營收支出]
-app.post('/AddIncomeAndExpenditure/',function(req,res){
+app.post('/AddIncomeAndExpenditureData/',function(req,res){
    console.log(' year = ',req.body.year);
    console.log(' month = ',req.body.month);
    console.log(' day = ',req.body.day);
@@ -641,9 +645,11 @@ app.post('/Origin_CheckOriginDataByDay/',function(req,res){
 });
 
 // [顯示] [備份] [上下班資訊] 
-app.post('/Backup_CheckOriginDataByDay/',function(req,res){
-    dbtest.collection('synconlineofflinedata').find({'Year':req.body.checkPeriodYear,'Month':req.body.checkPeriodMonth}).sort({'Month':1,'Day':1,"name": 1,'status':1}).toArray(function(err, data) {
-      res.render('Backup_CheckEveryMonthWorkStatus.ejs',{passvariable:data});
+app.get('/Backup_CheckOriginDataByDay/',function(req,res){
+    dbtest.collection('synconlineofflinedata').find({'Year':req.query.checkPeriodYear,'Month':req.query.checkPeriodMonth}).sort({'Month':1,'Day':1,"name": 1,'status':1}).toArray(function(err, data) {
+        dbtoken.collection('memberbrandinformation').find().toArray(function(err, results) {
+          res.render('Backup_CheckEveryMonthWorkStatus.ejs',{passvariable:data,member:results});
+        });
     });
 });
 
@@ -661,8 +667,8 @@ app.post('/CheckOriginScheduleData/',function(req,res){
 });
 
 // [顯示] [備份] [排班]
-app.post('/CheckBackupScheduleData/',function(req,res){
-    dbtest.collection('synworkscheduledata').find({'workyear':req.body.checkPeriodYear,'workmonth':req.body.checkPeriodMonth}).sort({'workyear':1,'workmonth':1,"workday":1,"name": 1}).toArray(function(err, data) {
+app.get('/CheckBackupScheduleData/',function(req,res){
+    dbtest.collection('synworkscheduledata').find({'workyear':req.query.checkPeriodYear,'workmonth':req.query.checkPeriodMonth}).sort({'workyear':1,'workmonth':1,"workday":1,"name": 1}).toArray(function(err, data) {
       res.render('Backup_PlanWorkSchedule_CheckWorkScheduleByList.ejs',{passvariable:data});
     });
 });

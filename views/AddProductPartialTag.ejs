@@ -50,6 +50,7 @@
 						<li onclick='window.location.href="/Plan_Work_Schedule_MultipleDirectPageToAddEmployeeWorkSchedule/"''>新增員工多天排班</li>
 						<li onclick='window.location.href="/Plan_Work_Schedule_CheckEmployeeWorkScheduleByList/"''>顯示單月員工排班列表</li>
 						<li onclick='window.location.href="/Plan_Work_Schedule_AdjustWorkSchedule/"''>調整員工排班狀況</li>
+						<li onclick='window.location.href="/Show_CheckHaveScheduleButNoWork/"''>顯示有排班無上班</li>
 						</ul>
 					</div>
 				</div>
@@ -65,14 +66,51 @@
 						<li onclick='window.location.href="/QR_codeSan_CheckEveryMonthWorkStatus/"''>顯示單月員工上班狀況</li>
 						<li onclick='window.location.href="/QR_codeSan_AdjustOnlineStatus/"''>調整員工上班時間</li>
 						<li onclick='window.location.href="/PrintMonthSalary_CheckBackupAddLateStatus/"''>顯示單月加班遲到狀況</li>
+						<li onclick='window.location.href="/Show_CheckHaveWorkButNoSchedule/"''>顯示有上班無排班</li>
 						</ul>
 					</div>
 				</div>
 			
 			</li>
+			<li class="drop">
+				<a href="#">同步相關</a>
+				
+				<div class="dropdownContain">
+					<div class="dropOut">
+						
+						<ul>
+						<li onclick='window.location.href="/Sync_OriginAndBackupOnlineOffline/"''>同步本月上班</li>
+						<li onclick='window.location.href="/Sync_OriginAndBackupWorkSchedule/"''>同步本月排班</li>
+						<li onclick='window.location.href="/Sync_CheckHaveWorkButNoSchedule/"''>同步本月有上班無排班</li>
+						<li onclick='window.location.href="/Sync_CheckHaveScheduleButNoWork/"''>同步本月有排班無上班</li>
+						<li onclick='window.location.href="/Sync_AddLateWorkTimeCalculate_result/"''>同步本月加班遲到</li>
+<!-- 						<li onclick='window.location.href="/Sync_CalculateMonthSalary_MonthCalculate/"''>同步本月薪水</li> -->
+						</ul>
+					</div>
+				</div>
+			</li>
+			<li class="drop">
+				<a href="#">備份資料</a>
+				<div class="dropdownContain">
+					<div class="dropOut">
+						<ul>
+						<li onclick='window.location.href="/Backup_CheckOriginDataByDay/"''>上班備份資料</li>
+						<li onclick='window.location.href="/CheckBackupScheduleData/"''>排班備份資料</li>
+						</ul>
+					</div>
+				</div>
+			</li>
+			<li class="drop">
+				<a href="#">財務資訊</a>
+				<div class="dropdownContain">
+					<div class="dropOut">
+					</div>
+				</div>
+			</li>
 		</ul>
 </div>
 </div>
+
 <div class="form-style-8">
   <h2>添加庫存標籤</h2>
   <form action="/AddProductPartialTagInStock/" method="POST" onSubmit="return check()">
