@@ -532,7 +532,12 @@ app.post('/Backup_PrintMonthSalary_CheckMonthSalary/',function(req,res){
 // 新增 時間、名稱、條碼、分類、狀態
 // 確認條碼產生的方法
 app.get('/QRcodeStockIn/',function(req,res){
-    HandleStockInOut.CheckStockInOut(req.query.thing,'食鍋藝');
+    res.render('StockInCheck.ejs',{passvariable:req.query.thing});
+});
+
+app.get('/StockInCheck/',function(req,res){
+    console.log('thing = ',req.query.checkthing);
+    HandleStockInOut.CheckStockInOut(req.query.checkthing,'食鍋藝');
     res.redirect('/');
 });
 
@@ -714,14 +719,6 @@ app.get('/ShowAndModifyUserTokenData_UserTokenData/',function(req,res){
         console.error('The promise was rejected', err, err.stack);
   }); 
 });
-//  ==================== 員工專區 End
-app.post('/MakeSureForLoop/',function(req,res){
-  console.log(' value =',req.body.checkName);
-  dbtoken.collection('memberbrandinformation').find().toArray(function(err, results) {
-      res.render('ForLoopCheck.ejs',{passvariable:results});
-  });
-});
-
           
 https.createServer(options, app).listen(9081, function () {
     console.log('Https server listening on port ' + 9081);

@@ -45,6 +45,7 @@ sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/views/AddProd
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/views/CheckProductInStock.ejs ./views/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/views/CheckProductPartialTag.ejs ./views/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/views/html.ejs ./views/.
+sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/views/StockInCheck.ejs ./views/.
 
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/CertificateFile/cacertificat.pem ./CertificateFile/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/CertificateFile/certificate.pem ./CertificateFile/.
