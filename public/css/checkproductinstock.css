@@ -210,19 +210,6 @@ ul li:hover .dropOut { opacity: 1; margin-top: 8px; }
 }
 
 .table ul li span:first-child{
-    width:35px;
-    text-align:center;
-    vertical-align: middle; 
-    font: 14px Verdana, 'Lucida Grande';
-    color: #000;
-    padding-right: 5px;
-    line-height: 12px;
-}
-.table ul li span:nth-child(2),
-.table ul li span:nth-child(4),
-.table ul li span:nth-child(5),
-.table ul li span:nth-child(11),
-.table ul li span:nth-child(12){
     width:100px;
     text-align:center;
     vertical-align: middle; 
@@ -233,7 +220,7 @@ ul li:hover .dropOut { opacity: 1; margin-top: 8px; }
 }
 
 .table ul li span{
-    width:60px;
+    width:100px;
     text-align:center;
     vertical-align: middle; 
     font: 14px Verdana, 'Lucida Grande';
@@ -257,20 +244,6 @@ ul li:hover .dropOut { opacity: 1; margin-top: 8px; }
 }
 
 .table_second ul li span:first-child{
-    width:35px;
-    text-align:center;
-    vertical-align: middle; 
-    font: 12px Verdana, 'Lucida Grande';
-    color: #777;
-    padding-right: 5px;
-    line-height: 24px;
-}
-
-.table_second ul li span:nth-child(2),
-.table_second ul li span:nth-child(4),
-.table_second ul li span:nth-child(5),
-.table_second ul li span:nth-child(11),
-.table_second ul li span:nth-child(12){
     width:100px;
     text-align:center;
     vertical-align: middle; 
@@ -281,7 +254,7 @@ ul li:hover .dropOut { opacity: 1; margin-top: 8px; }
 }
 
 .table_second ul li span{
-    width:60px;
+    width:100px;
     text-align:center;
     vertical-align: middle; 
     font: 12px Verdana, 'Lucida Grande';
@@ -315,5 +288,21 @@ ul li:hover .dropOut { opacity: 1; margin-top: 8px; }
     border-radius: 1px;
 }
 /*END -> ShowAndModifyMemberBrandData.ejs*/
+.date{
+    margin-top:20px;
+    margin-left:40px;
+}
 
+.date select{
+    width:100px;
+    text-align:center;
+    background:#FFF;border:1 none; 
+}
+
+.date button{
+    width:100px;
+    background:#000;border:1 none;
+    color:white;
+    text-align:center;
+}
 /*menu style*/

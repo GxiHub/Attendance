@@ -38,6 +38,7 @@ PrintAddLateStatus = require('./AddLateStatus/PrintAddLateStatus');
 
 SyncOnlineOfflineData = require('./UpdateOriginalData/SyncOnlineOfflineData');
 SyncWorkScheduleData = require('./UpdateOriginalData/SyncWorkScheduleData');
+SyncCombineMonthSchedule = require('.//UpdateOriginalData/SyncCombineMonthSchedule.js');
 
 ModifyMemberBrandData = require('./ModifyPersonalData/ModifyMemberBrandData');
 
@@ -540,9 +541,9 @@ app.get('/StockInCheck/',function(req,res){
     HandleStockInOut.CheckStockInOut(req.query.checkthing,'食鍋藝');
     res.redirect('/');
 });
-
+// qwerty
 app.get('/CheckProductInStock/',function(req,res){
-    HandleStockInOut.GetProductListInStock().then(function(items) 
+    HandleStockInOut.GetProductListInStock(req.query.checkPeriodYear,req.query.checkPeriodMonth,req.query.checkPeriodDay,req.query.checkType).then(function(items) 
     {
           res.render('CheckProductInStock.ejs',{passvariable:items});
     }, function(err) {
@@ -660,7 +661,8 @@ app.get('/Backup_CheckOriginDataByDay/',function(req,res){
 
 // [同步] [排班資訊] [SyncWorkScheduleData]  
 app.get('/Sync_OriginAndBackupWorkSchedule/',function(req,res){
-    SyncWorkScheduleData.WorkSchedulStatus();
+    var BrandButton = '食鍋藝';//需要知道店名稱來識別需要計算哪間店的資料
+    SyncWorkScheduleData.WorkSchedulStatus(BrandButton);
     res.redirect('/');
 });
 
@@ -675,6 +677,21 @@ app.post('/CheckOriginScheduleData/',function(req,res){
 app.get('/CheckBackupScheduleData/',function(req,res){
     dbtest.collection('synworkscheduledata').find({'workyear':req.query.checkPeriodYear,'workmonth':req.query.checkPeriodMonth}).sort({'workyear':1,'workmonth':1,"workday":1,"name": 1}).toArray(function(err, data) {
       res.render('Backup_PlanWorkSchedule_CheckWorkScheduleByList.ejs',{passvariable:data});
+    });
+});
+
+// [同步] [排班資訊] [Sync_CombineMonthSchedule]  
+app.get('/Sync_CombineMonthSchedule/',function(req,res){
+    var BrandButton = '食鍋藝';//需要知道店名稱來識別需要計算哪間店的資料
+    SyncCombineMonthSchedule.MonthWorkSchedule(BrandButton);
+    res.redirect('/');
+});
+
+
+// [同步] [排班資訊] [Sync_CombineMonthSchedule]  
+app.get('/Sync_ShowCombineMonthSchedule/',function(req,res){
+    dbtest.collection('synccombinemonthworkschedule').find({'workyear':'2017','workmonth':'10','userbrandname':'食鍋藝'}).sort({'workyear':1,'workmonth':1,"name": 1,"workday":1}).toArray(function(err, backup) {
+        res.render('Backup_PlanWorkSchedule_CheckWorkScheduleByList.ejs',{passvariable:backup});
     });
 });
 

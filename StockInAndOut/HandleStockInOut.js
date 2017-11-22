@@ -141,18 +141,56 @@ function CheckProductIsInStockOrNot(_ProductTag)
     });	
 }
 
-exports.GetProductListInStock = function(StockTag,BrandName)
+exports.GetProductListInStock = function(_Year,_Month,_Day,_Type)
 { 
+    var date = _Year+'/'+_Month+'/'+_Day;
     return new Promise(function(resolve, reject) 
     {
-      dbtest.collection('thinginstock').find().sort({"class": 1,"subclass": 1,"tag": 1,"productnumber": 1}).toArray(function(err, results) {       
-         if (err) { 
-              reject(err);
-         } else {
-              resolve(results);
-         }
+      if(_Type =='全部')
+      {
+        dbtest.collection('thinginstock').find().sort({"class": 1,"subclass": 1,"tag": 1,"productnumber": 1}).toArray(function(err, results) {       
+           if (err) { 
+                reject(err);
+           } else {
+                resolve(results);
+           }
 
-      });
+        });
+      }
+      else if(_Type =='入庫')
+      {
+        dbtest.collection('thinginstock').find({status:'入庫'}).sort({"class": 1,"subclass": 1,"tag": 1,"productnumber": 1}).toArray(function(err, results) {       
+           if (err) { 
+                reject(err);
+           } else {
+                resolve(results);
+           }
+
+        });
+      }
+      else if(_Type =='出庫')
+      {
+        dbtest.collection('thinginstock').find({status:'出庫'}).sort({"class": 1,"subclass": 1,"tag": 1,"productnumber": 1}).toArray(function(err, results) {       
+           if (err) { 
+                reject(err);
+           } else {
+                resolve(results);
+           }
+
+        });
+      }
+      else
+      {
+         dbtest.collection('thinginstock').find({ $or:[{instockdate:date},{outstockdate:date}]}).sort({"class": 1,"subclass": 1,"tag": 1,"productnumber": 1}).toArray(function(err, results) {       
+           if (err) { 
+                reject(err);
+           } else {
+                resolve(results);
+           }
+
+        });       
+      }
+
     });	
 }
 
