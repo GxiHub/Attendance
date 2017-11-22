@@ -38,7 +38,7 @@ PrintAddLateStatus = require('./AddLateStatus/PrintAddLateStatus');
 
 SyncOnlineOfflineData = require('./UpdateOriginalData/SyncOnlineOfflineData');
 SyncWorkScheduleData = require('./UpdateOriginalData/SyncWorkScheduleData');
-SyncCombineMonthSchedule = require('.//UpdateOriginalData/SyncCombineMonthSchedule.js');
+SyncCombineMonthSchedule = require('./UpdateOriginalData/SyncCombineMonthSchedule.js');
 
 ModifyMemberBrandData = require('./ModifyPersonalData/ModifyMemberBrandData');
 
