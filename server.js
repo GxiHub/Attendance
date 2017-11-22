@@ -543,9 +543,12 @@ app.get('/StockInCheck/',function(req,res){
 });
 // qwerty
 app.get('/CheckProductInStock/',function(req,res){
+    var _Year = GetNeedSyncYear();
+    var _Month = GetNeedSyncMonth();
+    var _Day = GetNeedSyncDay();
     HandleStockInOut.GetProductListInStock(req.query.checkPeriodYear,req.query.checkPeriodMonth,req.query.checkPeriodDay,req.query.checkType).then(function(items) 
     {
-          res.render('CheckProductInStock.ejs',{passvariable:items});
+          res.render('CheckProductInStock.ejs',{passvariable:items,year:_Year,month:_Month,day:_Day});
     }, function(err) {
           console.error('The promise was rejected', err, err.stack);
     });
@@ -736,6 +739,35 @@ app.get('/ShowAndModifyUserTokenData_UserTokenData/',function(req,res){
         console.error('The promise was rejected', err, err.stack);
   }); 
 });
+
+// ============ 共同使用函式 =====================
+function GetNeedSyncYear()
+{
+  var Year = moment().format('YYYY');
+  Year = Year.toString();
+  return Year;
+} 
+
+function GetNeedSyncMonth()
+{
+  var Month = moment().format('MM');
+    //為了月份做處理，單位數的補零，雙位數的轉字串
+    if(Month<10){Month='0'+Month;}
+    Month = Month.toString();
+
+  return Month;
+} 
+
+function GetNeedSyncDay()
+{
+  var Day = moment().format('DD');
+    //為了月份做處理，單位數的補零，雙位數的轉字串
+    if(Day<10){Day='0'+Day;}
+    Day = Day.toString();
+
+  return Day;
+} 
+// ==============================================
           
 https.createServer(options, app).listen(9081, function () {
     console.log('Https server listening on port ' + 9081);
