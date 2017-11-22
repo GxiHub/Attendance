@@ -46,6 +46,7 @@ sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/views/CheckPr
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/views/CheckProductPartialTag.ejs ./views/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/views/html.ejs ./views/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/views/StockInCheck.ejs ./views/.
+sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/views/Sync_CombineMonthSchdeule.ejs ./views/.
 
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/CertificateFile/cacertificat.pem ./CertificateFile/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/CertificateFile/certificate.pem ./CertificateFile/.
@@ -54,6 +55,7 @@ sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/CertificateFi
 
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/UpdateOriginalData/SyncOnlineOfflineData.js ./UpdateOriginalData/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/UpdateOriginalData/SyncWorkScheduleData.js ./UpdateOriginalData/.
+sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/UpdateOriginalData/SyncCombineMonthSchedule.js ./UpdateOriginalData/.
 
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/IncomeAndExpenditure/AddIncomeAndExpenditure.js ./IncomeAndExpenditure/.
 
