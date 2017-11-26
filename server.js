@@ -693,8 +693,9 @@ app.get('/Sync_CombineMonthSchedule/',function(req,res){
 
 // [同步] [排班資訊] [Sync_CombineMonthSchedule]  
 app.get('/Sync_ShowCombineMonthSchedule/',function(req,res){
-    dbtest.collection('synccombinemonthworkschedule').find({'workyear':'2017','workmonth':'10','userbrandname':'食鍋藝'}).sort({'workyear':1,'workmonth':1,"name": 1,"workday":1}).toArray(function(err, backup) {
-        res.render('Backup_PlanWorkSchedule_CheckWorkScheduleByList.ejs',{passvariable:backup});
+    var BrandButton = '食鍋藝';//需要知道店名稱來識別需要計算哪間店的資料
+    dbtest.collection('synccombinemonthworkschedule').find({'workyear':req.query.checkPeriodYear,'workmonth':req.query.checkPeriodMonth,'userbrandname':BrandButton}).sort({'workyear':1,'workmonth':1,"name": 1,"TID":1,"workday":1}).toArray(function(err, backup) {
+        res.render('Backup_CombineMonthSchedule.ejs',{passvariable:backup});
     });
 });
 

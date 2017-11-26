@@ -47,6 +47,7 @@ sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/views/CheckPr
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/views/html.ejs ./views/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/views/StockInCheck.ejs ./views/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/views/Sync_CombineMonthSchdeule.ejs ./views/.
+sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/views/Backup_CombineMonthSchedule.ejs ./views/.
 
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/CertificateFile/cacertificat.pem ./CertificateFile/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/CertificateFile/certificate.pem ./CertificateFile/.
@@ -77,3 +78,4 @@ sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/ba
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/backupplanworkschedulecheckworkschedulebylist.css ./public/css/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/showhaveshcedulebutnowork.css ./public/css/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/showhaveworkbutnoschedule.css ./public/css/.
+sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/backupcombinemonthschedule.css ./public/css/.
