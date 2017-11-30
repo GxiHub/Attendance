@@ -209,6 +209,43 @@ exports.GetProductPartialTag = function()
     });	
 }
 
+exports.GetProductPartialTagEachNumber = function()
+{ 
+    return new Promise(function(resolve, reject) 
+    {
+      dbtest.collection('productpartialtag').find().toArray(function(err, partilag) {  
+        dbtest.collection('thinginstock').find().toArray(function(err, instock) {       
+          var ret = {product:[]};
+
+          for( var i = 0; i<partilag.length; i++ )
+          {
+            // console.log('product name =',partilag[i].product); 
+            var ProductNumber = 0;
+            for( var j = 0; j<instock.length; j++ )
+            {
+                if(partilag[i].product == instock[j].product)
+                {
+                    if(instock[j].status == '入庫')
+                    {
+                        ProductNumber++;
+                    }
+                }
+            } 
+            ret.product.push({ name: partilag[i].product, number: ProductNumber });
+          } 
+              
+          // console.log('Ret = ',ret);
+          if (err) { 
+                  reject(err);
+          } else {
+                  resolve(ret);
+          }
+
+        });
+      });
+    }); 
+}
+
 // 新增當地時區的時間物件
 function DateTimezone(offset) {
     // 建立現在時間的物件

@@ -33,6 +33,7 @@ sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/ch
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/checkeverymonthworkstatus.css ./public/css/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/checkproductinstock.css ./public/css/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/checkproductpartialtag.css ./public/css/.
+sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/checkstockineachproductnumber.css ./public/css/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/planworkschedulecheckemployeeworkschedulebylist.css ./public/css/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/showandmodifyusertokendata.css ./public/css/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/usecheckboxbyaddemployeeworkschedule.css ./public/css/.
@@ -75,6 +76,7 @@ sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/views/CheckEv
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/views/CheckEveryMonthWorkStatus.ejs ./views/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/views/CheckProductInStock.ejs ./views/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/views/CheckProductPartialTag.ejs ./views/.
+sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/views/CheckStockInEachProductNumber.ejs ./views/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/views/html.ejs ./views/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/views/index.ejs ./views/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/views/Origin_CheckEveryMonthWorkStatus.ejs ./views/.

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CheckProductInStock</title>
+ <link href="/css/checkstockineachproductnumber.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<header>
+     <% include ./html.ejs %>
+</header>
+	<div class='PreProduct'>
+	<ul>
+		<li>
+	      	<span> 產品名稱 </span>
+	      	<span> 產品數量 </span> 
+		</li>
+	</ul>
+	</div>   
+	<div class='PostProduct'>
+	<% for(var i=0; i<passvariable.product.length; i++) {%>
+	<ul>
+		<li>
+		  	<span><%= passvariable.product[i].name%></span>
+		  	<span><%= passvariable.product[i].number%></span>
+		</li>
+	</ul>
+	<% } %>
+	</div>	
+</body>
+</html>

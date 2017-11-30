@@ -412,7 +412,9 @@ app.post('/Plan_Work_Schedule_AddEmployeeWorkSchedule/',function(req,res){
 
 // [顯示] [排班]
 app.get('/Plan_Work_Schedule_MultipleDirectPageToAddEmployeeWorkSchedule/',function(req,res){
-    res.render('UseCheckBoxByAddEmployeeWorkSchedule.ejs');
+    dbtoken.collection('memberbrandinformation').find().toArray(function(err, results) {
+          res.render('UseCheckBoxByAddEmployeeWorkSchedule.ejs',{member:results});
+    }); 
 });
 
 // [新增] [排班] [多筆] [PlanWorkSchedule]
@@ -542,7 +544,7 @@ app.get('/StockInCheck/',function(req,res){
     HandleStockInOut.CheckStockInOut(req.query.checkthing,'食鍋藝');
     res.redirect('/');
 });
-// qwerty
+
 app.get('/CheckProductInStock/',function(req,res){
     var _Year = GetNeedSyncYear();
     var _Month = GetNeedSyncMonth();
@@ -572,6 +574,17 @@ app.get('/CheckProductPartialTag/',function(req,res){
     HandleStockInOut.GetProductPartialTag().then(function(items) 
     {
           res.render('CheckProductPartialTag.ejs',{passvariable:items});
+    }, function(err) {
+          console.error('The promise was rejected', err, err.stack);
+    });
+});
+
+app.get('/CheckProductPartialTagEachNumber/',function(req,res){
+    HandleStockInOut.GetProductPartialTagEachNumber().then(function(items) 
+    {
+          console.log('計算每個品項數量');
+          console.log('length = ',items.product.length);
+          res.render('CheckStockInEachProductNumber.ejs',{passvariable:items});
     }, function(err) {
           console.error('The promise was rejected', err, err.stack);
     });
