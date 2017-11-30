@@ -64,6 +64,7 @@ sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/views/AddNewP
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/views/AddProductPartialTag.ejs ./views/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/views/AdjustOnlineStatus.ejs ./views/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/views/AdjustWorkSchedule.ejs ./views/.
+sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/views/Backup_AfterSyncMonthSalary.ejs ./views/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/views/Backup_CheckEveryMonthWorkStatus.ejs ./views/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/views/Backup_CombineMonthSchedule.ejs ./views/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/views/Backup_MonthSalary.ejs ./views/.
