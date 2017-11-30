@@ -30,11 +30,9 @@ exports.MonthWorkSchedule = function(_BrandButton)
 
   	// AddMonthAllDaySchedule(_Year,_Month,_BrandButton);
 
-  	// FullfillMonthWorkSchedule(_Year,_Month,_BrandButton);
-    // CheckAllOnlineAndOffline(_Year,_Month,_BrandButton);
+  	FullfillMonthWorkSchedule(_Year,_Month,_BrandButton);
+    CheckAllOnlineAndOffline(_Year,_Month,_BrandButton);
   	CheckAllPersonAddAndLate(_Year,_Month,_BrandButton);
-
-
 }
 
 function GetNeedSyncYear()
@@ -91,36 +89,47 @@ function FullfillMonthWorkSchedule(_Year,_Month,_BrandButton)
        // console.log(' origin = ', origin);	
          	dbtest.collection('synccombinemonthworkschedule').find({'workyear':_Year,'workmonth':_Month,'userbrandname':_BrandButton}).toArray(function(err, backup) {
        			// console.log(' backup = ', backup);	
-       				for( var j = 0; j<backup.length; j++ )
-       				{
+       			for( var j = 0; j<backup.length; j++ )
+       			{
+                if(backup[j].name == '林雨涵')
+                {
+                  console.log(backup[j].workyear,'/',backup[j].workmonth,'/',backup[j].workday,' [', backup[j].name,']');
+                }
+                
        					var NeedToChange = 'wait2confirm';
        					for( var i = 0; i<origin.length; i++ )
 		       			{
-							if((origin[i].uniID == backup[j].uniID) && (origin[i].name == backup[j].name) && (origin[i].workyear == backup[j].workyear) && (origin[i].workmonth == backup[j].workmonth) && (origin[i].workday == backup[j].workday) )
-							{
-								//#檢查 #其中有一項有變化就要 update
-								if(origin[i].onlinehour != backup[j].onlinehour){NeedToChange = 'update';}
-								if(origin[i].onlineminute != backup[j].onlineminute){NeedToChange = 'update';}
-								if(origin[i].offlinehour != backup[j].offlinehour){NeedToChange = 'update';}
-								if(origin[i].offlineminute != backup[j].offlineminute){NeedToChange = 'update';}
-								if(origin[i].shcedulestatus != backup[j].shcedulestatus){NeedToChange = 'update';}
+							     if((origin[i].uniID == backup[j].uniID) && (origin[i].name == backup[j].name) && (origin[i].workyear == backup[j].workyear) && (origin[i].workmonth == backup[j].workmonth) && (origin[i].workday == backup[j].workday) )
+							     {
+                      if(backup[j].name == '林雨涵')
+                      {
+                        console.log(origin[i].workyear,'/',origin[i].workmonth,'/',origin[i].workday,' [', origin[i].TID,']');
+                        console.log(origin[i].onlinehour,':',origin[i].onlineminute,'-',origin[i].offlinehour,':', origin[i].offlineminute);
+                        console.log(backup[j].onlinehour,':',backup[j].onlineminute,'-',backup[j].offlinehour,':', backup[j].offlineminute);
+                      }
+
+								      //#檢查 #其中有一項有變化就要 update
+								      if(origin[i].onlinehour != backup[j].onlinehour){NeedToChange = 'update';}
+								      if(origin[i].onlineminute != backup[j].onlineminute){NeedToChange = 'update';}
+								      if(origin[i].offlinehour != backup[j].offlinehour){NeedToChange = 'update';}
+								      if(origin[i].offlineminute != backup[j].offlineminute){NeedToChange = 'update';}
+								      if(origin[i].shcedulestatus != backup[j].shcedulestatus){NeedToChange = 'update';}
 								
-								if( NeedToChange == 'update' ){
-									UpdateDayScheduleStatusAndOnlineOfflineTime(backup[j].TID,backup[j].name,backup[j].workday,origin[i].onlinehour,origin[i].onlineminute,origin[i].offlinehour,origin[i].offlineminute,'正常上班');		
-								}else{
-									NeedToChange == 'donntchange';
-								}					
-							}
+								      if( NeedToChange == 'update' ){
+								      	 UpdateDayScheduleStatusAndOnlineOfflineTime(backup[j].TID,backup[j].name,backup[j].workday,origin[i].onlinehour,origin[i].onlineminute,origin[i].offlinehour,origin[i].offlineminute,'正常上班');		
+								      }else{
+									       NeedToChange == 'donntchange';
+								      }					
+							     }
        					}
-						if( NeedToChange == 'wait2confirm')
-						{
-							UpdateDayScheduleStatusAndOnlineOfflineTime(backup[j].TID,backup[j].name,backup[j].workday,'08','00','22','00','排休');
-						}
-						// console.log(' NeedToChange = ',NeedToChange);	
-						// console.log(' origin[',i,'].TID = ',origin[i].TID);
-						// console.log('');
-       				}
-       
+                if( NeedToChange == 'wait2confirm')
+  				  		{
+  					   		UpdateDayScheduleStatusAndOnlineOfflineTime(backup[j].TID,backup[j].name,backup[j].workday,'08','00','22','00','排休');
+  						  }
+  						  // console.log(' NeedToChange = ',NeedToChange);	
+  						  // console.log(' origin[',i,'].TID = ',origin[i].TID);
+  						  // console.log('');
+       			}
        			if(err)return console.log(err);
   			});
        if(err)return console.log(err);
@@ -302,7 +311,8 @@ function LateconditionCalculate(_TID,_Name,_Workday,_BrandButton,_Userbrandtitle
 
     if(ScheduleTime >= RealTime)
     {
-      console.log(' ScheduleTime = ',ScheduleTime,' RealTime = ',RealTime, ' == > 正常上班');
+      console.log(' ScheduleTime = ',ScheduleTime,' RealTime = ',RealTime, ' == > 正常');
+      UpdateLateNormalCondition(_TID,_Name,_Workday);
     }
     else
     {
@@ -319,6 +329,20 @@ function UpdateLateCondition(_UniqueID,_Name,_Workday,_Condition,_ConditionTime)
     {
       onlinecondition: _Condition,
       onlineconditiontime:_ConditionTime
+    }
+  },{
+      upsert: true
+  },(err, result) => {
+    if (err) return res.send(err)
+  }); 
+}
+
+function UpdateLateNormalCondition(_UniqueID,_Name,_Workday)
+{
+  dbtest.collection('synccombinemonthworkschedule').findOneAndUpdate({TID:parseInt(_UniqueID,10),name:_Name,workday:_Workday},{
+    $set: 
+    {
+      onlinecondition: '正常',
     }
   },{
       upsert: true
@@ -351,6 +375,11 @@ function AddconditionCalculate(_TID,_Name,_Workday,_BrandButton,_Userbrandtitle,
       console.log(' ScheduleTime = ',ScheduleTime,' RealTime = ',RealTime, ' == > 加班: ',RealTime-ScheduleTime );     
       UpdateAddCondition(_TID,_Name,_Workday,'加班',RealTime-ScheduleTime); 
     }
+    else
+    {
+      console.log(' ScheduleTime = ',ScheduleTime,' RealTime = ',RealTime, ' == > 正常: ',RealTime-ScheduleTime );     
+      UpdateAddNormalCondition(_TID,_Name,_Workday);
+    }
 }
 
 function UpdateAddCondition(_UniqueID,_Name,_Workday,_Condition,_ConditionTime)
@@ -361,6 +390,20 @@ function UpdateAddCondition(_UniqueID,_Name,_Workday,_Condition,_ConditionTime)
     {
       offlinecondition: _Condition,
       offlineconditiontime:_ConditionTime
+    }
+  },{
+      upsert: true
+  },(err, result) => {
+    if (err) return res.send(err)
+  }); 
+}
+
+function UpdateAddNormalCondition(_UniqueID,_Name,_Workday)
+{
+  dbtest.collection('synccombinemonthworkschedule').findOneAndUpdate({TID:parseInt(_UniqueID,10),name:_Name,workday:_Workday},{
+    $set: 
+    {
+      offlinecondition: '正常',
     }
   },{
       upsert: true

@@ -39,6 +39,7 @@ PrintAddLateStatus = require('./AddLateStatus/PrintAddLateStatus');
 SyncOnlineOfflineData = require('./UpdateOriginalData/SyncOnlineOfflineData');
 SyncWorkScheduleData = require('./UpdateOriginalData/SyncWorkScheduleData');
 SyncCombineMonthSchedule = require('./UpdateOriginalData/SyncCombineMonthSchedule.js');
+SyncMonthSalary = require('./UpdateOriginalData/SyncMonthSalary.js');
 
 ModifyMemberBrandData = require('./ModifyPersonalData/ModifyMemberBrandData');
 
@@ -519,8 +520,8 @@ app.get('/PrintMonthSalary_CheckBackupAddLateStatus/',function(req,res){
 });
 
 // [查詢] [備份]  [月份薪水] [PrintMonthSalary] 
-app.post('/Backup_PrintMonthSalary_CheckMonthSalary/',function(req,res){
-  PrintMonthSalary.backupprintMonthSalaryStatus(req.body.checkName,req.body.checkPeriodYear,req.body.checkPeriodMonth).then(function(items)
+app.get('/Backup_PrintMonthSalary_CheckMonthSalary/',function(req,res){
+  PrintMonthSalary.backupprintMonthSalaryStatus(req.query.checkName,req.query.checkPeriodYear,req.query.checkPeriodMonth).then(function(items)
   {
         res.render('Backup_MonthSalary.ejs',{passvariable:items});
   }, function(err) {
@@ -597,6 +598,7 @@ app.post('/AddIncomeAndExpenditureData/',function(req,res){
 // ===================== 新增收入支出 End
 
 //  ==================== 同步專區 Start
+
 
 // [計算] [月份薪水] [CalculateMonthSalary] 
 app.get('/Sync_CalculateMonthSalary_MonthCalculate/',function(req,res){
@@ -699,6 +701,23 @@ app.get('/Sync_ShowCombineMonthSchedule/',function(req,res){
     });
 });
 
+// [同步] [單月薪水] [Sync_CombineMonthSalary]  
+app.get('/Sync_CombineMonthSalary/',function(req,res){
+    var BrandButton = '食鍋藝';//需要知道店名稱來識別需要計算哪間店的資料
+    SyncMonthSalary.MonthSalaryCalculate(BrandButton);
+    res.redirect('/');
+});
+
+// [顯示] [單月薪水] [Sync_CombineMonthSalary] 
+app.get('/Sync_ShowMonthSalary/',function(req,res){
+    var BrandButton = '食鍋藝';//需要知道店名稱來識別需要計算哪間店的資料
+    dbtest.collection('syncmonthsalary').find({'year':req.query.checkPeriodYear,'month':req.query.checkPeriodMonth,'userbrandname':BrandButton}).sort({'year':1,'month':1}).toArray(function(err, backup) {
+        dbtoken.collection('memberbrandinformation').find().toArray(function(err, results) {
+           res.render('Backup_AfterSyncMonthSalary.ejs',{passvariable:backup,member:results});
+        });
+    });
+});
+
 //  ==================== 同步專區 End
 
 //  ==================== 員工專區 Start
@@ -777,3 +796,7 @@ https.createServer(options, app).listen(9081, function () {
 app.listen(9080, function(){
     console.log('listening on 9080');
 });
+
+// <!-- <header>
+//     <% include ./html.ejs %>
+// </header> -->

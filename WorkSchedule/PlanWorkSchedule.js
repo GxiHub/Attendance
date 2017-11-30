@@ -157,12 +157,12 @@ exports.AdjustWorkSchedule = function()
   var _Month = moment().format('MM');
   return new Promise(function(resolve, reject) 
   {
-	  dbwork.collection('employeeworkschedule').find({'workyear':_Year,'workmonth':_Month}).sort({"name": 1,"workyear": 1,"workmonth": 1,"workday": 1}).toArray(function(err, results) {
-		  if (err){ 
-		            reject(err);
-		  } else {
-		            resolve(results);
-		  }
+	    dbwork.collection('employeeworkschedule').find({'workyear':_Year,'workmonth':_Month}).sort({"name": 1,"workyear": 1,"workmonth": 1,"workday": 1}).toArray(function(err, results) {
+  		  if (err){ 
+  		            reject(err);
+  		  } else {
+  		            resolve(results);
+  		  }
       });
   });
 }
