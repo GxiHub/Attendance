@@ -188,6 +188,7 @@ app.get('/V1/API/GetManageNews/',function(req,res){
 //   });
 // });
 
+
 //透過UID比對資料庫，若正確則返回一組 token
 app.get('/V1/API/GetMemberBrandInformation/',function(req,res){
   dbtoken.collection('memberbrandinformation').find({'uniID':req.headers['uniid']},{_id:0,userfirstarrival:0,userlawsalary:0,userextrasalary:0,usertitlesalary:0,userwithoutsalary:0,userfoodsalary:0,usermonthsalary:0}).toArray(function(err, results) {
@@ -428,6 +429,7 @@ app.get('/V1/API/GetSingleDayWorkScheduleDetail/',function(req,res){
     });  
 });
 
+
 // 如果需要透過網頁設定的話可以使用 req.body，如果要透過 postman 就要使用 req.query
 app.post('/AddUserTokenRelatedInformationBridge/',function(req,res){
     // var deviceID = req.body.deviceid;var UserToken = req.body.usertoken;var namePass = req.body.username;var statusPass = req.body.status;
@@ -474,6 +476,73 @@ app.get('/AddManageNews/',function(req,res){
     });  
     res.redirect('/');
 });
+
+
+// =============== 庫存系統相關 ===========================================
+
+// =============== 確認每個庫存數量
+app.get('/CheckProductPartialTagEachNumber/',function(req,res){
+    HandleStockInOut.GetProductPartialTagEachNumber().then(function(items) 
+    {
+          // console.log('計算每個品項數量');
+          // console.log('length = ',items.product.length);
+          res.render('CheckStockInEachProductNumber.ejs',{passvariable:items});
+    }, function(err) {
+          console.error('The promise was rejected', err, err.stack);
+    });
+});
+// =============== 確認現有庫存
+app.get('/CheckProductInStock/',function(req,res){
+    var _Year = GetNeedSyncYear();
+    var _Month = GetNeedSyncMonth();
+    var _Day = GetNeedSyncDay();
+    var _DaysNumber = MonthHaveHowManyDay(_Year,_Month);
+    HandleStockInOut.GetProductListInStock(req.query.checkPeriodYear,req.query.checkPeriodMonth,req.query.checkPeriodDay,req.query.checkType).then(function(items) 
+    {
+          res.render('CheckProductInStock.ejs',{passvariable:items,year:_Year,month:_Month,day:_Day,daysnumber:_DaysNumber});
+    }, function(err) {
+          console.error('The promise was rejected', err, err.stack);
+    });
+});
+
+// =============== 新增庫存標籤
+app.get('/AddProductPartialTag/',function(req,res){
+    res.render('AddProductPartialTag.ejs'); 
+});
+app.post('/AddProductPartialTagInStock/',function(req,res){
+    HandleStockInOut.SaveProductPartialTagToStock(req.body.brandname,req.body.productname,req.body.producttag,req.body.class,req.body.subclass,req.body.grade); 
+    res.redirect('/');
+});
+
+// =============== 確認產品標籤
+app.get('/CheckProductPartialTag/',function(req,res){
+    HandleStockInOut.GetProductPartialTag().then(function(items) 
+    {
+          res.render('CheckProductPartialTag.ejs',{passvariable:items});
+    }, function(err) {
+          console.error('The promise was rejected', err, err.stack);
+    });
+});
+
+// =============== 新增庫存產品
+app.get('/QRcodeStockIn/',function(req,res){
+    res.render('StockInCheck.ejs',{passvariable:req.query.thing});
+});
+
+app.get('/StockInCheck/',function(req,res){
+    console.log('thing = ',req.query.checkthing);
+    HandleStockInOut.CheckStockInOut(req.query.checkthing,'食鍋藝');
+    res.redirect('/');
+});
+
+app.post('/DeleteProductInStock/',function(req,res){
+    console.log(' productnumber = ',req.body.productnumber);
+    HandleStockInOut.DeleteProduct(req.body.productnumber);
+    res.redirect('/');
+});
+
+
+// ===============================================================
 
 // [顯示] [排班]
 app.get('/Plan_Work_Schedule_SingleDirectPageToAddEmployeeWorkSchedule/',function(req,res){
@@ -606,64 +675,9 @@ app.get('/Backup_PrintMonthSalary_CheckMonthSalary/',function(req,res){
   }); 
 });
 
-// 掃描標籤條碼，入庫後分解前三碼，去比對庫存名稱資料庫。可以取得名稱、分類、等級
-// 去庫存庫裡面撈是否存在此商品，沒有就新增，有的話就把狀態改成out。
-// 新增 時間、名稱、條碼、分類、狀態
-// 確認條碼產生的方法
-app.get('/QRcodeStockIn/',function(req,res){
-    res.render('StockInCheck.ejs',{passvariable:req.query.thing});
-});
 
-app.get('/StockInCheck/',function(req,res){
-    console.log('thing = ',req.query.checkthing);
-    HandleStockInOut.CheckStockInOut(req.query.checkthing,'食鍋藝');
-    res.redirect('/');
-});
 
-app.get('/CheckProductInStock/',function(req,res){
-    var _Year = GetNeedSyncYear();
-    var _Month = GetNeedSyncMonth();
-    var _Day = GetNeedSyncDay();
-    HandleStockInOut.GetProductListInStock(req.query.checkPeriodYear,req.query.checkPeriodMonth,req.query.checkPeriodDay,req.query.checkType).then(function(items) 
-    {
-          res.render('CheckProductInStock.ejs',{passvariable:items,year:_Year,month:_Month,day:_Day});
-    }, function(err) {
-          console.error('The promise was rejected', err, err.stack);
-    });
-});
-app.post('/DeleteProductInStock/',function(req,res){
-    console.log(' productnumber = ',req.body.productnumber);
-    HandleStockInOut.DeleteProduct(req.body.productnumber);
-    res.redirect('/');
-});
 
-app.get('/AddProductPartialTag/',function(req,res){
-    res.render('AddProductPartialTag.ejs'); 
-});
-app.post('/AddProductPartialTagInStock/',function(req,res){
-    HandleStockInOut.SaveProductPartialTagToStock(req.body.brandname,req.body.productname,req.body.producttag,req.body.class,req.body.subclass,req.body.grade); 
-    res.redirect('/');
-});
-
-app.get('/CheckProductPartialTag/',function(req,res){
-    HandleStockInOut.GetProductPartialTag().then(function(items) 
-    {
-          res.render('CheckProductPartialTag.ejs',{passvariable:items});
-    }, function(err) {
-          console.error('The promise was rejected', err, err.stack);
-    });
-});
-
-app.get('/CheckProductPartialTagEachNumber/',function(req,res){
-    HandleStockInOut.GetProductPartialTagEachNumber().then(function(items) 
-    {
-          console.log('計算每個品項數量');
-          console.log('length = ',items.product.length);
-          res.render('CheckStockInEachProductNumber.ejs',{passvariable:items});
-    }, function(err) {
-          console.error('The promise was rejected', err, err.stack);
-    });
-});
 // ===================== 新增收入支出 Start
 
 // [顯示] [營收支出]
@@ -917,9 +931,6 @@ function GetNeedSyncDay()
 {
   var Day = moment().format('DD');
     //為了月份做處理，單位數的補零，雙位數的轉字串
-    if(Day<10){Day='0'+Day;}
-    Day = Day.toString();
-
   return Day;
 } 
 // ==============================================

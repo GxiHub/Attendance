@@ -1,148 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>CheckProductInStock</title>
+  <title>確認庫存狀況</title>
   <meta charset="UTF-8">
   <link href="/css/checkproductinstock.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 
-<div class="navcont">
-<div class="nav">
-		<ul>
-			<li><a href="/">HOME</a></li>
-			<li class="drop">
-				<a href="#">庫存相關</a>
-				<div class="dropdownContain">
-					<div class="dropOut">
-						
-						<ul>
-						<li onclick='window.location.href="/CheckProductInStock/"''>確認現有庫存</li>
-						<li onclick='window.location.href="/AddProductPartialTag/"''>新增庫存標籤</li>
-						<li onclick='window.location.href="/CheckProductPartialTag/"''>確認產品標籤</li>
-						</ul>
-					</div>
-				</div>
-			
-			</li>
-            <li class="drop">
-            	<a href="#">員工資料</a>
-            	<div class="dropdownContain">
-					<div class="dropOut">
-						
-						<ul>
-						<li onclick='window.location.href="/ShowNewPersonalData_AddMemberData/"''>新增員工基本資料</li>
-						<li onclick='window.location.href="/ShowAndModifyMemberBrandData_ModifyBrandData/"''>顯示員工基本資料</li>
-						<li onclick='window.location.href="/ShowAndModifyUserTokenData_UserTokenData/"''>顯示員工打卡資料</li>
-						</ul>
-					</div>
-				</div>
-			
-			</li>
-			<li class="drop">
-				<a href="#">排班狀況</a>
-				
-				<div class="dropdownContain">
-					<div class="dropOut">
-						
-						<ul>
-						<li onclick='window.location.href="/Plan_Work_Schedule_MultipleDirectPageToAddEmployeeWorkSchedule/"''>新增員工多天排班</li>
-						<li onclick='window.location.href="/Plan_Work_Schedule_CheckEmployeeWorkScheduleByList/"''>顯示單月員工排班列表</li>
-						<li onclick='window.location.href="/Plan_Work_Schedule_AdjustWorkSchedule/"''>調整員工排班狀況</li>
-						<li onclick='window.location.href="/Show_CheckHaveScheduleButNoWork/"''>顯示有排班無上班</li>
-						</ul>
-					</div>
-				</div>
-			
-			</li>
-			<li class="drop">
-				<a href="#">上班狀況</a>
-				
-				<div class="dropdownContain">
-					<div class="dropOut">
-						
-						<ul>
-						<li onclick='window.location.href="/QR_codeSan_CheckEveryMonthWorkStatus/"''>顯示單月員工上班狀況</li>
-						<li onclick='window.location.href="/QR_codeSan_AdjustOnlineStatus/"''>調整員工上班時間</li>
-						<li onclick='window.location.href="/PrintMonthSalary_CheckBackupAddLateStatus/"''>顯示單月加班遲到狀況</li>
-						<li onclick='window.location.href="/Show_CheckHaveWorkButNoSchedule/"''>顯示有上班無排班</li>
-						</ul>
-					</div>
-				</div>
-			
-			</li>
-			<li class="drop">
-				<a href="#">同步相關</a>
-				
-				<div class="dropdownContain">
-					<div class="dropOut">
-						
-						<ul>
-						<li onclick='window.location.href="/Sync_OriginAndBackupOnlineOffline/"''>同步本月上班</li>
-						<li onclick='window.location.href="/Sync_OriginAndBackupWorkSchedule/"''>同步本月排班</li>
-						<li onclick='window.location.href="/Sync_CheckHaveWorkButNoSchedule/"''>同步本月有上班無排班</li>
-						<li onclick='window.location.href="/Sync_CheckHaveScheduleButNoWork/"''>同步本月有排班無上班</li>
-						<li onclick='window.location.href="/Sync_AddLateWorkTimeCalculate_result/"''>同步本月加班遲到</li>
-<!-- 						<li onclick='window.location.href="/Sync_CalculateMonthSalary_MonthCalculate/"''>同步本月薪水</li> -->
-						</ul>
-					</div>
-				</div>
-			</li>
-			<li class="drop">
-				<a href="#">備份資料</a>
-				<div class="dropdownContain">
-					<div class="dropOut">
-						<ul>
-						<li onclick='window.location.href="/Backup_CheckOriginDataByDay/"''>上班備份資料</li>
-						<li onclick='window.location.href="/CheckBackupScheduleData/"''>排班備份資料</li>
-						</ul>
-					</div>
-				</div>
-			</li>
-			<li class="drop">
-				<a href="#">財務資訊</a>
-				<div class="dropdownContain">
-					<div class="dropOut">
-					</div>
-				</div>
-			</li>
-		</ul>
-</div>
-</div>
-<div class="date">
+<header>
+     <% include ./html.ejs %>
+</header>
+
+<div class="CheckStock">
 	<form action="/CheckProductInStock/" method="GET">
 		<select name="checkPeriodYear" id="year">
 			<option selected value=<%= year %>><%= year %></option>
-			<option value="2017" name="checkPeriodYear">2017</option>
+			<%  for(var i=0; i<3; i++) {%>
+			<option value=<%= parseInt(year,10)+i %>><%= parseInt(year,10)+i %></option>
+			<% } %>
 		</select>
 		<select name="checkPeriodMonth" id="month">
 			<option selected value=<%= month %>><%= month %></option>
-			<option value="01">01</option><option  value="02">02</option>
-			<option value="03">03</option><option  value="04">04</option>
-			<option value="05">05</option><option  value="06">06</option>
-			<option value="07">07</option><option value="08">08</option>
-			<option value="09">09</option><option  value="10">10</option>
-			<option value="11">11</option><option  value="12">12</option>
+			<%  for(var i=1; i<13; i++) {%>
+			<%  if(i<10){ i = '0'+i; } %>
+			<option value=<%= i %>><%= i %></option>
+			<% } %>
 		</select>
 		<select name="checkPeriodDay">
 			<option selected value=<%= day %>><%= day %></option>
-			<option value="01">1</option><option  value="02">2</option>
-			<option value="03">3</option><option  value="04">4</option>
-			<option value="05">5</option><option  value="06">6</option>
-			<option value="07">7</option><option  value="08">8</option>
-			<option value="09">9</option><option  value="10">10</option>
-			<option value="11">11</option><option  value="12">12</option>
-			<option value="13">13</option><option  value="14">14</option>
-			<option value="15">15</option><option  value="16">16</option>
-			<option value="17">17</option><option  value="18">18</option>
-			<option value="19">19</option><option  value="20">20</option>
-			<option value="21">21</option><option  value="22">22</option>
-			<option value="23">23</option><option  value="24">24</option>
-			<option value="25">25</option><option  value="26">26</option>
-			<option value="27">27</option><option  value="28">28</option>
-			<option value="29">29</option><option  value="30">30</option>
-			<option value="31">31</option>
+			<%  for(var i=1; i<daysnumber+1; i++) {%>
+			<%  if(i<10){ i = '0'+i; } %>
+			<option value=<%= i %>><%= i %></option>
+			<% } %>
 		</select>
 		<select name="checkType" id="type">
 			<option selected value="單日" >單日</option>
@@ -153,7 +42,8 @@
 		<button type="submit">查詢</button>
 	</form>	 
 </div>
-	<div class='table'>
+
+<div class='PreStockIn'>
 	<ul>
 		<li>
 	      	<span> 刪除 </span>
@@ -172,8 +62,8 @@
 	  	  	<span> 出庫時間 </span> 	  	
 		</li>
 	</ul>
-	</div>   
-	<div class='table_second'>
+</div>   
+<div class='PostStockIn'>
 	<% for(var i=0; i<passvariable.length; i++) {%>
 	<ul>
 		<li>
@@ -201,6 +91,7 @@
 		</li>
 	</ul>
 	<% } %>
-	</div>	
+</div>	
+
 </body>
 </html>
