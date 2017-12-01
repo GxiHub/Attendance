@@ -284,12 +284,11 @@ app.get('/GetMonthlyEmployeeWorkSchedule/',function(req,res){
   var arraylength = 0;
   var month = req.headers['month'];
   var year = req.headers['year'];
-  console.error('month=',month);
+  console.error('year=',year,'/month=',month);
   console.error('year=',year);
 
-  if(month == 01 || month == 03 || month == 05 || month == 07 || month == 08 || month == 10 || month == 12){ arraylength = 31; }
-  else if(month == 02){ arraylength = 28; }
-  else { arraylength = 30; }
+  arraylength = MonthHaveHowManyDay(year,month);
+  console.log(' arraylength',arraylength);
 
     SettingPage.PromiseGetMonthSalaryOrHourSalary(req.headers['uniid']).then(function(items) 
     {
@@ -322,6 +321,60 @@ app.get('/GetMonthlyEmployeeWorkSchedule/',function(req,res){
           console.error('The promise was rejected', err, err.stack);
     });  
 });
+
+// 查詢員工單月上班情形
+app.get('/V1/API/GetMonthlyEmployeeWorkSchedule/',function(req,res){
+  var arraylength = 0;
+  var month = req.headers['month'];
+  var year = req.headers['year'];
+  var date = year+'/'+month;
+  console.error('year=',year,'/month=',month);
+  arraylength = MonthHaveHowManyDay(year,month);
+  console.log(' arraylength',arraylength);
+  var arr =[];
+        dbtest.collection('synccombinemonthworkschedule').find({'workyear':year,'workmonth':month,uniID:req.headers['uniid']}).toArray(function(err, results) {
+            for( var j = 1; j<arraylength+1; j++ ) {
+              var isschedule = false;var isleave = false;
+              var islate = false;var isearly = false;var isabsent = false;var isovertime = false;
+              for( var i = 0; i<results.length; i++ ) {
+                    if( j ==parseInt(results[i].workday,10))
+                    {
+                      if(results[i].shcedulestatus =='正常上班')
+                      {
+                          isschedule = true;
+                      }
+                      if(results[i].shcedulestatus =='排休')
+                      {
+                          isleave = true;
+                      }   
+                      if(results[i].realworkstatus =='曠職')
+                      {
+                          isabsent = true;
+                      }  
+                      if(results[i].onlinecondition =='遲到')
+                      {
+                          islate = true;
+                      }  
+                      if(results[i].offlinecondition =='加班')
+                      {
+                          isovertime = true;
+                      } 
+                      if(results[i].offlinecondition =='早退')
+                      {
+                          isearly = true;
+                      }  
+                    }
+              }
+              if(j<10){j='0'+j;}
+              arr.push({'day':j,'isschedule':isschedule,'isleave':isleave,'isabsent':isabsent,'islate':islate,'isovertime':isovertime,'isearly':isearly});
+            }
+
+           if(results==null){ json = { 'status':{'code':'E0003','msg':'唯一碼有錯，請重新輸入'},'datecheck':date,'data':results}; }
+           else{ json = { 'status':{'code':'S0000','msg':'唯一碼正確'},'datecheck':date,'data':arr};}
+           var SendDataToPhone = JSON.stringify(json); res.type('application/json'); res.send(SendDataToPhone);
+        });
+});
+
 
 // 查詢單日員工上班細項
 app.get('/V1/API/GetSingleDayWorkScheduleDetail/',function(req,res){
@@ -812,6 +865,53 @@ function GetNeedSyncMonth()
 
   return Month;
 } 
+
+function MonthHaveHowManyDay(_Year,_Month)
+{
+  var Day = 0;
+  switch (_Month) {
+    case '01':
+      Day = 31;
+      break;
+    case '02': 
+      Day = 28;
+      break;
+    case '03': 
+      Day = 31;
+      break; 
+    case '04':
+      Day = 30;
+      break;
+    case '05': 
+      Day = 31;
+      break; 
+    case '06':
+      Day = 30;
+      break;
+    case '07': 
+      Day = 31;
+      break; 
+    case '08': 
+      Day = 31;
+      break; 
+    case '09':
+      Day = 30;
+      break;
+    case '10': 
+      Day = 31;
+      break; 
+    case '11':
+      Day = 30;
+      break;   
+    case '12': 
+      Day = 31;
+      break;    
+    default:
+      Day = 31;
+  } 
+  return Day;
+} 
+
 
 function GetNeedSyncDay()
 {
