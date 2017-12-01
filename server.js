@@ -324,7 +324,7 @@ app.get('/GetMonthlyEmployeeWorkSchedule/',function(req,res){
 });
 
 // 查詢單日員工上班細項
-app.get('/GetSingleDayWorkScheduleDetail/',function(req,res){
+app.get('/V1/API/GetSingleDayWorkScheduleDetail/',function(req,res){
   var year = req.headers['year'];
   var date = req.headers['date'];
   month = date[0]+date[1];
@@ -333,20 +333,42 @@ app.get('/GetSingleDayWorkScheduleDetail/',function(req,res){
     SettingPage.PromiseGetMonthSalaryOrHourSalary(req.headers['uniid']).then(function(items) 
     {
         dbwork.collection('employeeworkschedule').find({'userbrandname':items.userbrandname,'userbrandplace':items.userbrandplace,'workyear':year,'workmonth':month,'workday':day},{_id:0,TID:0,uniID:0,userbrandname:0,userbrandplace:0}).toArray(function(err, results) {
-           var count = 0;while(results[count]!=null){ count++;}console.log(' count = ',count);
-           var jsonArray = [];
+          dbwork.collection('workperiod').find({'Year':year,'Month':month,'Day':day,uniID:req.headers['uniid']}).sort({"name": 1}).toArray(function(err, data) {
+           
+               var count = 0;while(results[count]!=null){ count++;}console.log(' count = ',count);
+               var jsonArray = [];var RealPeriod = '';
 
-           for(var i = 0;i<count;i++)
-           {
-              var onlineTime = results[i].workyear+'/'+results[i].workmonth+'/'+results[i].workday+' '+results[i].onlinehour+':'+results[i].onlineminute+'-'+results[i].offlinehour+':'+results[i].offlineminute;
-              // console.log(' onlineTime = ',onlineTime);
-              // console.log(' results.name = ',results[i].status);
-              jsonArray.push({'name':results[i].name,'WorkTime':onlineTime,'status':results[i].status});
-           }
-          
-           if(results==''){ json = { 'status':{'code':'E0003','msg':'唯一碼有錯，請重新輸入'},'data':jsonArray}; }
-           else{ json = { 'status':{'code':'S0000','msg':'唯一碼正確'},'data':jsonArray};}
-           var SendDataToPhone = JSON.stringify(json); res.type('application/json'); res.send(SendDataToPhone);
+               for(var i = 0;i<count;i++)
+               {
+                  var onlineTime = results[i].workyear+'/'+results[i].workmonth+'/'+results[i].workday+' '+results[i].onlinehour+':'+results[i].onlineminute+'-'+results[i].offlinehour+':'+results[i].offlineminute;
+                  // console.log(' onlineTime = ',onlineTime);
+                  // console.log(' results.name = ',results[i].status);
+                  jsonArray.push({'name':results[i].name,'WorkTime':onlineTime,'status':results[i].status});
+               }
+               if(data.length != 0 )
+               {
+                   for(var j = 0;j<data.length;j++)
+                   {
+                      if(data[j].status == '上班')
+                      {
+                          var RealDate = data[j].Year+'/'+ data[j].Month+'/'+data[j].Day;
+                          var RealOnlineTime =  data[j].Hour+':'+ data[j].Minute;
+                      }
+                      else
+                      {
+                          var RealDate = data[j].Year+'/'+ data[j].Month+'/'+data[j].Day;
+                          var RealOfflineTime =  data[j].Hour+':'+ data[j].Minute;
+                      }
+                   }
+                   var RealPeriod = RealDate+' '+RealOnlineTime+'-'+RealOfflineTime;
+               }
+               console.log(' RealPeriod =',RealPeriod);
+
+               if(results==''){ json = { 'status':{'code':'E0003','msg':'唯一碼有錯或查無資料'},'self_data': RealPeriod,'empoyee_data':jsonArray};}
+               else{ json = { 'status':{'code':'S0000','msg':'唯一碼正確'},'self_data': RealPeriod,'empoyee_data':jsonArray};}
+               var SendDataToPhone = JSON.stringify(json); res.type('application/json'); res.send(SendDataToPhone);
+
+            });
         });
     }, function(err) {
           console.error('The promise was rejected', err, err.stack);
