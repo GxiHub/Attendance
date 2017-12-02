@@ -1,0 +1,124 @@
+.PreModifyUserTokenData{
+    text-align: center;
+    background:#FFF;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.PreModifyUserTokenData ul li span:first-child{
+    width:100px;
+    text-align:center;
+    vertical-align: middle; 
+    font: 14px Verdana, 'Lucida Grande';
+    color: #000;
+    padding-right: 5px;
+    line-height: 12px;
+    display: inline-block;
+}
+
+.PreModifyUserTokenData ul li span:nth-child(2){
+    width:180px;
+    text-align:center;
+    vertical-align: middle; 
+    font: 14px Verdana, 'Lucida Grande';
+    color: #000;
+    padding-right: 5px;
+    line-height: 12px;
+    display: inline-block;
+}
+
+.PreModifyUserTokenData ul li span:nth-child(3){
+    width:520px;
+    text-align:center;
+    vertical-align: middle; 
+    font: 14px Verdana, 'Lucida Grande';
+    color: #000;
+    padding-right: 5px;
+    line-height: 12px;
+    display: inline-block;
+}
+
+.PreModifyUserTokenData ul li span{
+    width:70px;
+    text-align:center;
+    vertical-align: middle; 
+    font: 14px Verdana, 'Lucida Grande';
+    color: #000;
+    padding-right: 5px;
+    line-height: 12px;
+    display: inline-block;
+}
+
+.PostModifyUserTokenData{
+    text-align: center;
+    background:#FFF;
+}
+
+.PostModifyUserTokenData ul li span:first-child{
+    width:100px;
+    text-align:center;
+    vertical-align: middle; 
+    font: 12px Verdana, 'Lucida Grande';
+    color: #777;
+    padding-right: 5px;
+    line-height: 24px;
+    display: inline-block;
+}
+
+.PostModifyUserTokenData ul li span:nth-child(2){
+    width:180px;
+    text-align:center;
+    vertical-align: middle; 
+    font: 12px Verdana, 'Lucida Grande';
+    color: #777;
+    padding-right: 5px;
+    line-height: 24px;
+    display: inline-block;
+}
+
+.PostModifyUserTokenData ul li span:nth-child(3){
+    width:520px;
+    text-align:center;
+    vertical-align: middle; 
+    font: 12px Verdana, 'Lucida Grande';
+    color: #777;
+    padding-right: 5px;
+    line-height: 24px;
+    display: inline-block;
+}
+
+.PostModifyUserTokenData ul li span{
+    width:70px;
+    text-align:center;
+    vertical-align: middle; 
+    font: 12px Verdana, 'Lucida Grande';
+    color: #777;
+    padding-right: 5px;
+    line-height: 24px;
+    display: inline-block;
+}
+
+
+.PostModifyUserTokenData select{
+    width:70px;
+    color:#1ABC9C;
+    background:#FFF; border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+
+.PostModifyUserTokenData input{
+    width:75px;
+    text-align:center;
+}
+
+.PostModifyUserTokenData button{
+    width:40px;
+    color:#777;
+    background:#FFF; border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 1px;
+    border-radius: 1px;
+}

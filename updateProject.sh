@@ -27,6 +27,7 @@ sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/ModifyPersona
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/style.css ./public/css/.
 #MemberData
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/MemberData/modifymemberbranddata.css ./public/css/MemberData/.
+sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/MemberData/showandmodifyusertokendata.css ./public/css/MemberData/.
 #StockIn
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/StockInAndOut/checkproductinstock.css ./public/css/StockInAndOut/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/StockInAndOut/checkstockineachproductnumber.css ./public/css/StockInAndOut/.
@@ -41,7 +42,6 @@ sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/ch
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/checkeverymonthworkstatus.css ./public/css/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/StockInAndOut/checkstockineachproductnumber.css ./public/css/StockInAndOut/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/planworkschedulecheckemployeeworkschedulebylist.css ./public/css/.
-sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/showandmodifyusertokendata.css ./public/css/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/usecheckboxbyaddemployeeworkschedule.css ./public/css/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/backupcheckeverymonthworkstatus.css ./public/css/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/backupplanworkschedulecheckworkschedulebylist.css ./public/css/.
