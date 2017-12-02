@@ -1,38 +1,40 @@
 
-.PrePartialTag{
-    text-align: center;
+.PreBackupWorkSchedule{
     background:#FFF;
+    margin-top: 20px;
+    margin-bottom: 12px;
+    text-align: center;
 }
 
-.PrePartialTag ul li span{
+.PreBackupWorkSchedule ul li span{
     width:100px;
     text-align:center;
     vertical-align: middle; 
     font: 14px Verdana, 'Lucida Grande';
     color: #000;
     padding-right: 5px;
-    line-height: 14px;
+    line-height: 12px;
     display: inline-block;
 }
 
-.PostPartialTag{
-    text-align: center;
+.PostBackupWorkSchedule{
     background:#FFF;
+    text-align: center;
 }
 
-.PostPartialTag ul li span{
+.PostBackupWorkSchedule ul li span{
     width:100px;
     text-align:center;
     vertical-align: middle; 
     font: 12px Verdana, 'Lucida Grande';
     color: #777;
     padding-right: 5px;
-    line-height: 14px;
+    line-height: 24px;
     display: inline-block;
 }
 
 
-.PostPartialTag select{
+.PostBackupWorkSchedule select{
     width:70px;
     color:#1ABC9C;
     background:#FFF; border:0 none;
@@ -42,16 +44,35 @@
 }
 
 
-.PostPartialTag input{
+.PostBackupWorkSchedule input{
     width:75px;
     text-align:center;
 }
 
-.PostPartialTag button{
+.PostBackupWorkSchedule button{
     width:40px;
     color:#777;
     background:#FFF; border:0 none;
     cursor:pointer;
     -webkit-border-radius: 1px;
-    border-radius: 1px;
+}
+
+.BackupWorkSchedule{
+    margin-top:20px;
+    text-align: center;
+}
+
+.BackupWorkSchedule select{
+    width:100px;
+    text-align:center;
+    background:#FFF;border:1 none; 
+    display: inline-block;
+}
+
+.BackupWorkSchedule button{
+    width:100px;
+    background:#000;border:1 none;
+    color:white;
+    text-align:center;
+    display: inline-block;
 }

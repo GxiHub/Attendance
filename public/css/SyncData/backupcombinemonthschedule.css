@@ -1,0 +1,101 @@
+
+.PreCombineMonthScedule{
+    background:#FFF;
+    margin-top: 20px;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.PreCombineMonthScedule ul li span:first-child{
+    width:100px;
+    text-align:center;
+    vertical-align: middle; 
+    font: 14px Verdana, 'Lucida Grande';
+    color: #000;
+    padding-right: 5px;
+    line-height: 12px;
+    display: inline-block;
+}
+
+.PreCombineMonthScedule ul li span{
+    width:60px;
+    text-align:center;
+    vertical-align: middle; 
+    font: 14px Verdana, 'Lucida Grande';
+    color: #000;
+    padding-right: 5px;
+    line-height: 12px;
+    display: inline-block;
+}
+
+.PostCombineMonthScedule{
+    background:#FFF;
+    text-align: center;
+}
+
+
+.PostCombineMonthScedule ul li span:first-child{
+    width:100px;
+    text-align:center;
+    vertical-align: middle; 
+    font: 12px Verdana, 'Lucida Grande';
+    color: #777;
+    padding-right: 5px;
+    line-height: 24px;
+    display: inline-block;
+}
+
+.PostCombineMonthScedule ul li span{
+    width:60px;
+    text-align:center;
+    vertical-align: middle; 
+    font: 12px Verdana, 'Lucida Grande';
+    color: #777;
+    padding-right: 5px;
+    line-height: 24px;
+    display: inline-block;
+}
+
+
+.PostCombineMonthScedule select{
+    width:70px;
+    color:#1ABC9C;
+    background:#FFF; border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+
+.PostCombineMonthScedule input{
+    width:75px;
+    text-align:center;
+}
+
+.PostCombineMonthScedule button{
+    width:40px;
+    color:#777;
+    background:#FFF; border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 1px;
+}
+
+.CombineMonthScedule{
+    margin-top:20px;
+    text-align: center;
+}
+
+.CombineMonthScedule select{
+    width:100px;
+    text-align:center;
+    background:#FFF;border:1 none;
+    display: inline-block; 
+}
+
+.CombineMonthScedule button{
+    width:100px;
+    background:#000;border:1 none;
+    color:white;
+    text-align:center;
+    display: inline-block;
+}

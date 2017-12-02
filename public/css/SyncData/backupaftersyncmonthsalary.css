@@ -1,26 +1,52 @@
 
-.PreStockIn{
+.PreSyncMonthSalary{
     text-align: center;
     background:#FFF;
 }
 
-.PreStockIn ul li span{
-    width:100px;
+.PreSyncMonthSalary ul li span{
+    width:50px;
     text-align:center;
     vertical-align: middle; 
-    font: 14px Verdana, 'Lucida Grande';
+    font: 12px Verdana, 'Lucida Grande';
     color: #000;
     padding-right: 5px;
     line-height: 14px;
     display: inline-block;
 }
 
-.PostStockIn{
+.PreSyncMonthSalary ul li span:nth-child(1),
+.PreSyncMonthSalary ul li span:nth-child(2){
+    width:100px;
+    text-align:center;
+    vertical-align: middle; 
+    font: 12px Verdana, 'Lucida Grande';
+    color: #000;
+    padding-right: 5px;
+    line-height: 14px;
+    display: inline-block;
+}
+
+
+
+.PostSyncMonthSalary{
     text-align: center;
     background:#FFF;
 }
 
-.PostStockIn ul li span{
+.PostSyncMonthSalary ul li span{
+    width:50px;
+    text-align:center;
+    vertical-align: middle; 
+    font: 12px Verdana, 'Lucida Grande';
+    color: #777;
+    padding-right: 5px;
+    line-height: 14px;
+    display: inline-block;
+}
+
+.PostSyncMonthSalary ul li span:nth-child(1),
+.PostSyncMonthSalary ul li span:nth-child(2){
     width:100px;
     text-align:center;
     vertical-align: middle; 
@@ -32,7 +58,7 @@
 }
 
 
-.PostStockIn select{
+.PostSyncMonthSalary select{
     width:70px;
     color:#1ABC9C;
     background:#FFF; border:0 none;
@@ -42,12 +68,12 @@
 }
 
 
-.PostStockIn input{
+.PostSyncMonthSalary input{
     width:75px;
     text-align:center;
 }
 
-.PostStockIn button{
+.PostSyncMonthSalary button{
     width:40px;
     color:#777;
     background:#FFF; border:0 none;
@@ -56,21 +82,21 @@
     border-radius: 1px;
 }
 
-.CheckStock{
+.SyncMonthSalary{
     text-align: center;
     background:#FFF;
     margin-top:20px;
     margin-bottom: 20px;
 }
 
-.CheckStock select{
+.SyncMonthSalary select{
     width:100px;
     text-align:center;
     display: inline-block;
     background:#FFF;border:1 none; 
 }
 
-.CheckStock button{
+.SyncMonthSalary button{
     width:100px;
     background:#000;border:1 none;
     color:white;

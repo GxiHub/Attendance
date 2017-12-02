@@ -2,13 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>CheckMonthSalary</title>
+  <title>確認單月薪水</title>
+  <link href="/css/SyncData/backupaftersyncmonthsalary.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-	<form action="/" method="GET">
-				<button type="submit">返回老闆權限</button>
-	</form>
-	<br> 
+
+<header>
+     <% include ./html.ejs %>
+</header>
+
+<div class="SyncMonthSalary">
 	<form action="/Sync_ShowMonthSalary/" method="GET">
 		<select name="checkPeriodYear">
 			<option selected value="2017">2017</option>
@@ -29,66 +32,71 @@
 		</select>
 		<button type="submit">查詢</button>
 	</form>	
-	<br> 
-	<table border='1'>
-	<tbody>
-		  <td> 唯一碼 </td>
-		  <td> 員工碼 </td>
-	      <td> 員工姓名 </td>
-	      <td> 計薪年份 </td>
-	      <td> 計薪月份 </td>
-	      <td> 品牌名稱 </td>
-	      <td> 計薪天數 </td> 
+</div>
+<div class='PreSyncMonthSalary'>
+	<ul>
+		<li>
+		  <span> 唯一碼 </span>
+		  <span> 員工碼 </span>
+	      <span> 員工姓名 </span>
+	      <span> 計薪年份 </span>
+	      <span> 計薪月份 </span>
+	      <span> 品牌名稱 </span>
+	      <span> 計薪天數 </span> 
 
-	      <td> 基本底薪 </td> 
-	      <td> 伙食獎金 </td>
-	      <td> 全勤獎金 </td>  
-	      <td> 職位獎金 </td>  
-	      <td> 額外獎金 </td>
-	      <td> 勞健保費 </td>
-	      <td> 基本薪資 </td> 
+<!-- 	      <span> 基本底薪 </span> 
+	      <span> 伙食獎金 </span>
+	      <span> 全勤獎金 </span>  
+	      <span> 職位獎金 </span>  
+	      <span> 額外獎金 </span>
+	      <span> 勞健保費 </span> -->
+	      <span> 基本薪資 </span> 
 
-	      <td> 加班分鐘 </td>
-	      <td> 加班薪水 </td>
-	      <td> 遲到分鐘 </td>
-	      <td> 遲到薪水 </td>
-	      <td> 早退分鐘 </td>
-	      <td> 早退薪水 </td>
-	      <td> 請假分鐘 </td>
-	      <td> 請假薪水 </td>
-	      <td> 合計薪資 </td> 	
-    
-	<%  for(var i=0; i<passvariable.length; i++) {%>
-		<tr>
-			  <td><%= passvariable[i].TID %></td>
-			  <td><%= passvariable[i].uniID %></td>
-		      <td><%= passvariable[i].name %></td>
-		      <td><%= passvariable[i].year %></td>
-		      <td><%= passvariable[i].month %></td>
-		      <td><%= passvariable[i].userbrandname %></td>
-		      <td><%= passvariable[i].workdaynumber %></td>
+	      <span> 加班分鐘 </span>
+	      <span> 加班薪水 </span>
+	      <span> 遲到分鐘 </span>
+	      <span> 遲到薪水 </span>
+	      <span> 早退分鐘 </span>
+	      <span> 早退薪水 </span>
+	      <span> 請假分鐘 </span>
+	      <span> 請假薪水 </span>
+	      <span> 合計薪資 </span> 	
+		</li>
+	</ul>
+</div>   
+<div class='PostSyncMonthSalary'>
+	<% for(var i=0; i<passvariable.length; i++) {%>
+	<ul>
+		<li>
+			  <span><%= passvariable[i].TID %></span>
+			  <span><%= passvariable[i].uniID %></span>
+		      <span><%= passvariable[i].name %></span>
+		      <span><%= passvariable[i].year %></span>
+		      <span><%= passvariable[i].month %></span>
+		      <span><%= passvariable[i].userbrandname %></span>
+		      <span><%= passvariable[i].workdaynumber %></span>
 		      
-		      <td><%= passvariable[i].monthsalary  %></td>
-		      <td><%= passvariable[i].foodsalary %></td>
-		      <td><%= passvariable[i].withoutsalary %></td>
-		      <td><%= passvariable[i].titlesalary %></td>
-		      <td><%= passvariable[i].extrasalary %></td>
-		      <td><%= passvariable[i].lawsalary %></td>
-			  <td><%= passvariable[i].basicsalary %></td>
+<!-- 		      <span><%= passvariable[i].monthsalary  %></span>
+		      <span><%= passvariable[i].foodsalary %></span>
+		      <span><%= passvariable[i].withoutsalary %></span>
+		      <span><%= passvariable[i].titlesalary %></span>
+		      <span><%= passvariable[i].extrasalary %></span>
+		      <span><%= passvariable[i].lawsalary %></span> -->
+			  <span><%= passvariable[i].basicsalary %></span>
 
-		      <td><%= passvariable[i].addminute %></td>
-		      <td><%= passvariable[i].addtimesalary %></td>
-		      <td><%= passvariable[i].lateminute %></td>
-		      <td><%= passvariable[i].latetimesalary %></td>
-		      <td><%= passvariable[i].earlyminute %></td>
-		      <td><%= passvariable[i].earlytimesalary %></td>
-		      <td><%= passvariable[i].restminute %></td>
-		      <td><%= passvariable[i].resttimesalary %></td>	      
-		      <td><%= passvariable[i].totalmonthsalary %></td>
-		</tr>
+		      <span><%= passvariable[i].addminute %></span>
+		      <span><%= passvariable[i].addtimesalary %></span>
+		      <span><%= passvariable[i].lateminute %></span>
+		      <span><%= passvariable[i].latetimesalary %></span>
+		      <span><%= passvariable[i].earlyminute %></span>
+		      <span><%= passvariable[i].earlytimesalary %></span>
+		      <span><%= passvariable[i].restminute %></span>
+		      <span><%= passvariable[i].resttimesalary %></span>	      
+		      <span><%= passvariable[i].totalmonthsalary %></span>
+		</li>
+	</ul>
 	<% } %>
-	</tbody>
-	</table>
+</div>	
 
 </body>
 </html>

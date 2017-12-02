@@ -684,45 +684,105 @@ app.get('/Show_CheckHaveWorkButNoSchedule/',function(req,res){
     });
 });
 
+
+
+// =============== 同步相關 ===========================================
+// 同步本月上班
+app.get('/Sync_OriginAndBackupOnlineOffline/',function(req,res){
+    SyncOnlineOfflineData.OnlineOfflineStatus();
+    res.redirect('/');
+});
+// 同步本月排班
+app.get('/Sync_OriginAndBackupWorkSchedule/',function(req,res){
+    var BrandButton = '食鍋藝';//需要知道店名稱來識別需要計算哪間店的資料
+    SyncWorkScheduleData.WorkSchedulStatus(BrandButton);
+    res.redirect('/');
+});
+
+// 同步合併排班  
+app.get('/Sync_CombineMonthSchedule/',function(req,res){
+    var BrandButton = '食鍋藝';//需要知道店名稱來識別需要計算哪間店的資料
+    SyncCombineMonthSchedule.MonthWorkSchedule(BrandButton);
+    res.redirect('/');
+});
+// 同步單月薪水
+app.get('/Sync_CombineMonthSalary/',function(req,res){
+    var BrandButton = '食鍋藝';//需要知道店名稱來識別需要計算哪間店的資料
+    SyncMonthSalary.MonthSalaryCalculate(BrandButton);
+    res.redirect('/');
+});
+// 同步本月有上班無排班
+app.get('/Sync_CheckHaveWorkButNoSchedule/',function(req,res){
+    var BrandButton = '食鍋藝';//需要知道店名稱來識別需要計算哪間店的資料
+    AddLateWorkTimeCalculate.CheckHaveWorkButNoSchedule(BrandButton); 
+    res.redirect('/');
+});
+// 同步本月有排班無上班
+app.get('/Sync_CheckHaveScheduleButNoWork/',function(req,res){
+    var BrandButton = '食鍋藝';//需要知道店名稱來識別需要計算哪間店的資料
+    AddLateWorkTimeCalculate.CheckHaveScheduleButNoWork(BrandButton); 
+    res.redirect('/');
+});
+// 同步本月加班遲到
+app.get('/Sync_AddLateWorkTimeCalculate_result/',function(req,res){
+    var BrandButton = '食鍋藝';//需要知道店名稱來識別需要計算哪間店的資料
+    AddLateWorkTimeCalculate.CalculateAddlateTime(BrandButton); 
+    res.redirect('/');
+});
+
 // ===============================================================
-// [顯示] [排班]
+
+// =============== 同步相關 ===========================================
+//上班備份資料
+app.get('/Backup_CheckOriginDataByDay/',function(req,res){
+    dbtest.collection('synconlineofflinedata').find({'Year':req.query.checkPeriodYear,'Month':req.query.checkPeriodMonth}).sort({'Month':1,'Day':1,"name": 1,'status':1}).toArray(function(err, data) {
+        dbtoken.collection('memberbrandinformation').find().toArray(function(err, results) {
+          res.render('Backup_CheckEveryMonthWorkStatus.ejs',{passvariable:data,member:results});
+        });
+    });
+});
+
+
+// 排班備份資料
+app.get('/CheckBackupScheduleData/',function(req,res){
+    dbtest.collection('synworkscheduledata').find({'workyear':req.query.checkPeriodYear,'workmonth':req.query.checkPeriodMonth}).sort({'workyear':1,'workmonth':1,"workday":1,"name": 1}).toArray(function(err, data) {
+      res.render('Backup_PlanWorkSchedule_CheckWorkScheduleByList.ejs',{passvariable:data});
+    });
+});
+
+// 合併排班資料
+app.get('/Sync_ShowCombineMonthSchedule/',function(req,res){
+    var BrandButton = '食鍋藝';//需要知道店名稱來識別需要計算哪間店的資料
+    dbtest.collection('synccombinemonthworkschedule').find({'workyear':req.query.checkPeriodYear,'workmonth':req.query.checkPeriodMonth,'userbrandname':BrandButton}).sort({'workyear':1,'workmonth':1,"name": 1,"TID":1,"workday":1}).toArray(function(err, backup) {
+        res.render('Backup_CombineMonthSchedule.ejs',{passvariable:backup});
+    });
+});
+
+// 顯示單月薪水
+app.get('/Sync_ShowMonthSalary/',function(req,res){
+    var BrandButton = '食鍋藝';//需要知道店名稱來識別需要計算哪間店的資料
+    dbtest.collection('syncmonthsalary').find({'year':req.query.checkPeriodYear,'month':req.query.checkPeriodMonth,'userbrandname':BrandButton}).sort({'year':1,'month':1}).toArray(function(err, backup) {
+        dbtoken.collection('memberbrandinformation').find().toArray(function(err, results) {
+           res.render('Backup_AfterSyncMonthSalary.ejs',{passvariable:backup,member:results});
+        });
+    });
+});
+// ===============================================================
+
+// =============== 財務資訊 ===========================================
+
+
+// ===============================================================
+
 app.get('/Plan_Work_Schedule_SingleDirectPageToAddEmployeeWorkSchedule/',function(req,res){
     res.render('AddEmployeeWorkSchedule.ejs');
 });
-// [新增] [排班] [單筆] [PlanWorkSchedule]
+
 app.post('/Plan_Work_Schedule_AddEmployeeWorkSchedule/',function(req,res){ 
     PlanWorkSchedule.AddEmployeeWorkScheduleFunction(req.body.checkName,req.body.checkPeriodYear,req.body.checkPeriodMonth,req.body.checkPeriodDay,req.body.checkPeriodOnlineHour,req.body.checkPeriodOnlineMinute,req.body.checkPeriodOfflineHour,req.body.checkPeriodOffineMinute); 
     res.redirect('/');
 });
 
-
-
-
-// [查詢] [排班] [群組] [PlanWorkSchedule]
-app.post('/Plan_Work_Schedule_CheckEmployeeWorkScheduleByGroup/',function(req,res){
-    PlanWorkSchedule.CheckWorkSchedule(req.body.checkPeriodYear,req.body.checkPeriodMonth).then(function(items) 
-    {
-          res.render('PlanWorkSchedule_CheckWorkScheduleByGroup.ejs',{WorkSchedule:items,MonthPass:Month});
-    }, function(err) {
-          console.error('The promise was rejected', err, err.stack);
-    });
-});
-
-
-
-// [查詢] [每天] [上下班時間] [QRcodeScan]
-app.post('/QR_codeSan_CheckEveryDayWorkStatus/',function(req,res){
-    QRcodeScan.CheckSingleDayOnlineOfflineByBrandNameAndDate(req.body.checkPeriodYear,req.body.checkPeriodMonth,req.body.checkPeriodDay).then(function(items) 
-    {
-          res.render('CheckEveryDayWorkStatus.ejs',{passvariable:items});
-    }, function(err) {
-          console.error('The promise was rejected', err, err.stack);
-    }); 
-});
-
-
-
-// [查詢] [備份]  [月份薪水] [PrintMonthSalary] 
 app.get('/Backup_PrintMonthSalary_CheckMonthSalary/',function(req,res){
   PrintMonthSalary.backupprintMonthSalaryStatus(req.query.checkName,req.query.checkPeriodYear,req.query.checkPeriodMonth).then(function(items)
   {
@@ -732,17 +792,28 @@ app.get('/Backup_PrintMonthSalary_CheckMonthSalary/',function(req,res){
   }); 
 });
 
+app.post('/Plan_Work_Schedule_CheckEmployeeWorkScheduleByGroup/',function(req,res){
+    PlanWorkSchedule.CheckWorkSchedule(req.body.checkPeriodYear,req.body.checkPeriodMonth).then(function(items) 
+    {
+          res.render('PlanWorkSchedule_CheckWorkScheduleByGroup.ejs',{WorkSchedule:items,MonthPass:Month});
+    }, function(err) {
+          console.error('The promise was rejected', err, err.stack);
+    });
+});
 
+app.post('/QR_codeSan_CheckEveryDayWorkStatus/',function(req,res){
+    QRcodeScan.CheckSingleDayOnlineOfflineByBrandNameAndDate(req.body.checkPeriodYear,req.body.checkPeriodMonth,req.body.checkPeriodDay).then(function(items) 
+    {
+          res.render('CheckEveryDayWorkStatus.ejs',{passvariable:items});
+    }, function(err) {
+          console.error('The promise was rejected', err, err.stack);
+    }); 
+});
 
-
-// ===================== 新增收入支出 Start
-
-// [顯示] [營收支出]
 app.get('/ShowIncomeAndExpenditure/',function(req,res){
     res.render('AddIncomeAndExpenditure.ejs'); 
 });
 
-// [顯示] [營收支出]
 app.post('/AddIncomeAndExpenditureData/',function(req,res){
    console.log(' year = ',req.body.year);
    console.log(' month = ',req.body.month);
@@ -754,121 +825,23 @@ app.post('/AddIncomeAndExpenditureData/',function(req,res){
    res.render('AddIncomeAndExpenditure.ejs'); 
 });
 
-// ===================== 新增收入支出 End
-
-//  ==================== 同步專區 Start
-
-
-// [計算] [月份薪水] [CalculateMonthSalary] 
 app.get('/Sync_CalculateMonthSalary_MonthCalculate/',function(req,res){
     var BrandButton = '食鍋藝';//需要知道店名稱來識別需要計算哪間店的資料
     CalculateMonthSalary.CalculateMonthSalary(BrandButton); 
     res.redirect('/');
 });
 
-// [計算] [加班計算] [AddLateWorkTimeCalculate] 
-app.get('/Sync_AddLateWorkTimeCalculate_result/',function(req,res){
-    var BrandButton = '食鍋藝';//需要知道店名稱來識別需要計算哪間店的資料
-    AddLateWorkTimeCalculate.CalculateAddlateTime(BrandButton); 
-    res.redirect('/');
-});
-
-// [檢查] [有上班沒排班] 
-app.get('/Sync_CheckHaveWorkButNoSchedule/',function(req,res){
-    var BrandButton = '食鍋藝';//需要知道店名稱來識別需要計算哪間店的資料
-    AddLateWorkTimeCalculate.CheckHaveWorkButNoSchedule(BrandButton); 
-    res.redirect('/');
-});
-
-// [檢查] [有排班沒上班] 
-app.get('/Sync_CheckHaveScheduleButNoWork/',function(req,res){
-    var BrandButton = '食鍋藝';//需要知道店名稱來識別需要計算哪間店的資料
-    AddLateWorkTimeCalculate.CheckHaveScheduleButNoWork(BrandButton); 
-    res.redirect('/');
-});
-
-
-
-// [同步] [上下班資訊] [SyncOnlineOfflineData]
-app.get('/Sync_OriginAndBackupOnlineOffline/',function(req,res){
-    SyncOnlineOfflineData.OnlineOfflineStatus();
-    res.redirect('/');
-});
-
-// [顯示] [原始] [上下班資訊] 
 app.post('/Origin_CheckOriginDataByDay/',function(req,res){
     dbwork.collection('workperiod').find({'Year':req.body.checkPeriodYear,'Month':req.body.checkPeriodMonth}).sort({'Day':1,"name": 1,'status':1}).toArray(function(err, data) {
       res.render('Origin_CheckEveryMonthWorkStatus.ejs',{passvariable:data});
     });
 });
 
-// [顯示] [備份] [上下班資訊] 
-app.get('/Backup_CheckOriginDataByDay/',function(req,res){
-    dbtest.collection('synconlineofflinedata').find({'Year':req.query.checkPeriodYear,'Month':req.query.checkPeriodMonth}).sort({'Month':1,'Day':1,"name": 1,'status':1}).toArray(function(err, data) {
-        dbtoken.collection('memberbrandinformation').find().toArray(function(err, results) {
-          res.render('Backup_CheckEveryMonthWorkStatus.ejs',{passvariable:data,member:results});
-        });
-    });
-});
-
-// [同步] [排班資訊] [SyncWorkScheduleData]  
-app.get('/Sync_OriginAndBackupWorkSchedule/',function(req,res){
-    var BrandButton = '食鍋藝';//需要知道店名稱來識別需要計算哪間店的資料
-    SyncWorkScheduleData.WorkSchedulStatus(BrandButton);
-    res.redirect('/');
-});
-
-// [顯示] [原始] [排班] 
 app.post('/CheckOriginScheduleData/',function(req,res){
     dbwork.collection('employeeworkschedule').find({'workyear':req.body.checkPeriodYear,'workmonth':req.body.checkPeriodMonth}).sort({'workyear':1,'workmonth':1,"workday":1,"name": 1}).toArray(function(err, data) {
       res.render('Origin_PlanWorkSchedule_CheckWorkScheduleByList.ejs',{passvariable:data});
     });
 });
-
-// [顯示] [備份] [排班]
-app.get('/CheckBackupScheduleData/',function(req,res){
-    dbtest.collection('synworkscheduledata').find({'workyear':req.query.checkPeriodYear,'workmonth':req.query.checkPeriodMonth}).sort({'workyear':1,'workmonth':1,"workday":1,"name": 1}).toArray(function(err, data) {
-      res.render('Backup_PlanWorkSchedule_CheckWorkScheduleByList.ejs',{passvariable:data});
-    });
-});
-
-// [同步] [排班資訊] [Sync_CombineMonthSchedule]  
-app.get('/Sync_CombineMonthSchedule/',function(req,res){
-    var BrandButton = '食鍋藝';//需要知道店名稱來識別需要計算哪間店的資料
-    SyncCombineMonthSchedule.MonthWorkSchedule(BrandButton);
-    res.redirect('/');
-});
-
-
-// [同步] [排班資訊] [Sync_CombineMonthSchedule]  
-app.get('/Sync_ShowCombineMonthSchedule/',function(req,res){
-    var BrandButton = '食鍋藝';//需要知道店名稱來識別需要計算哪間店的資料
-    dbtest.collection('synccombinemonthworkschedule').find({'workyear':req.query.checkPeriodYear,'workmonth':req.query.checkPeriodMonth,'userbrandname':BrandButton}).sort({'workyear':1,'workmonth':1,"name": 1,"TID":1,"workday":1}).toArray(function(err, backup) {
-        res.render('Backup_CombineMonthSchedule.ejs',{passvariable:backup});
-    });
-});
-
-// [同步] [單月薪水] [Sync_CombineMonthSalary]  
-app.get('/Sync_CombineMonthSalary/',function(req,res){
-    var BrandButton = '食鍋藝';//需要知道店名稱來識別需要計算哪間店的資料
-    SyncMonthSalary.MonthSalaryCalculate(BrandButton);
-    res.redirect('/');
-});
-
-// [顯示] [單月薪水] [Sync_CombineMonthSalary] 
-app.get('/Sync_ShowMonthSalary/',function(req,res){
-    var BrandButton = '食鍋藝';//需要知道店名稱來識別需要計算哪間店的資料
-    dbtest.collection('syncmonthsalary').find({'year':req.query.checkPeriodYear,'month':req.query.checkPeriodMonth,'userbrandname':BrandButton}).sort({'year':1,'month':1}).toArray(function(err, backup) {
-        dbtoken.collection('memberbrandinformation').find().toArray(function(err, results) {
-           res.render('Backup_AfterSyncMonthSalary.ejs',{passvariable:backup,member:results});
-        });
-    });
-});
-
-//  ==================== 同步專區 End
-
-//  ==================== 員工專區 Start
-
 
 // ============ 共同使用函式 =====================
 function GetNeedSyncYear()
