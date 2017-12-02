@@ -630,6 +630,61 @@ app.get('/Show_CheckHaveScheduleButNoWork/',function(req,res){
 
 
 // ===============================================================
+
+
+// =============== 員工上班相關 ===========================================
+//顯示單月員工上班狀況
+app.get('/QR_codeSan_CheckEveryMonthWorkStatus/',function(req,res){
+    QRcodeScan.CheckMonthOnlineOfflineByBrandNameAndMonth(req.query.checkPeriodYear,req.query.checkPeriodMonth,req.query.checkName).then(function(items) 
+    {
+        dbtoken.collection('memberbrandinformation').find().toArray(function(err, results) {
+          res.render('CheckEveryMonthWorkStatus.ejs',{passvariable:items,member:results});
+        });
+    }, function(err) {
+          console.error('The promise was rejected', err, err.stack);
+    }); 
+});
+
+//調整員工上班時間
+app.get('/QR_codeSan_AdjustOnlineStatus/',function(req,res){
+    QRcodeScan.AdjustOnlineOfflineData().then(function(items) 
+    {
+        res.render('AdjustOnlineStatus.ejs',{WorkHour:items});
+    }, function(err) {
+          console.error('The promise was rejected', err, err.stack);
+    });  
+});
+app.post('/QR_codeScan_DeleteOnlineOfflineDate/', (req, res) => {
+  QRcodeScan.DeleteOnlineOfflineData(req.body.TID,req.body.name,req.body.Year,req.body.Month,req.body.Day);
+  sleep(2);
+  res.redirect('/');    
+});
+app.post('/QR_codeScan_UpdateOnlineOfflineDate/', (req, res) => {
+  QRcodeScan.UpdateOnlineOfflineData(req.body.TID,req.body.updathour,req.body.updateminute,req.body.updateday,req.body.updatemonth,req.body.updateyear,req.body.name);
+  sleep(1.5);
+  res.redirect('/');
+});
+
+//顯示單月加班遲到狀況
+app.get('/PrintMonthSalary_CheckBackupAddLateStatus/',function(req,res){
+  PrintAddLateStatus.printBackupAddlateStatus(req.query.checkName,req.query.checkPeriodYear,req.query.checkPeriodMonth).then(function(items)
+  {
+        dbtoken.collection('memberbrandinformation').find().toArray(function(err, results) {
+          res.render('CheckAddLateTimeBackupStatus.ejs',{passvariable:items,member:results});
+        });
+  }, function(err) {
+        console.error('The promise was rejected', err, err.stack);
+  }); 
+});
+
+//顯示有上班無排班 
+app.get('/Show_CheckHaveWorkButNoSchedule/',function(req,res){
+    dbtest.collection('checkhaveworkbutnoschedule').find().toArray(function(err, data) {
+      res.render('ShowHaveWorkButNoSchedule.ejs',{passvariable:data});
+    });
+});
+
+// ===============================================================
 // [顯示] [排班]
 app.get('/Plan_Work_Schedule_SingleDirectPageToAddEmployeeWorkSchedule/',function(req,res){
     res.render('AddEmployeeWorkSchedule.ejs');
@@ -665,53 +720,7 @@ app.post('/QR_codeSan_CheckEveryDayWorkStatus/',function(req,res){
     }); 
 });
 
-// [查詢] [每月] [上下班時間] [QRcodeScan] 1111
-app.get('/QR_codeSan_CheckEveryMonthWorkStatus/',function(req,res){
-    QRcodeScan.CheckMonthOnlineOfflineByBrandNameAndMonth(req.query.checkPeriodYear,req.query.checkPeriodMonth,req.query.checkName).then(function(items) 
-    {
-        dbtoken.collection('memberbrandinformation').find().toArray(function(err, results) {
-          res.render('CheckEveryMonthWorkStatus.ejs',{passvariable:items,member:results});
-        });
-    }, function(err) {
-          console.error('The promise was rejected', err, err.stack);
-    }); 
-});
 
-// [查詢] [上下班時間] [QRcodeScan]
-app.get('/QR_codeSan_AdjustOnlineStatus/',function(req,res){
-    QRcodeScan.AdjustOnlineOfflineData().then(function(items) 
-    {
-        res.render('AdjustOnlineStatus.ejs',{WorkHour:items});
-    }, function(err) {
-          console.error('The promise was rejected', err, err.stack);
-    });  
-});
-
-// [刪除] [上下班時間] [QRcodeScan]
-app.post('/QR_codeScan_DeleteOnlineOfflineDate/', (req, res) => {
-  QRcodeScan.DeleteOnlineOfflineData(req.body.TID,req.body.name,req.body.Year,req.body.Month,req.body.Day);
-  sleep(2);
-  res.redirect('/');    
-});
-
-// [更新] [上下班時間] [QRcodeScan]
-app.post('/QR_codeScan_UpdateOnlineOfflineDate/', (req, res) => {
-  QRcodeScan.UpdateOnlineOfflineData(req.body.TID,req.body.updathour,req.body.updateminute,req.body.updateday,req.body.updatemonth,req.body.updateyear,req.body.name);
-  sleep(1.5);
-  res.redirect('/');
-});
-
-// [查詢] [備份] [單月加班狀況] [PrintAddLateStatus] 
-app.get('/PrintMonthSalary_CheckBackupAddLateStatus/',function(req,res){
-  PrintAddLateStatus.printBackupAddlateStatus(req.query.checkName,req.query.checkPeriodYear,req.query.checkPeriodMonth).then(function(items)
-  {
-        dbtoken.collection('memberbrandinformation').find().toArray(function(err, results) {
-          res.render('CheckAddLateTimeBackupStatus.ejs',{passvariable:items,member:results});
-        });
-  }, function(err) {
-        console.error('The promise was rejected', err, err.stack);
-  }); 
-});
 
 // [查詢] [備份]  [月份薪水] [PrintMonthSalary] 
 app.get('/Backup_PrintMonthSalary_CheckMonthSalary/',function(req,res){
@@ -769,13 +778,6 @@ app.get('/Sync_CheckHaveWorkButNoSchedule/',function(req,res){
     var BrandButton = '食鍋藝';//需要知道店名稱來識別需要計算哪間店的資料
     AddLateWorkTimeCalculate.CheckHaveWorkButNoSchedule(BrandButton); 
     res.redirect('/');
-});
-
-// [顯示] [有上班沒排班] 
-app.get('/Show_CheckHaveWorkButNoSchedule/',function(req,res){
-    dbtest.collection('checkhaveworkbutnoschedule').find().toArray(function(err, data) {
-      res.render('ShowHaveWorkButNoSchedule.ejs',{passvariable:data});
-    });
 });
 
 // [檢查] [有排班沒上班] 
