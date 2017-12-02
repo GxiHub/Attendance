@@ -1,0 +1,58 @@
+
+.PreAdjustSchedule{
+    background:#FFF;
+    margin-top: 20px;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.PreAdjustSchedule ul li span{
+    width:100px;
+    text-align:center;
+    vertical-align: middle; 
+    font: 14px Verdana, 'Lucida Grande';
+    color: #000;
+    padding-right: 5px;
+    line-height: 14px;
+    display: inline-block;
+}
+
+.PostAdjustSchedule{
+    background:#FFF;
+    text-align: center;
+}
+
+.PostAdjustSchedule ul li span{
+    width:100px;
+    text-align:center;
+    vertical-align: middle; 
+    font: 12px Verdana, 'Lucida Grande';
+    color: #777;
+    padding-right: 5px;
+    line-height: 28px;
+    display: inline-block;
+}
+
+.PostAdjustSchedule select{
+    width:70px;
+    color:#1ABC9C;
+    background:#FFF; border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+
+.PostAdjustSchedule input{
+    width:75px;
+    text-align:center;
+}
+
+.PostAdjustSchedule button{
+    width:40px;
+    color:#777;
+    background:#FFF; border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 1px;
+    border-radius: 1px;
+}
