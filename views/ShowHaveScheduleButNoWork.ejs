@@ -2,112 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <link href="/css/showhaveshcedulebutnowork.css" rel="stylesheet" type="text/css">
+  <link href="/css/WorkSchedule/showhaveshcedulebutnowork.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<div class="navcont">
-<div class="nav">
-		<ul>
-			<li><a href="/">HOME</a></li>
-			<li class="drop">
-				<a href="#">庫存相關</a>
-				<div class="dropdownContain">
-					<div class="dropOut">
-						
-						<ul>
-						<li onclick='window.location.href="/CheckProductInStock/"''>確認現有庫存</li>
-						<li onclick='window.location.href="/AddProductPartialTag/"''>新增庫存標籤</li>
-						<li onclick='window.location.href="/CheckProductPartialTag/"''>確認產品標籤</li>
-						</ul>
-					</div>
-				</div>
-			
-			</li>
-            <li class="drop">
-            	<a href="#">員工資料</a>
-            	<div class="dropdownContain">
-					<div class="dropOut">
-						
-						<ul>
-						<li onclick='window.location.href="/ShowNewPersonalData_AddMemberData/"''>新增員工基本資料</li>
-						<li onclick='window.location.href="/ShowAndModifyMemberBrandData_ModifyBrandData/"''>顯示員工基本資料</li>
-						<li onclick='window.location.href="/ShowAndModifyUserTokenData_UserTokenData/"''>顯示員工打卡資料</li>
-						</ul>
-					</div>
-				</div>
-			
-			</li>
-			<li class="drop">
-				<a href="#">排班狀況</a>
-				
-				<div class="dropdownContain">
-					<div class="dropOut">
-						
-						<ul>
-						<li onclick='window.location.href="/Plan_Work_Schedule_MultipleDirectPageToAddEmployeeWorkSchedule/"''>新增員工多天排班</li>
-						<li onclick='window.location.href="/Plan_Work_Schedule_CheckEmployeeWorkScheduleByList/"''>顯示單月員工排班列表</li>
-						<li onclick='window.location.href="/Plan_Work_Schedule_AdjustWorkSchedule/"''>調整員工排班狀況</li>
-						<li onclick='window.location.href="/Show_CheckHaveScheduleButNoWork/"''>顯示有排班無上班</li>
-						</ul>
-					</div>
-				</div>
-			
-			</li>
-			<li class="drop">
-				<a href="#">上班狀況</a>
-				
-				<div class="dropdownContain">
-					<div class="dropOut">
-						
-						<ul>
-						<li onclick='window.location.href="/QR_codeSan_CheckEveryMonthWorkStatus/"''>顯示單月員工上班狀況</li>
-						<li onclick='window.location.href="/QR_codeSan_AdjustOnlineStatus/"''>調整員工上班時間</li>
-						<li onclick='window.location.href="/PrintMonthSalary_CheckBackupAddLateStatus/"''>顯示單月加班遲到狀況</li>
-						<li onclick='window.location.href="/Show_CheckHaveWorkButNoSchedule/"''>顯示有上班無排班</li>
-						</ul>
-					</div>
-				</div>
-			
-			</li>
-			<li class="drop">
-				<a href="#">同步相關</a>
-				
-				<div class="dropdownContain">
-					<div class="dropOut">
-						
-						<ul>
-						<li onclick='window.location.href="/Sync_OriginAndBackupOnlineOffline/"''>同步本月上班</li>
-						<li onclick='window.location.href="/Sync_OriginAndBackupWorkSchedule/"''>同步本月排班</li>
-						<li onclick='window.location.href="/Sync_CheckHaveWorkButNoSchedule/"''>同步本月有上班無排班</li>
-						<li onclick='window.location.href="/Sync_CheckHaveScheduleButNoWork/"''>同步本月有排班無上班</li>
-						<li onclick='window.location.href="/Sync_AddLateWorkTimeCalculate_result/"''>同步本月加班遲到</li>
-<!-- 						<li onclick='window.location.href="/Sync_CalculateMonthSalary_MonthCalculate/"''>同步本月薪水</li> -->
-						</ul>
-					</div>
-				</div>
-			</li>
-			<li class="drop">
-				<a href="#">備份資料</a>
-				<div class="dropdownContain">
-					<div class="dropOut">
-						<ul>
-						<li onclick='window.location.href="/Backup_CheckOriginDataByDay/"''>上班備份資料</li>
-						<li onclick='window.location.href="/CheckBackupScheduleData/"''>排班備份資料</li>
-						</ul>
-					</div>
-				</div>
-			</li>
-			<li class="drop">
-				<a href="#">財務資訊</a>
-				<div class="dropdownContain">
-					<div class="dropOut">
-					</div>
-				</div>
-			</li>
-		</ul>
-</div>
-</div>
-	<div class='table'>
+<header>
+     <% include ./html.ejs %>
+</header>
+
+<div class='PreHaveScheduleButNoWork'>
 	<ul>
 		<li>
 	      <span> 時間碼 </span>
@@ -119,8 +21,8 @@
 	      <span> 狀態 </span> 
 		</li>
 	</ul>
-	</div>   
-	<div class='table_second'> 
+</div>   
+<div class='PostHaveScheduleButNoWork'> 
 	  <% for(var i=0; i<passvariable.length; i++) {%>
 	<ul>
 		<li>
@@ -134,7 +36,7 @@
 		</li>
 	</ul>
 	<% } %>
-	</div>	
+</div>	
 
 </body>
 </html>

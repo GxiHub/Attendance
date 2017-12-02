@@ -1,0 +1,76 @@
+
+.PreHaveScheduleButNoWork{
+    background:#FFF;
+    margin-top: 20px;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.PreHaveScheduleButNoWork ul li span{
+    width:100px;
+    text-align:center;
+    vertical-align: middle; 
+    font: 14px Verdana, 'Lucida Grande';
+    color: #000;
+    padding-right: 5px;
+    line-height: 12px;
+    display: inline-block;
+}
+
+.PostHaveScheduleButNoWork{
+    background:#FFF;
+    text-align: center;
+}
+
+.PostHaveScheduleButNoWork ul li span{
+    width:100px;
+    text-align:center;
+    vertical-align: middle; 
+    font: 12px Verdana, 'Lucida Grande';
+    color: #777;
+    padding-right: 5px;
+    line-height: 24px;
+    display: inline-block;
+}
+
+
+.PostHaveScheduleButNoWork select{
+    width:70px;
+    color:#1ABC9C;
+    background:#FFF; border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+
+.PostHaveScheduleButNoWork input{
+    width:75px;
+    text-align:center;
+}
+
+.PostHaveScheduleButNoWork button{
+    width:40px;
+    color:#777;
+    background:#FFF; border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 1px;
+}
+
+.date{
+    margin-top:20px;
+    margin-left:70px;
+}
+
+.date select{
+    width:100px;
+    text-align:center;
+    background:#FFF;border:1 none; 
+}
+
+.date button{
+    width:100px;
+    background:#000;border:1 none;
+    color:white;
+    text-align:center;
+}
