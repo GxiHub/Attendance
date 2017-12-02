@@ -1,0 +1,109 @@
+
+.PreAdjustOnlineStatus{
+    background:#FFF;
+    margin-top: 20px;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.PreAdjustOnlineStatus ul li span{
+    width:60px;
+    text-align:center;
+    vertical-align: middle; 
+    font: 14px Verdana, 'Lucida Grande';
+    color: #000;
+    padding-right: 5px;
+    line-height: 14px;
+    display: inline-block;
+}
+
+.PreAdjustOnlineStatus ul li span:nth-child(1){
+    width:35px;
+    display: inline-block;
+}
+
+.PreAdjustOnlineStatus ul li span:nth-child(2),
+.PreAdjustOnlineStatus ul li span:nth-child(3){
+    width:110px;
+    display: inline-block;
+}
+
+.PreAdjustOnlineStatus ul li span:nth-child(6){
+    width:135px;
+    display: inline-block;
+}
+
+.PreAdjustOnlineStatus ul li span:nth-child(8){
+    width:360px;
+    display: inline-block;
+}
+
+.PostAdjustOnlineStatus{
+    background:#FFF;
+    text-align: center;
+}
+
+.PostAdjustOnlineStatus ul li{
+    font-weight: 700;
+    color: #777;
+    border-width: 1px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    display: inline-block;
+}
+.PostAdjustOnlineStatus ul li span{
+    width:60px;
+    text-align:center;
+    vertical-align: middle; 
+    font: 12px Verdana, 'Lucida Grande';
+    color: #777;
+    padding-right: 5px;
+    line-height: 28px;
+    display: inline-block;
+}
+
+.PostAdjustOnlineStatus ul li span:nth-child(1){
+    width:35px;
+    display: inline-block;
+}
+
+.PostAdjustOnlineStatus ul li span:nth-child(2),
+.PostAdjustOnlineStatus ul li span:nth-child(3){    
+    width:110px;
+    display: inline-block;
+}
+
+.PostAdjustOnlineStatus ul li span:nth-child(6){    
+    width:135px;
+    display: inline-block;
+}
+
+.PostAdjustOnlineStatus ul li span:nth-child(8){    
+    width:360px;
+    display: inline-block;
+}
+
+.PostAdjustOnlineStatus select{
+    width:50px;
+    color:#777;
+    background:#FFF; border:1 none;
+    cursor:pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+
+.PostAdjustOnlineStatus input{
+    width:75px;
+    text-align:center;
+}
+
+.PostAdjustOnlineStatus button{
+    width:40px;
+    color:#777;
+    background:#FFF; border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 1px;
+    border-radius: 1px;
+}
