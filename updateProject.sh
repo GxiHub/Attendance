@@ -32,7 +32,8 @@ sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/Me
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/StockInAndOut/checkproductinstock.css ./public/css/StockInAndOut/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/StockInAndOut/checkstockineachproductnumber.css ./public/css/StockInAndOut/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/StockInAndOut/checkproductpartialtag.css ./public/css/StockInAndOut/.
-
+#WorkSchedule
+sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/WorkSchedule/usecheckboxbyaddemployeeworkschedule.css ./public/css/WorkSchedule/.
 
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/selector_style.css ./public/css/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/table_style.css ./public/css/.
@@ -42,7 +43,6 @@ sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/ch
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/checkeverymonthworkstatus.css ./public/css/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/StockInAndOut/checkstockineachproductnumber.css ./public/css/StockInAndOut/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/planworkschedulecheckemployeeworkschedulebylist.css ./public/css/.
-sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/usecheckboxbyaddemployeeworkschedule.css ./public/css/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/backupcheckeverymonthworkstatus.css ./public/css/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/backupplanworkschedulecheckworkschedulebylist.css ./public/css/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/showhaveshcedulebutnowork.css ./public/css/.

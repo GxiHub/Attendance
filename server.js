@@ -580,6 +580,56 @@ app.get('/ShowAndModifyUserTokenData_UserTokenData/',function(req,res){
 });
 
 // ===============================================================
+
+// =============== 員工排班相關 ===========================================
+// 新增員工多天排班
+app.get('/Plan_Work_Schedule_MultipleDirectPageToAddEmployeeWorkSchedule/',function(req,res){
+    dbtoken.collection('memberbrandinformation').find().toArray(function(err, results) {
+          res.render('UseCheckBoxByAddEmployeeWorkSchedule.ejs',{member:results});
+    }); 
+});
+app.post('/Plan_Work_Schedule_UseCheckBoxByAddEmployeeWorkSchedule/',function(req,res){
+    PlanWorkSchedule.AddMultipleEmployeeWorkScheduleFunction(req.body.checkName,req.body.checkPeriodYear,req.body.checkPeriodMonth,req.body.checkPeriodOnlineHour,req.body.checkPeriodOnlineMinute,req.body.checkPeriodOfflineHour,req.body.checkPeriodOffineMinute,
+                                                             req.body.checkbox01,req.body.checkbox02,req.body.checkbox03,req.body.checkbox04,req.body.checkbox05,req.body.checkbox06,req.body.checkbox07,req.body.checkbox08,req.body.checkbox09,req.body.checkbox10,req.body.checkbox11,req.body.checkbox12,
+                                                             req.body.checkbox13,req.body.checkbox14,req.body.checkbox15,req.body.checkbox16,req.body.checkbox17,req.body.checkbox18,req.body.checkbox19,req.body.checkbox20,req.body.checkbox21,req.body.checkbox22,req.body.checkbox23,req.body.checkbox24,
+                                                             req.body.checkbox25,req.body.checkbox26,req.body.checkbox27,req.body.checkbox28,req.body.checkbox29,req.body.checkbox30,req.body.checkbox31);   
+    res.redirect('/');
+});
+
+
+// 顯示單月員工排班列表
+app.get('/Plan_Work_Schedule_CheckEmployeeWorkScheduleByList/',function(req,res){
+    PlanWorkSchedule.CheckWorkScheduleByList(req.query.checkPeriodYear,req.query.checkPeriodMonth).then(function(items) 
+    {
+          res.render('PlanWorkSchedule_CheckWorkScheduleByList.ejs',{passvariable:items});
+    }, function(err) {
+          console.error('The promise was rejected', err, err.stack);
+    });
+});
+
+// 調整員工排班狀況
+app.get('/Plan_Work_Schedule_AdjustWorkSchedule/',function(req,res){
+    PlanWorkSchedule.AdjustWorkSchedule(req.query.checkPeriodYear,req.query.checkPeriodMonth,req.query.checkPeriodDay).then(function(items) 
+    {
+          res.render('AdjustWorkSchedule.ejs',{WorkHour:items});
+    }, function(err) {
+          console.error('The promise was rejected', err, err.stack);
+    }); 
+});
+app.post('/Plan_Work_Schedule_DeleteWorkScheduleData/', (req, res) => {
+  PlanWorkSchedule.DeleteWorkSchdeule(req.body.TID,req.body.workyear,req.body.workmonth,req.body.workday);sleep(2);
+  res.redirect('/Plan_Work_Schedule_AdjustWorkSchedule/');    
+});
+
+// 顯示有排班無上班
+app.get('/Show_CheckHaveScheduleButNoWork/',function(req,res){
+    dbtest.collection('checkhaveschedulebutnowork').find().toArray(function(err, data) {
+      res.render('ShowHaveScheduleButNoWork.ejs',{passvariable:data});
+    });
+});
+
+
+// ===============================================================
 // [顯示] [排班]
 app.get('/Plan_Work_Schedule_SingleDirectPageToAddEmployeeWorkSchedule/',function(req,res){
     res.render('AddEmployeeWorkSchedule.ejs');
@@ -590,46 +640,8 @@ app.post('/Plan_Work_Schedule_AddEmployeeWorkSchedule/',function(req,res){
     res.redirect('/');
 });
 
-// [顯示] [排班]
-app.get('/Plan_Work_Schedule_MultipleDirectPageToAddEmployeeWorkSchedule/',function(req,res){
-    dbtoken.collection('memberbrandinformation').find().toArray(function(err, results) {
-          res.render('UseCheckBoxByAddEmployeeWorkSchedule.ejs',{member:results});
-    }); 
-});
 
-// [新增] [排班] [多筆] [PlanWorkSchedule]
-app.post('/Plan_Work_Schedule_UseCheckBoxByAddEmployeeWorkSchedule/',function(req,res){
-    PlanWorkSchedule.AddMultipleEmployeeWorkScheduleFunction(req.body.checkName,req.body.checkPeriodYear,req.body.checkPeriodMonth,req.body.checkPeriodOnlineHour,req.body.checkPeriodOnlineMinute,req.body.checkPeriodOfflineHour,req.body.checkPeriodOffineMinute,
-                                                             req.body.checkbox01,req.body.checkbox02,req.body.checkbox03,req.body.checkbox04,req.body.checkbox05,req.body.checkbox06,req.body.checkbox07,req.body.checkbox08,req.body.checkbox09,req.body.checkbox10,req.body.checkbox11,req.body.checkbox12,
-                                                             req.body.checkbox13,req.body.checkbox14,req.body.checkbox15,req.body.checkbox16,req.body.checkbox17,req.body.checkbox18,req.body.checkbox19,req.body.checkbox20,req.body.checkbox21,req.body.checkbox22,req.body.checkbox23,req.body.checkbox24,
-                                                             req.body.checkbox25,req.body.checkbox26,req.body.checkbox27,req.body.checkbox28,req.body.checkbox29,req.body.checkbox30,req.body.checkbox31);   
-    res.redirect('/');
-});
 
-// [查詢] [排班] [PlanWorkSchedule]
-app.get('/Plan_Work_Schedule_AdjustWorkSchedule/',function(req,res){
-    PlanWorkSchedule.AdjustWorkSchedule(req.query.checkPeriodYear,req.query.checkPeriodMonth,req.query.checkPeriodDay).then(function(items) 
-    {
-          res.render('AdjustWorkSchedule.ejs',{WorkHour:items});
-    }, function(err) {
-          console.error('The promise was rejected', err, err.stack);
-    }); 
-});
-// [刪除] [排班] [PlanWorkSchedule]
-app.post('/Plan_Work_Schedule_DeleteWorkScheduleData/', (req, res) => {
-  PlanWorkSchedule.DeleteWorkSchdeule(req.body.TID,req.body.workyear,req.body.workmonth,req.body.workday);sleep(2);
-  res.redirect('/Plan_Work_Schedule_AdjustWorkSchedule/');    
-});
-
-// [查詢] [排班] [列表] [PlanWorkSchedule]
-app.get('/Plan_Work_Schedule_CheckEmployeeWorkScheduleByList/',function(req,res){
-    PlanWorkSchedule.CheckWorkScheduleByList(req.query.checkPeriodYear,req.query.checkPeriodMonth).then(function(items) 
-    {
-          res.render('PlanWorkSchedule_CheckWorkScheduleByList.ejs',{passvariable:items});
-    }, function(err) {
-          console.error('The promise was rejected', err, err.stack);
-    });
-});
 
 // [查詢] [排班] [群組] [PlanWorkSchedule]
 app.post('/Plan_Work_Schedule_CheckEmployeeWorkScheduleByGroup/',function(req,res){
@@ -773,12 +785,7 @@ app.get('/Sync_CheckHaveScheduleButNoWork/',function(req,res){
     res.redirect('/');
 });
 
-// [顯示] [有排班沒上班] 
-app.get('/Show_CheckHaveScheduleButNoWork/',function(req,res){
-    dbtest.collection('checkhaveschedulebutnowork').find().toArray(function(err, data) {
-      res.render('ShowHaveScheduleButNoWork.ejs',{passvariable:data});
-    });
-});
+
 
 // [同步] [上下班資訊] [SyncOnlineOfflineData]
 app.get('/Sync_OriginAndBackupOnlineOffline/',function(req,res){
