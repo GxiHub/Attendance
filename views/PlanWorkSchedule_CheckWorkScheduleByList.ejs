@@ -12,7 +12,7 @@
      <% include ./html.ejs %>
 </header>
 
-<div class="PreCheckWorkSchedule">
+<div class="CheckWorkSchedule">
 	<form action="/Plan_Work_Schedule_CheckEmployeeWorkScheduleByList/" method="GET">
 		<select name="checkPeriodYear" id="month">
 			<option selected value="2017" name="checkPeriodYear">2017</option>
@@ -28,7 +28,7 @@
 		<button type="submit">查詢</button>
 	</form>	 
 </div>
-	<div class='table'>
+<div class='PreCheckWorkSchedule'>
 	<ul>
 		<li>
 		  <span> 時間碼 </span>
@@ -43,8 +43,8 @@
 	      <span> 比數 </span> 
 	    </li>
 	</ul>
-	</div>   
-	<div class='table_second'>
+</div>   
+<div class='PostCheckWorkSchedule'>
 	<%  var index=0;%>
 	<%  for(var i=0; i<passvariable.length; i++) {%>
 	<ul>
@@ -86,7 +86,7 @@
 		</li>
 	</ul>
 	<% } %>
-	</div>	
+</div>	
 
 </body>
 </html>
