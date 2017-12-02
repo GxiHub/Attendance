@@ -1,10 +1,9 @@
-
-.PrePartialTag{
+.PreProduct{
     text-align: center;
     background:#FFF;
 }
 
-.PrePartialTag ul li span{
+.PreProduct ul li span{
     width:100px;
     text-align:center;
     vertical-align: middle; 
@@ -15,12 +14,13 @@
     display: inline-block;
 }
 
-.PostPartialTag{
+.PostProduct{
     text-align: center;
     background:#FFF;
 }
 
-.PostPartialTag ul li span{
+
+.PostProduct ul li span{
     width:100px;
     text-align:center;
     vertical-align: middle; 
@@ -32,7 +32,7 @@
 }
 
 
-.PostPartialTag select{
+.PostProduct select{
     width:70px;
     color:#1ABC9C;
     background:#FFF; border:0 none;
@@ -42,12 +42,12 @@
 }
 
 
-.PostPartialTag input{
+.PostProduct input{
     width:75px;
     text-align:center;
 }
 
-.PostPartialTag button{
+.PostProduct button{
     width:40px;
     color:#777;
     background:#FFF; border:0 none;
@@ -55,3 +55,22 @@
     -webkit-border-radius: 1px;
     border-radius: 1px;
 }
+/*END -> ShowAndModifyMemberBrandData.ejs*/
+.date{
+    margin-top:20px;
+    margin-left:40px;
+}
+
+.date select{
+    width:100px;
+    text-align:center;
+    background:#FFF;border:1 none; 
+}
+
+.date button{
+    width:100px;
+    background:#000;border:1 none;
+    color:white;
+    text-align:center;
+}
+/*menu style*/

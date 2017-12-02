@@ -24,16 +24,19 @@ sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/ModifyPersona
 
 #Public
 #css
+sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/style.css ./public/css/.
+#StockIn
+sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/StockInAndOut/checkproductinstock.css ./public/css/StockInAndOut/.
+sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/StockInAndOut/checkstockineachproductnumber.css ./public/css/StockInAndOut/.
+sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/StockInAndOut/checkproductpartialtag.css ./public/css/StockInAndOut/.
+
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/selector_style.css ./public/css/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/table_style.css ./public/css/.
-sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/style.css ./public/css/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/adjustonlinestatus.css ./public/css/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/adjustworkschedule.css ./public/css/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/checkaddlatetimebackupstatus.css ./public/css/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/checkeverymonthworkstatus.css ./public/css/.
-sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/checkproductinstock.css ./public/css/.
-sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/checkproductpartialtag.css ./public/css/.
-sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/checkstockineachproductnumber.css ./public/css/.
+sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/StockInAndOut/checkstockineachproductnumber.css ./public/css/StockInAndOut/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/planworkschedulecheckemployeeworkschedulebylist.css ./public/css/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/showandmodifyusertokendata.css ./public/css/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/usecheckboxbyaddemployeeworkschedule.css ./public/css/.

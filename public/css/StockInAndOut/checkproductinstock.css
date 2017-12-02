@@ -1,10 +1,10 @@
 
-.PrePartialTag{
+.PreStockIn{
     text-align: center;
     background:#FFF;
 }
 
-.PrePartialTag ul li span{
+.PreStockIn ul li span{
     width:100px;
     text-align:center;
     vertical-align: middle; 
@@ -15,12 +15,12 @@
     display: inline-block;
 }
 
-.PostPartialTag{
+.PostStockIn{
     text-align: center;
     background:#FFF;
 }
 
-.PostPartialTag ul li span{
+.PostStockIn ul li span{
     width:100px;
     text-align:center;
     vertical-align: middle; 
@@ -32,7 +32,7 @@
 }
 
 
-.PostPartialTag select{
+.PostStockIn select{
     width:70px;
     color:#1ABC9C;
     background:#FFF; border:0 none;
@@ -42,16 +42,38 @@
 }
 
 
-.PostPartialTag input{
+.PostStockIn input{
     width:75px;
     text-align:center;
 }
 
-.PostPartialTag button{
+.PostStockIn button{
     width:40px;
     color:#777;
     background:#FFF; border:0 none;
     cursor:pointer;
     -webkit-border-radius: 1px;
     border-radius: 1px;
+}
+
+.CheckStock{
+    text-align: center;
+    background:#FFF;
+    margin-top:20px;
+    margin-bottom: 20px;
+}
+
+.CheckStock select{
+    width:100px;
+    text-align:center;
+    display: inline-block;
+    background:#FFF;border:1 none; 
+}
+
+.CheckStock button{
+    width:100px;
+    background:#000;border:1 none;
+    color:white;
+    text-align:center;
+    display: inline-block;
 }
