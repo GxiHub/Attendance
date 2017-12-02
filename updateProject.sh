@@ -40,10 +40,10 @@ sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/Wo
 #WorkStatus
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/WorkStatus/checkeverymonthworkstatus.css ./public/css/WorkStatus/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/WorkStatus/adjustonlinestatus.css ./public/css/WorkStatus/.
+sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/WorkStatus/checkaddlatetimebackupstatus.css ./public/css/WorkStatus/.
 
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/selector_style.css ./public/css/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/table_style.css ./public/css/.
-sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/checkaddlatetimebackupstatus.css ./public/css/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/backupcheckeverymonthworkstatus.css ./public/css/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/backupplanworkschedulecheckworkschedulebylist.css ./public/css/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/showhaveworkbutnoschedule.css ./public/css/.

@@ -1,0 +1,78 @@
+
+.PreCheckAddLate{
+    background:#FFF;
+    margin-top: 20px;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.PreCheckAddLate ul li span{
+    width:100px;
+    text-align:center;
+    vertical-align: middle; 
+    font: 14px Verdana, 'Lucida Grande';
+    color: #000;
+    padding-right: 5px;
+    line-height: 12px;
+    display: inline-block;
+}
+
+.PostCheckAddLate{
+    background:#FFF;
+    text-align: center;
+}
+
+.PostCheckAddLate ul li span{
+    width:100px;
+    text-align:center;
+    vertical-align: middle; 
+    font: 12px Verdana, 'Lucida Grande';
+    color: #777;
+    padding-right: 5px;
+    line-height: 24px;
+    display: inline-block;
+}
+
+
+.PostCheckAddLate select{
+    width:70px;
+    color:#1ABC9C;
+    background:#FFF; border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+
+.PostCheckAddLate input{
+    width:75px;
+    text-align:center;
+}
+
+.PostCheckAddLate button{
+    width:40px;
+    color:#777;
+    background:#FFF; border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 1px;
+}
+
+.CheckAddLate{
+    margin-top:20px;
+    text-align: center;
+}
+
+.CheckAddLate select{
+    width:100px;
+    text-align:center;
+    background:#FFF;border:1 none; 
+    display: inline-block;
+}
+
+.CheckAddLate button{
+    width:100px;
+    background:#000;border:1 none;
+    color:white;
+    text-align:center;
+    display: inline-block;
+}
