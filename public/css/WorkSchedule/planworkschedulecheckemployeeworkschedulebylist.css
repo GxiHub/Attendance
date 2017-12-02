@@ -1,0 +1,91 @@
+
+.table{
+    background:#FFF;
+    margin-top: 20px;
+    margin-bottom: 12px;
+    margin-left:40px;
+}
+
+.table ul li{
+    font-weight: 700;
+    color: #777;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.table ul li span{
+    width:100px;
+    text-align:center;
+    vertical-align: middle; 
+    font: 14px Verdana, 'Lucida Grande';
+    color: #000;
+    padding-right: 5px;
+    line-height: 12px;
+}
+
+.table_second{
+    background:#FFF;
+    margin-left:40px;
+}
+
+.table_second ul li{
+    font-weight: 700;
+    color: #777;
+    border-width: 1px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.table_second ul li span{
+    width:100px;
+    text-align:center;
+    vertical-align: middle; 
+    font: 12px Verdana, 'Lucida Grande';
+    color: #777;
+    padding-right: 5px;
+    line-height: 24px;
+}
+
+
+.table_second select{
+    width:70px;
+    color:#1ABC9C;
+    background:#FFF; border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+
+.table_second input{
+    width:75px;
+    text-align:center;
+}
+
+.table_second button{
+    width:40px;
+    color:#777;
+    background:#FFF; border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 1px;
+}
+
+.date{
+    margin-top:20px;
+    margin-left:40px;
+}
+
+.date select{
+    width:100px;
+    text-align:center;
+    background:#FFF;border:1 none; 
+}
+
+.date button{
+    width:100px;
+    background:#000;border:1 none;
+    color:white;
+    text-align:center;
+}
