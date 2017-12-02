@@ -497,6 +497,7 @@ app.get('/CheckProductInStock/',function(req,res){
     var _Month = GetNeedSyncMonth();
     var _Day = GetNeedSyncDay();
     var _DaysNumber = MonthHaveHowManyDay(_Year,_Month);
+
     HandleStockInOut.GetProductListInStock(req.query.checkPeriodYear,req.query.checkPeriodMonth,req.query.checkPeriodDay,req.query.checkType).then(function(items) 
     {
           res.render('CheckProductInStock.ejs',{passvariable:items,year:_Year,month:_Month,day:_Day,daysnumber:_DaysNumber});
@@ -584,8 +585,10 @@ app.get('/ShowAndModifyUserTokenData_UserTokenData/',function(req,res){
 // =============== 員工排班相關 ===========================================
 // 新增員工多天排班
 app.get('/Plan_Work_Schedule_MultipleDirectPageToAddEmployeeWorkSchedule/',function(req,res){
+    var _Year = GetNeedSyncYear();
+    var _Month = GetNeedSyncMonth();
     dbtoken.collection('memberbrandinformation').find().toArray(function(err, results) {
-          res.render('UseCheckBoxByAddEmployeeWorkSchedule.ejs',{member:results});
+          res.render('UseCheckBoxByAddEmployeeWorkSchedule.ejs',{member:results,year:_Year,month:_Month});
     }); 
 });
 app.post('/Plan_Work_Schedule_UseCheckBoxByAddEmployeeWorkSchedule/',function(req,res){
@@ -599,9 +602,11 @@ app.post('/Plan_Work_Schedule_UseCheckBoxByAddEmployeeWorkSchedule/',function(re
 
 // 顯示單月員工排班列表
 app.get('/Plan_Work_Schedule_CheckEmployeeWorkScheduleByList/',function(req,res){
+    var _Year = GetNeedSyncYear();
+    var _Month = GetNeedSyncMonth();
     PlanWorkSchedule.CheckWorkScheduleByList(req.query.checkPeriodYear,req.query.checkPeriodMonth).then(function(items) 
     {
-          res.render('PlanWorkSchedule_CheckWorkScheduleByList.ejs',{passvariable:items});
+          res.render('PlanWorkSchedule_CheckWorkScheduleByList.ejs',{passvariable:items,year:_Year,month:_Month});
     }, function(err) {
           console.error('The promise was rejected', err, err.stack);
     });
@@ -635,10 +640,12 @@ app.get('/Show_CheckHaveScheduleButNoWork/',function(req,res){
 // =============== 員工上班相關 ===========================================
 //顯示單月員工上班狀況
 app.get('/QR_codeSan_CheckEveryMonthWorkStatus/',function(req,res){
+    var _Year = GetNeedSyncYear();
+    var _Month = GetNeedSyncMonth();
     QRcodeScan.CheckMonthOnlineOfflineByBrandNameAndMonth(req.query.checkPeriodYear,req.query.checkPeriodMonth,req.query.checkName).then(function(items) 
     {
         dbtoken.collection('memberbrandinformation').find().toArray(function(err, results) {
-          res.render('CheckEveryMonthWorkStatus.ejs',{passvariable:items,member:results});
+          res.render('CheckEveryMonthWorkStatus.ejs',{passvariable:items,member:results,year:_Year,month:_Month});
         });
     }, function(err) {
           console.error('The promise was rejected', err, err.stack);
@@ -667,10 +674,12 @@ app.post('/QR_codeScan_UpdateOnlineOfflineDate/', (req, res) => {
 
 //顯示單月加班遲到狀況
 app.get('/PrintMonthSalary_CheckBackupAddLateStatus/',function(req,res){
+  var _Year = GetNeedSyncYear();
+  var _Month = GetNeedSyncMonth();
   PrintAddLateStatus.printBackupAddlateStatus(req.query.checkName,req.query.checkPeriodYear,req.query.checkPeriodMonth).then(function(items)
   {
         dbtoken.collection('memberbrandinformation').find().toArray(function(err, results) {
-          res.render('CheckAddLateTimeBackupStatus.ejs',{passvariable:items,member:results});
+          res.render('CheckAddLateTimeBackupStatus.ejs',{passvariable:items,member:results,year:_Year,month:_Month});
         });
   }, function(err) {
         console.error('The promise was rejected', err, err.stack);
@@ -735,9 +744,11 @@ app.get('/Sync_AddLateWorkTimeCalculate_result/',function(req,res){
 // =============== 同步相關 ===========================================
 //上班備份資料
 app.get('/Backup_CheckOriginDataByDay/',function(req,res){
+    var _Year = GetNeedSyncYear();
+    var _Month = GetNeedSyncMonth();
     dbtest.collection('synconlineofflinedata').find({'Year':req.query.checkPeriodYear,'Month':req.query.checkPeriodMonth}).sort({'Month':1,'Day':1,"name": 1,'status':1}).toArray(function(err, data) {
         dbtoken.collection('memberbrandinformation').find().toArray(function(err, results) {
-          res.render('Backup_CheckEveryMonthWorkStatus.ejs',{passvariable:data,member:results});
+          res.render('Backup_CheckEveryMonthWorkStatus.ejs',{passvariable:data,member:results,year:_Year,month:_Month});
         });
     });
 });
@@ -745,16 +756,20 @@ app.get('/Backup_CheckOriginDataByDay/',function(req,res){
 
 // 排班備份資料
 app.get('/CheckBackupScheduleData/',function(req,res){
+    var _Year = GetNeedSyncYear();
+    var _Month = GetNeedSyncMonth();
     dbtest.collection('synworkscheduledata').find({'workyear':req.query.checkPeriodYear,'workmonth':req.query.checkPeriodMonth}).sort({'workyear':1,'workmonth':1,"workday":1,"name": 1}).toArray(function(err, data) {
-      res.render('Backup_PlanWorkSchedule_CheckWorkScheduleByList.ejs',{passvariable:data});
+      res.render('Backup_PlanWorkSchedule_CheckWorkScheduleByList.ejs',{passvariable:data,year:_Year,month:_Month});
     });
 });
 
 // 合併排班資料
 app.get('/Sync_ShowCombineMonthSchedule/',function(req,res){
     var BrandButton = '食鍋藝';//需要知道店名稱來識別需要計算哪間店的資料
+    var _Year = GetNeedSyncYear();
+    var _Month = GetNeedSyncMonth();
     dbtest.collection('synccombinemonthworkschedule').find({'workyear':req.query.checkPeriodYear,'workmonth':req.query.checkPeriodMonth,'userbrandname':BrandButton}).sort({'workyear':1,'workmonth':1,"name": 1,"TID":1,"workday":1}).toArray(function(err, backup) {
-        res.render('Backup_CombineMonthSchedule.ejs',{passvariable:backup});
+        res.render('Backup_CombineMonthSchedule.ejs',{passvariable:backup,year:_Year,month:_Month});
     });
 });
 
@@ -924,6 +939,3 @@ app.listen(9080, function(){
     console.log('listening on 9080');
 });
 
-// <!-- <header>
-//     <% include ./html.ejs %>
-// </header> -->

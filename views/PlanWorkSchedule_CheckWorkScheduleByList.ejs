@@ -15,15 +15,17 @@
 <div class="CheckWorkSchedule">
 	<form action="/Plan_Work_Schedule_CheckEmployeeWorkScheduleByList/" method="GET">
 		<select name="checkPeriodYear" id="month">
-			<option selected value="2017" name="checkPeriodYear">2017</option>
+			<option selected value=<%= year %>><%= year %></option>
+			<%  for(var i=0; i<3; i++) {%>
+			<option value=<%= parseInt(year,10)+i %>><%= parseInt(year,10)+i %></option>
+			<% } %>
 		</select>
 		<select name="checkPeriodMonth" id="year">
-			<option value="01">01</option><option  value="02">02</option>
-			<option value="03">03</option><option  value="04">04</option>
-			<option value="05">05</option><option  value="06">06</option>
-			<option  value="07">07</option><option value="08">08</option>
-			<option selected value="09">09</option><option  value="10">10</option>
-			<option value="11">11</option><option  value="12">12</option>
+			<option selected value=<%= month %>><%= month %></option>
+			<%  for(var i=1; i<13; i++) {%>
+			<%  if(i<10){ i = '0'+i; } %>
+			<option value=<%= i %>><%= i %></option>
+			<% } %>
 		</select>
 		<button type="submit">查詢</button>
 	</form>	 
