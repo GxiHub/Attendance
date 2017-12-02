@@ -25,10 +25,13 @@ sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/ModifyPersona
 #Public
 #css
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/style.css ./public/css/.
+#MemberData
+sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/MemberData/modifymemberbranddata.css ./public/css/MemberData/.
 #StockIn
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/StockInAndOut/checkproductinstock.css ./public/css/StockInAndOut/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/StockInAndOut/checkstockineachproductnumber.css ./public/css/StockInAndOut/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/StockInAndOut/checkproductpartialtag.css ./public/css/StockInAndOut/.
+
 
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/selector_style.css ./public/css/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/public/css/table_style.css ./public/css/.

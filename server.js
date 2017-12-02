@@ -480,7 +480,7 @@ app.get('/AddManageNews/',function(req,res){
 
 // =============== 庫存系統相關 ===========================================
 
-// =============== 確認每個庫存數量
+//  確認每個庫存數量
 app.get('/CheckProductPartialTagEachNumber/',function(req,res){
     HandleStockInOut.GetProductPartialTagEachNumber().then(function(items) 
     {
@@ -491,7 +491,7 @@ app.get('/CheckProductPartialTagEachNumber/',function(req,res){
           console.error('The promise was rejected', err, err.stack);
     });
 });
-// =============== 確認現有庫存
+//  確認現有庫存
 app.get('/CheckProductInStock/',function(req,res){
     var _Year = GetNeedSyncYear();
     var _Month = GetNeedSyncMonth();
@@ -505,7 +505,7 @@ app.get('/CheckProductInStock/',function(req,res){
     });
 });
 
-// =============== 新增庫存標籤
+//  新增庫存標籤
 app.get('/AddProductPartialTag/',function(req,res){
     res.render('AddProductPartialTag.ejs'); 
 });
@@ -514,7 +514,7 @@ app.post('/AddProductPartialTagInStock/',function(req,res){
     res.redirect('/');
 });
 
-// =============== 確認產品標籤
+//  確認產品標籤
 app.get('/CheckProductPartialTag/',function(req,res){
     HandleStockInOut.GetProductPartialTag().then(function(items) 
     {
@@ -524,7 +524,7 @@ app.get('/CheckProductPartialTag/',function(req,res){
     });
 });
 
-// =============== 新增庫存產品
+//  新增庫存產品
 app.get('/QRcodeStockIn/',function(req,res){
     res.render('StockInCheck.ejs',{passvariable:req.query.thing});
 });
@@ -544,6 +544,42 @@ app.post('/DeleteProductInStock/',function(req,res){
 
 // ===============================================================
 
+// =============== 員工基本相關 ===========================================
+//新增員工基本資料
+app.get('/ShowNewPersonalData_AddMemberData/',function(req,res){
+    res.render('AddNewPersonalData_PrintAddMemberDataFrame.ejs'); 
+}); 
+app.post('/AddNewPersonalData_AddMemberData/',function(req,res){
+    AddMemberData.AddNewMemberData(req.body.name,req.body.userbrandtitle,req.body.userbrandname,req.body.userbrandplace,req.body.usermonthsalary,req.body.userfoodsalary,req.body.userwithoutsalary,req.body.usertitlesalary,req.body.userextrasalary,req.body.userlawsalary); 
+    res.redirect('/');
+});
+
+//顯示員工基本資料 
+app.post('/ShowAndModifyMemberBrandData_UpdateBrandData/', (req, res) => {
+  ModifyMemberBrandData.UpdateDataBrandData(req.body.uniID,req.body.name,req.body.updatechoose,req.body.content);
+  sleep(2);
+  res.redirect('/ShowAndModifyMemberBrandData_ModifyBrandData');
+});
+app.get('/ShowAndModifyMemberBrandData_ModifyBrandData/',function(req,res){
+  ModifyMemberBrandData.ShowMemberBrandData().then(function(items)
+  {
+        res.render('ShowAndModifyMemberBrandData.ejs',{passvariable:items});
+  }, function(err) {
+        console.error('The promise was rejected', err, err.stack);
+  }); 
+});
+
+//顯示員工打卡資料
+app.get('/ShowAndModifyUserTokenData_UserTokenData/',function(req,res){
+  PrintPersonalData.PrintUserTokenData().then(function(items)
+  {
+        res.render('ShowAndModifyUserTokenData.ejs',{passvariable:items});
+  }, function(err) {
+        console.error('The promise was rejected', err, err.stack);
+  }); 
+});
+
+// ===============================================================
 // [顯示] [排班]
 app.get('/Plan_Work_Schedule_SingleDirectPageToAddEmployeeWorkSchedule/',function(req,res){
     res.render('AddEmployeeWorkSchedule.ejs');
@@ -823,44 +859,7 @@ app.get('/Sync_ShowMonthSalary/',function(req,res){
 //  ==================== 同步專區 End
 
 //  ==================== 員工專區 Start
-// [顯示] [員工基本資料]
-app.get('/ShowNewPersonalData_AddMemberData/',function(req,res){
-    res.render('AddNewPersonalData_PrintAddMemberDataFrame.ejs'); 
-});
 
-// [查詢] [基本品牌資料] [ModifyMemberBrandData] 
-app.get('/ShowAndModifyMemberBrandData_ModifyBrandData/',function(req,res){
-  ModifyMemberBrandData.ShowMemberBrandData().then(function(items)
-  {
-        res.render('ShowAndModifyMemberBrandData.ejs',{passvariable:items});
-  }, function(err) {
-        console.error('The promise was rejected', err, err.stack);
-  }); 
-});
-
-// [更新] [基本品牌資料] [ModifyMemberBrandData] 
-app.post('/ShowAndModifyMemberBrandData_UpdateBrandData/', (req, res) => {
-  ModifyMemberBrandData.UpdateDataBrandData(req.body.uniID,req.body.name,req.body.updatechoose,req.body.content);
-  sleep(2);
-  res.redirect('/ShowAndModifyMemberBrandData_ModifyBrandData');
-});
-
-
-// [新增] [員工基本資料] [AddNewPersonalData] 
-app.post('/AddNewPersonalData_AddMemberData/',function(req,res){
-    AddMemberData.AddNewMemberData(req.body.name,req.body.userbrandtitle,req.body.userbrandname,req.body.userbrandplace,req.body.usermonthsalary,req.body.userfoodsalary,req.body.userwithoutsalary,req.body.usertitlesalary,req.body.userextrasalary,req.body.userlawsalary); 
-    res.redirect('/');
-});
-
-// [顯示] [員工打卡資料] [PrintPersonalData] 
-app.get('/ShowAndModifyUserTokenData_UserTokenData/',function(req,res){
-  PrintPersonalData.PrintUserTokenData().then(function(items)
-  {
-        res.render('ShowAndModifyUserTokenData.ejs',{passvariable:items});
-  }, function(err) {
-        console.error('The promise was rejected', err, err.stack);
-  }); 
-});
 
 // ============ 共同使用函式 =====================
 function GetNeedSyncYear()

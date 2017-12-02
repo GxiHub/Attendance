@@ -1,0 +1,126 @@
+
+.PreModifyMemberData{
+    text-align: center;
+    background:#FFF;
+    margin-top:20px;
+    margin-bottom: 10px;
+}
+
+.PreModifyMemberData ul li span:first-child{
+    width:100px;
+    text-align:center;
+    vertical-align: middle; 
+    font: 14px Verdana, 'Lucida Grande';
+    color: #000;
+    padding-right: 5px;
+    line-height: 14px;
+    display: inline-block;
+}
+
+.PreModifyMemberData ul li span{
+    width:60px;
+    text-align:center;
+    vertical-align: middle; 
+    font: 14px Verdana, 'Lucida Grande';
+    color: #000;
+    padding-right: 5px;
+    line-height: 14px;
+    display: inline-block;
+}
+
+.PreModifyMemberData ul li span:last-child{
+    width:230px;
+    text-align:center;
+    vertical-align: middle; 
+    font: 14px Verdana, 'Lucida Grande';
+    color: #000;
+    padding-right: 5px;
+    line-height: 14px;
+    display: inline-block;
+}
+
+.PostModifyMemberData{
+    text-align: center;
+    background:#FFF;
+}
+
+.PostModifyMemberData ul li span:first-child{
+    width:100px;
+    text-align:center;
+    vertical-align: middle; 
+    font: 12px Verdana, 'Lucida Grande';
+    color: #777;
+    padding-right: 5px;
+    line-height: 14px;
+    display: inline-block;
+}
+
+
+.PostModifyMemberData ul li span{
+    width:60px;
+    text-align:center;
+    vertical-align: middle; 
+    font: 12px Verdana, 'Lucida Grande';
+    color: #777;
+    padding-right: 5px;
+    line-height: 14px;
+    display: inline-block;
+}
+
+.PostModifyMemberData ul li span:last-child{
+    width:230px;
+    text-align:center;
+    vertical-align: middle; 
+    font: 12px Verdana, 'Lucida Grande';
+    color: #777;
+    padding-right: 5px;
+    line-height: 14px;
+    display: inline-block;
+}
+
+
+.PostModifyMemberData select{
+    width:70px;
+    color:#1ABC9C;
+    background:#FFF; border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+
+.PostModifyMemberData input{
+    width:75px;
+    text-align:center;
+}
+
+.PostModifyMemberData button{
+    width:40px;
+    color:#777;
+    background:#FFF; border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 1px;
+    border-radius: 1px;
+}
+
+.CheckStock{
+    text-align: center;
+    background:#FFF;
+    margin-top:20px;
+    margin-bottom: 20px;
+}
+
+.CheckStock select{
+    width:100px;
+    text-align:center;
+    display: inline-block;
+    background:#FFF;border:1 none; 
+}
+
+.CheckStock button{
+    width:100px;
+    background:#000;border:1 none;
+    color:white;
+    text-align:center;
+    display: inline-block;
+}
