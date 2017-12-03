@@ -572,6 +572,15 @@ function CalculateIsWorkOrScheduleWithSync(_Year,_Month,_UniID,_BrandButton)
                 console.log('從[',backup[j].realworkstatus,']變成[正常]  name = ',backup[j].name,' date = ',backup[j].workyear,'/',backup[j].workmonth,'/',backup[j].workday);  
               }  
             }
+           else if(backup[j].realworkstatus == '多餘排班')
+            {
+              if(backup[j].realonlinehour =='' && backup[j].realofflinehour == '')
+              {
+                UpdateIsWorkOrScheduleWithSync(backup[j].TID,backup[j].name,_UniID,'正常');
+                console.log('從[',backup[j].realworkstatus,']變成[正常]  name = ',backup[j].name,' date = ',backup[j].workyear,'/',backup[j].workmonth,'/',backup[j].workday);  
+              }  
+            }
+            
           }    
         }  
         if(err)return console.log(err);
