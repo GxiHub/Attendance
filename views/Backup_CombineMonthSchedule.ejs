@@ -74,7 +74,11 @@
 		      <% }else{%>
 		      <span><%= passvariable[i].shcedulestatus %></span>
 		      <% }%>		
-		      <span><%= passvariable[i].realworkstatus %></span>	
+		      <% if(passvariable[i].realworkstatus =='正常' || passvariable[i].realworkstatus =='尚未到職'){%>
+		      <span><%= passvariable[i].realworkstatus %></span>
+		      <% }else{%>	
+		      <span style="color:red;"><%= passvariable[i].realworkstatus %></span>
+		       <% }%>	
 			      <% if(passvariable[i].onlinecondition !='正常'){%>	      
 			      <span style="color:red;"><%= passvariable[i].onlinecondition %></span>		      	  
 			      <span style="color:red;"><%= passvariable[i].onlineconditiontime %></span>

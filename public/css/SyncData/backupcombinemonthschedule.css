@@ -28,6 +28,17 @@
     display: inline-block;
 }
 
+.PreCombineMonthScedule ul li span:nth-child(10){
+    width:70px;
+    text-align:center;
+    vertical-align: middle; 
+    font: 14px Verdana, 'Lucida Grande';
+    color: #000;
+    padding-right: 5px;
+    line-height: 12px;
+    display: inline-block;
+}
+
 .PreCombineMonthScedule ul li span:last-child{
     width:130px;
     text-align:center;
@@ -58,6 +69,17 @@
 
 .PostCombineMonthScedule ul li span{
     width:60px;
+    text-align:center;
+    vertical-align: middle; 
+    font: 12px Verdana, 'Lucida Grande';
+    color: #777;
+    padding-right: 5px;
+    line-height: 24px;
+    display: inline-block;
+}
+
+.PostCombineMonthScedule ul li span:nth-child(10){
+    width:80px;
     text-align:center;
     vertical-align: middle; 
     font: 12px Verdana, 'Lucida Grande';

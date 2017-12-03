@@ -521,29 +521,35 @@ function CalculateIsWorkOrScheduleWithSync(_Year,_Month,_UniID,_BrandButton)
             {
               if(backup[j].realonlinehour =='' && backup[j].realofflinehour =='')
               {
+                UpdateIsWorkOrScheduleWithSync(backup[j].TID,backup[j].name,_UniID,'多餘排班');
                 console.log('[多餘排班] name = ',backup[j].name,' date = ',backup[j].workyear,'/',backup[j].workmonth,'/',backup[j].workday);  
               }
               else if(backup[j].realonlinehour !='' && backup[j].realofflinehour =='')
               {
-                console.log('[忘記打下班卡] name = ',backup[j].name,' date = ',backup[j].workyear,'/',backup[j].workmonth,'/',backup[j].workday);  
+                UpdateIsWorkOrScheduleWithSync(backup[j].TID,backup[j].name,_UniID,'忘記打下班卡');
+                console.log('[補打下班卡] name = ',backup[j].name,' date = ',backup[j].workyear,'/',backup[j].workmonth,'/',backup[j].workday);  
               }
               else if(backup[j].realonlinehour =='' && backup[j].realofflinehour !='')
               {
-                console.log('[忘記打上班卡] name = ',backup[j].name,' date = ',backup[j].workyear,'/',backup[j].workmonth,'/',backup[j].workday);  
+                UpdateIsWorkOrScheduleWithSync(backup[j].TID,backup[j].name,_UniID,'忘記打上班卡');
+                console.log('[補打上班卡] name = ',backup[j].name,' date = ',backup[j].workyear,'/',backup[j].workmonth,'/',backup[j].workday);  
               } 
             }
             else if(backup[j].realworkstatus =='多餘排班' || backup[j].realworkstatus =='忘記打下班卡' || backup[j].realworkstatus =='忘記打上班卡')
             {
               if(backup[j].realworkstatus =='多餘排班' && backup[j].shcedulestatus == '排休')
               {
+                UpdateIsWorkOrScheduleWithSync(backup[j].TID,backup[j].name,_UniID,'正常');
                 console.log('從[',backup[j].realworkstatus,']變成[正常]  name = ',backup[j].name,' date = ',backup[j].workyear,'/',backup[j].workmonth,'/',backup[j].workday);  
               }
               else if(backup[j].realworkstatus =='忘記打下班卡' && backup[j].realofflinehour != '')
               {
+                UpdateIsWorkOrScheduleWithSync(backup[j].TID,backup[j].name,_UniID,'正常');
                 console.log('從[',backup[j].realworkstatus,']變成[正常]  name = ',backup[j].name,' date = ',backup[j].workyear,'/',backup[j].workmonth,'/',backup[j].workday);  
               }
               else if(backup[j].realworkstatus =='忘記打上班卡' && backup[j].realonlinehour != '')
               {
+                UpdateIsWorkOrScheduleWithSync(backup[j].TID,backup[j].name,_UniID,'正常');
                 console.log('從[',backup[j].realworkstatus,']變成[正常]  name = ',backup[j].name,' date = ',backup[j].workyear,'/',backup[j].workmonth,'/',backup[j].workday);  
               }
             }
@@ -554,6 +560,7 @@ function CalculateIsWorkOrScheduleWithSync(_Year,_Month,_UniID,_BrandButton)
             {
                 if(backup[j].realonlinehour !='' || backup[j].realofflinehour !='')
                 {
+                  UpdateIsWorkOrScheduleWithSync(backup[j].TID,backup[j].name,_UniID,'忘記排班');
                   console.log('[忘記排班] name = ',backup[j].name,' date = ',backup[j].workyear,'/',backup[j].workmonth,'/',backup[j].workday);  
                 }
             }  
@@ -561,6 +568,7 @@ function CalculateIsWorkOrScheduleWithSync(_Year,_Month,_UniID,_BrandButton)
             {
               if(backup[j].realonlinehour =='' && backup[j].realofflinehour == '')
               {
+                UpdateIsWorkOrScheduleWithSync(backup[j].TID,backup[j].name,_UniID,'正常');
                 console.log('從[',backup[j].realworkstatus,']變成[正常]  name = ',backup[j].name,' date = ',backup[j].workyear,'/',backup[j].workmonth,'/',backup[j].workday);  
               }  
             }
