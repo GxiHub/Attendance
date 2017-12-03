@@ -494,7 +494,7 @@ app.get('/CheckProductPartialTagEachNumber/',function(req,res){
 //  確認現有庫存
 app.get('/CheckProductInStock/',function(req,res){
     var _Year = GetNeedSyncYear();
-    var _Month = GetNeedSyncMonth();
+    var _Month = GetNeedSyncMonth(0);
     var _Day = GetNeedSyncDay();
     var _DaysNumber = MonthHaveHowManyDay(_Year,_Month);
 
@@ -586,7 +586,7 @@ app.get('/ShowAndModifyUserTokenData_UserTokenData/',function(req,res){
 // 新增員工多天排班
 app.get('/Plan_Work_Schedule_MultipleDirectPageToAddEmployeeWorkSchedule/',function(req,res){
     var _Year = GetNeedSyncYear();
-    var _Month = GetNeedSyncMonth();
+    var _Month = GetNeedSyncMonth(0);
     dbtoken.collection('memberbrandinformation').find().toArray(function(err, results) {
           res.render('UseCheckBoxByAddEmployeeWorkSchedule.ejs',{member:results,year:_Year,month:_Month});
     }); 
@@ -603,7 +603,7 @@ app.post('/Plan_Work_Schedule_UseCheckBoxByAddEmployeeWorkSchedule/',function(re
 // 顯示單月員工排班列表
 app.get('/Plan_Work_Schedule_CheckEmployeeWorkScheduleByList/',function(req,res){
     var _Year = GetNeedSyncYear();
-    var _Month = GetNeedSyncMonth();
+    var _Month = GetNeedSyncMonth(0);
     PlanWorkSchedule.CheckWorkScheduleByList(req.query.checkPeriodYear,req.query.checkPeriodMonth).then(function(items) 
     {
           res.render('PlanWorkSchedule_CheckWorkScheduleByList.ejs',{passvariable:items,year:_Year,month:_Month});
@@ -641,7 +641,7 @@ app.get('/Show_CheckHaveScheduleButNoWork/',function(req,res){
 //顯示單月員工上班狀況
 app.get('/QR_codeSan_CheckEveryMonthWorkStatus/',function(req,res){
     var _Year = GetNeedSyncYear();
-    var _Month = GetNeedSyncMonth();
+    var _Month = GetNeedSyncMonth(0);
     QRcodeScan.CheckMonthOnlineOfflineByBrandNameAndMonth(req.query.checkPeriodYear,req.query.checkPeriodMonth,req.query.checkName).then(function(items) 
     {
         dbtoken.collection('memberbrandinformation').find().toArray(function(err, results) {
@@ -675,7 +675,7 @@ app.post('/QR_codeScan_UpdateOnlineOfflineDate/', (req, res) => {
 //顯示單月加班遲到狀況
 app.get('/PrintMonthSalary_CheckBackupAddLateStatus/',function(req,res){
   var _Year = GetNeedSyncYear();
-  var _Month = GetNeedSyncMonth();
+  var _Month = GetNeedSyncMonth(0);
   PrintAddLateStatus.printBackupAddlateStatus(req.query.checkName,req.query.checkPeriodYear,req.query.checkPeriodMonth).then(function(items)
   {
         dbtoken.collection('memberbrandinformation').find().toArray(function(err, results) {
@@ -714,6 +714,20 @@ app.get('/Sync_CombineMonthSchedule/',function(req,res){
     SyncCombineMonthSchedule.MonthWorkSchedule(BrandButton);
     res.redirect('/');
 });
+// 新同步合併排班  
+app.get('/Sync_NewCombineMonthSchedule/',function(req,res){
+    var BrandButton = '食鍋藝';//需要知道店名稱來識別需要計算哪間店的資料
+    SyncCombineMonthSchedule.NewMonthWorkSchedule(BrandButton);
+    res.redirect('/');
+});
+// 同步上班排班不同步
+app.get('/Sync_IsWorkOrScheduleWithSync/',function(req,res){
+    var BrandButton = '食鍋藝';//需要知道店名稱來識別需要計算哪間店的資料
+    var _Year = GetNeedSyncYear();
+    var _Month = GetNeedSyncMonth(1);
+    SyncCombineMonthSchedule.NewIsWorkOrScheduleWithSync(BrandButton,_Year,_Month);
+    res.redirect('/');
+});
 // 同步單月薪水
 app.get('/Sync_CombineMonthSalary/',function(req,res){
     var BrandButton = '食鍋藝';//需要知道店名稱來識別需要計算哪間店的資料
@@ -745,7 +759,7 @@ app.get('/Sync_AddLateWorkTimeCalculate_result/',function(req,res){
 //上班備份資料
 app.get('/Backup_CheckOriginDataByDay/',function(req,res){
     var _Year = GetNeedSyncYear();
-    var _Month = GetNeedSyncMonth();
+    var _Month = GetNeedSyncMonth(0);
     dbtest.collection('synconlineofflinedata').find({'Year':req.query.checkPeriodYear,'Month':req.query.checkPeriodMonth}).sort({'Month':1,'Day':1,"name": 1,'status':1}).toArray(function(err, data) {
         dbtoken.collection('memberbrandinformation').find().toArray(function(err, results) {
           res.render('Backup_CheckEveryMonthWorkStatus.ejs',{passvariable:data,member:results,year:_Year,month:_Month});
@@ -757,7 +771,7 @@ app.get('/Backup_CheckOriginDataByDay/',function(req,res){
 // 排班備份資料
 app.get('/CheckBackupScheduleData/',function(req,res){
     var _Year = GetNeedSyncYear();
-    var _Month = GetNeedSyncMonth();
+    var _Month = GetNeedSyncMonth(0);
     dbtest.collection('synworkscheduledata').find({'workyear':req.query.checkPeriodYear,'workmonth':req.query.checkPeriodMonth}).sort({'workyear':1,'workmonth':1,"workday":1,"name": 1}).toArray(function(err, data) {
       res.render('Backup_PlanWorkSchedule_CheckWorkScheduleByList.ejs',{passvariable:data,year:_Year,month:_Month});
     });
@@ -767,9 +781,18 @@ app.get('/CheckBackupScheduleData/',function(req,res){
 app.get('/Sync_ShowCombineMonthSchedule/',function(req,res){
     var BrandButton = '食鍋藝';//需要知道店名稱來識別需要計算哪間店的資料
     var _Year = GetNeedSyncYear();
-    var _Month = GetNeedSyncMonth();
+    var _Month = GetNeedSyncMonth(0);
     dbtest.collection('synccombinemonthworkschedule').find({'workyear':req.query.checkPeriodYear,'workmonth':req.query.checkPeriodMonth,'userbrandname':BrandButton}).sort({'workyear':1,'workmonth':1,"name": 1,"TID":1,"workday":1}).toArray(function(err, backup) {
         res.render('Backup_CombineMonthSchedule.ejs',{passvariable:backup,year:_Year,month:_Month});
+    });
+});
+
+// 更新合併排班資料
+app.get('/Sync_UpdateShowCombineMonthSchedule/',function(req,res){
+    var BrandButton = '食鍋藝';//需要知道店名稱來識別需要計算哪間店的資料
+    SyncCombineMonthSchedule.NewUpdateRealWorkStatusCondition(req.query.TID,req.query.name,req.query.uniID,req.query.updaterealworkstatus);
+    dbtest.collection('synccombinemonthworkschedule').find({'workyear':req.query.workyear,'workmonth':req.query.workmonth,'userbrandname':BrandButton}).sort({'workyear':1,'workmonth':1,"name": 1,"TID":1,"workday":1}).toArray(function(err, backup) {
+        res.render('Backup_CombineMonthSchedule.ejs',{passvariable:backup,year:req.query.workyear,month:req.query.workmonth});
     });
 });
 
@@ -866,9 +889,9 @@ function GetNeedSyncYear()
   return Year;
 } 
 
-function GetNeedSyncMonth()
+function GetNeedSyncMonth(_Shift)
 {
-  var Month = moment().format('MM');
+  var Month = moment().format('MM')-_Shift;
     //為了月份做處理，單位數的補零，雙位數的轉字串
     if(Month<10){Month='0'+Month;}
     Month = Month.toString();

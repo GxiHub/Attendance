@@ -48,8 +48,9 @@
 	      <span> 時數 </span> 
 	      <span> 是否加班 </span> 
 	      <span> 時數 </span>    
-	      <span> 是否請假 </span> 
-	      <span> 時數 </span>          
+<!-- 	      <span> 是否請假 </span> 
+	      <span> 時數 </span>           -->
+	      <span> 更新 </span> 
 	    </li>
 	</ul>
 </div>   
@@ -89,8 +90,22 @@
 			      <span><%= passvariable[i].offlinecondition %></span>
 		      	  <span><%= passvariable[i].offlineconditiontime %></span>
 			      <% }%>
-		      <span><%= passvariable[i].restcondition %></span>
-		      <span><%= passvariable[i].restconditiontime %></span>		      		      		      		      		          
+<!-- 		      <span><%= passvariable[i].restcondition %></span>
+		      <span><%= passvariable[i].restconditiontime %></span>	 -->	      		      		      		      		 
+			      <span>
+			      	  <form action="/Sync_UpdateShowCombineMonthSchedule/" method="GET">
+			      	  <input type="hidden" placeholder="TID" name="TID" value=<%= passvariable[i].TID %>>
+			      	  <input type="hidden" placeholder="workyear" name="workyear" value=<%= passvariable[i].workyear %>>
+			      	  <input type="hidden" placeholder="workmonth" name="workmonth" value=<%= passvariable[i].workmonth %>>
+			      	  <input type="hidden" placeholder="UniqueID" name="uniID" value=<%= passvariable[i].uniID %>>
+				      <input type="hidden" placeholder="name" name="name" value=<%= passvariable[i].name %>>	      
+				      <select name="updaterealworkstatus">
+					  <option value="尚未到職">尚未到職</option><option value="病假">病假</option>
+					  <option value="曠職">曠職</option><option value="假日加班">假日加班</option>
+				      </select>
+				      <button type="submit">更新</button>
+				      </form>
+				  </span>
 		</li>
 	</ul>
 	<% } %>

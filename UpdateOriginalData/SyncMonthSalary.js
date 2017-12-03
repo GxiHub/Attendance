@@ -31,7 +31,6 @@ exports.MonthSalaryCalculate = function(_BrandButton)
   	var _Month = GetNeedSyncMonth();
 
 	CheckAllPersonMonthSalaryIsInDataBaseOrNot(_Year,_Month,_BrandButton);
-	// sleep(6);
 	CheckAllPersonTotalMonthSalary(_Year,_Month,_BrandButton);
   	// CheckAllPersonWorkStatus(_Year,_Month,_BrandButton);
 }
