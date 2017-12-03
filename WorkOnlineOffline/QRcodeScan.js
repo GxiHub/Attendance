@@ -115,7 +115,8 @@ exports.AdjustOnlineOfflineData = function()
 {
 	//#修改資料庫成 workperiod
     var _Year = moment().format('YYYY');
-    var _Month = moment().format('MM');
+    var _Month = moment().format('MM')-1;
+    _Month = _Month.toString();
     return new Promise(function(resolve, reject) 
     {
 
