@@ -154,7 +154,8 @@ exports.CheckWorkSchedule = function(_Year,_Month)
 exports.AdjustWorkSchedule = function()
 {
   var _Year = moment().format('YYYY');
-  var _Month = moment().format('MM');
+  var _Month = moment().format('MM')-1;
+  _Month = _Month.toString();
   return new Promise(function(resolve, reject) 
   {
 	    dbwork.collection('employeeworkschedule').find({'workyear':_Year,'workmonth':_Month}).sort({"name": 1,"workyear": 1,"workmonth": 1,"workday": 1}).toArray(function(err, results) {
