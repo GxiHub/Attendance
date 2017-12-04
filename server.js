@@ -417,8 +417,8 @@ app.get('/V1/API/GetSingleDayWorkScheduleDetail/',function(req,res){
                }
                console.log(' RealPeriod =',RealPeriod);
 
-               if(results==''){ json = { 'status':{'code':'E0003','msg':'唯一碼有錯或查無資料'},'self_data': RealPeriod,'empoyee_data':jsonArray};}
-               else{ json = { 'status':{'code':'S0000','msg':'唯一碼正確'},'self_data': RealPeriod,'empoyee_data':jsonArray};}
+               if(results==''){ json = { 'status':{'code':'E0003','msg':'唯一碼有錯或查無資料'},'self_data': RealPeriod,'employee_data':jsonArray};}
+               else{ json = { 'status':{'code':'S0000','msg':'唯一碼正確'},'self_data': RealPeriod,'employee_data':jsonArray};}
                var SendDataToPhone = JSON.stringify(json); res.type('application/json'); res.send(SendDataToPhone);
 
             });
@@ -478,6 +478,27 @@ app.get('/AddManageNews/',function(req,res){
 
 
 // =============== 庫存系統相關 ===========================================
+
+app.get('/CheckProductTiming/',function(req,res){
+  UpdateStockTag();
+});
+
+function UpdateStockTag(_StockTag)
+{
+  dbtest.collection('thinginstock').findOneAndUpdate({productnumber:_StockTag},{
+      $set: 
+      {
+        status: '出庫',
+        outstockdate: _outstockdate,
+        outstocktime: _outstocktime
+      }
+  },{
+        upsert: true
+  },(err, result) => {
+      if (err) return res.send(err)
+  });   
+}
+
 //  確認每個庫存數量
 app.get('/CheckProductPartialTagEachNumber/',function(req,res){
     HandleStockInOut.GetProductPartialTagEachNumber().then(function(items) 
