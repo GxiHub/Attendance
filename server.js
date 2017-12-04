@@ -486,8 +486,15 @@ app.get('/CheckProductTiming/',function(req,res){
   var DotSplit = date.split(',');
   var PreDotSplit = DotSplit[0];
   var PostDotSplit = DotSplit[1];
+  console.log('PreDotSplit',PreDotSplit);
+  console.log('PostDotSplit',PostDotSplit);
+
   var YearMonthDay=PreDotSplit.split('/');
   var HourMinute=PostDotSplit.split(':');
+  console.log('YearMonthDay',YearMonthDay[2]);
+  console.log('YearMonthDay',YearMonthDay[0]);
+  console.log('YearMonthDay',YearMonthDay[1]);
+
   var _outstockdate = YearMonthDay[2]+'/'+YearMonthDay[0]+'/'+YearMonthDay[1];
   var _outstocktime = HourMinute[0]+':'+HourMinute[1]+':'+HourMinute[2];
     res.redirect('/');
