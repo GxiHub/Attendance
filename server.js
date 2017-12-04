@@ -367,6 +367,7 @@ app.get('/V1/API/GetMonthlyEmployeeWorkSchedule/',function(req,res){
                     }
               }
               if(j<10){j='0'+j;}
+              j = j.toString();
               arr.push({'day':j,'isschedule':isschedule,'isleave':isleave,'isabsent':isabsent,'islate':islate,'isovertime':isovertime,'isearly':isearly});
             }
 
