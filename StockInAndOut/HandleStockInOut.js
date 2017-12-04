@@ -52,8 +52,11 @@ function UpdateProductStatus(_StockTag)
 {
   var date_taipei = DateTimezone(8);
   var date = date_taipei.toLocaleString();
-  var YearMonthDay=date.slice(0,10).split('/');
-  var HourMinute=date.slice(11,24).split(':');
+  var DotSplit = date.split(',');
+  var PreDotSplit = DotSplit[0];
+  var PostDotSplit = DotSplit[1];
+  var YearMonthDay=PreDotSplit.split('/');
+  var HourMinute=PostDotSplit.split(':');
   var _outstockdate = YearMonthDay[2]+'/'+YearMonthDay[0]+'/'+YearMonthDay[1];
   var _outstocktime = HourMinute[0]+':'+HourMinute[1]+':'+HourMinute[2];
 
@@ -90,8 +93,11 @@ function SaveProductToStock(_StockTag,_BrandName,_ProductName,_Tag,_Class,_SubCl
     // console.log(calcTime('taipei' , 8));
     var date_taipei = DateTimezone(8);
     var date = date_taipei.toLocaleString();
-    var YearMonthDay=date.slice(0,10).split('/');
-    var HourMinute=date.slice(11,24).split(':');
+    var DotSplit = date.split(',');
+    var PreDotSplit = DotSplit[0];
+    var PostDotSplit = DotSplit[1];
+    var YearMonthDay=PreDotSplit.split('/');
+    var HourMinute=PostDotSplit.split(':');
     var _instockdate = YearMonthDay[2]+'/'+YearMonthDay[0]+'/'+YearMonthDay[1];
     var _instocktime = HourMinute[0]+':'+HourMinute[1]+':'+HourMinute[2];
 
