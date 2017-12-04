@@ -480,31 +480,25 @@ app.get('/AddManageNews/',function(req,res){
 // =============== 庫存系統相關 ===========================================
 //更新庫存資料
 app.get('/CheckProductTiming/',function(req,res){
-    // UpdateStockTag(1511493006434);
-  var date_taipei = DateTimezone(8);
-  var date = date_taipei.toLocaleString();
-  var DotSplit = date.split(',');
-  var PreDotSplit = DotSplit[0];
-  var PostDotSplit = DotSplit[1];
-  console.log('PreDotSplit',PreDotSplit);
-  console.log('PostDotSplit',PostDotSplit);
-
-  var YearMonthDay=PreDotSplit.split('/');
-  var HourMinute=PostDotSplit.split(':');
-  console.log('YearMonthDay',YearMonthDay[2]);
-  console.log('YearMonthDay',YearMonthDay[0]);
-  console.log('YearMonthDay',YearMonthDay[1]);
-  var _Year = YearMonthDay[2];
-  var _Day = YearMonthDay[1];
-  var _Month = YearMonthDay[0];
-  if(_Day<10){_Day='0'+_Day;}
-  _Day = _Day.toString();
-  if(_Month<10){_Month='0'+_Month;}
-  _Month= _Month.toString();
-  var _outstockdate = _Year+'/'+_Month+'/'+_Day;
-  var _outstocktime = HourMinute[0]+':'+HourMinute[1]+':'+HourMinute[2];
-  console.log('_outstockdate',_outstockdate);
-  console.log('_outstocktime',_outstocktime);
+  //更新STOCKTAG
+  // UpdateStockTag(1511493006434);
+  //測試時間
+  // var date_taipei = DateTimezone(8);
+  // var date = date_taipei.toLocaleString();
+  // var DotSplit = date.split(',');
+  // var PreDotSplit = DotSplit[0];
+  // var PostDotSplit = DotSplit[1];
+  // var YearMonthDay=PreDotSplit.split('/');
+  // var HourMinute=PostDotSplit.split(':');
+  // var _Year = YearMonthDay[2];
+  // var _Day = YearMonthDay[1];
+  // var _Month = YearMonthDay[0];
+  // if(_Day<10){_Day='0'+_Day;}
+  // _Day = _Day.toString();
+  // if(_Month<10){_Month='0'+_Month;}
+  // _Month= _Month.toString();
+  // var _outstockdate = _Year+'/'+_Month+'/'+_Day;
+  // var _outstocktime = HourMinute[0]+':'+HourMinute[1]+':'+HourMinute[2];
     res.redirect('/');
 });
 

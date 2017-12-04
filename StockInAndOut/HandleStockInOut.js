@@ -57,7 +57,14 @@ function UpdateProductStatus(_StockTag)
   var PostDotSplit = DotSplit[1];
   var YearMonthDay=PreDotSplit.split('/');
   var HourMinute=PostDotSplit.split(':');
-  var _outstockdate = YearMonthDay[2]+'/'+YearMonthDay[0]+'/'+YearMonthDay[1];
+  var _Year = YearMonthDay[2];
+  var _Day = YearMonthDay[1];
+  var _Month = YearMonthDay[0];
+  if(_Day<10){_Day='0'+_Day;}
+  _Day = _Day.toString();
+  if(_Month<10){_Month='0'+_Month;}
+  _Month= _Month.toString();
+  var _outstockdate = _Year+'/'+_Month+'/'+_Day;
   var _outstocktime = HourMinute[0]+':'+HourMinute[1]+':'+HourMinute[2];
 
     console.log(_outstockdate);
@@ -98,7 +105,14 @@ function SaveProductToStock(_StockTag,_BrandName,_ProductName,_Tag,_Class,_SubCl
     var PostDotSplit = DotSplit[1];
     var YearMonthDay=PreDotSplit.split('/');
     var HourMinute=PostDotSplit.split(':');
-    var _instockdate = YearMonthDay[2]+'/'+YearMonthDay[0]+'/'+YearMonthDay[1];
+    var _Year = YearMonthDay[2];
+    var _Day = YearMonthDay[1];
+    var _Month = YearMonthDay[0];
+    if(_Day<10){_Day='0'+_Day;}
+    _Day = _Day.toString();
+    if(_Month<10){_Month='0'+_Month;}
+    _Month= _Month.toString();
+    var _instockdate = _Year+'/'+_Month+'/'+_Day;
     var _instocktime = HourMinute[0]+':'+HourMinute[1]+':'+HourMinute[2];
 
     console.log(_instockdate);
