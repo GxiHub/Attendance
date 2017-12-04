@@ -344,7 +344,7 @@ app.get('/V1/API/GetMonthlyEmployeeWorkSchedule/',function(req,res){
                       {
                           isschedule = true;
                       }
-                      if(results[i].shcedulestatus =='排休')
+                      if(results[i].shcedulestatus =='病假')
                       {
                           isleave = true;
                       }   
@@ -381,9 +381,9 @@ app.get('/V1/API/GetMonthlyEmployeeWorkSchedule/',function(req,res){
 // 查詢單日員工上班細項
 app.get('/V1/API/GetSingleDayWorkScheduleDetail/',function(req,res){
   var year = req.headers['year'];
+  var month = req.headers['month'];
+  var day = req.headers['month'];
   var date = req.headers['date'];
-  month = date[0]+date[1];
-  day = date[3]+date[4];
 
     SettingPage.PromiseGetMonthSalaryOrHourSalary(req.headers['uniid']).then(function(items) 
     {
@@ -406,16 +406,14 @@ app.get('/V1/API/GetSingleDayWorkScheduleDetail/',function(req,res){
                    {
                       if(data[j].status == '上班')
                       {
-                          var RealDate = data[j].Year+'/'+ data[j].Month+'/'+data[j].Day;
                           var RealOnlineTime =  data[j].Hour+':'+ data[j].Minute;
                       }
                       else
                       {
-                          var RealDate = data[j].Year+'/'+ data[j].Month+'/'+data[j].Day;
                           var RealOfflineTime =  data[j].Hour+':'+ data[j].Minute;
                       }
                    }
-                   var RealPeriod = RealDate+' '+RealOnlineTime+'-'+RealOfflineTime;
+                   var RealPeriod = RealOnlineTime+'-'+RealOfflineTime;
                }
                console.log(' RealPeriod =',RealPeriod);
 
