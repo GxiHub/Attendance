@@ -479,6 +479,41 @@ app.get('/AddManageNews/',function(req,res){
 
 // =============== 庫存系統相關 ===========================================
 
+app.get('/CheckProductTiming/',function(req,res){
+    console.log(calcTime('taipei' , 8));
+    var date_taipei = DateTimezone(8);
+    var date = date_taipei.toLocaleString();
+    var YearMonthDay=date.slice(0,10).split('/');
+    var HourMinute=date.slice(11,24).split(':');
+    var _instockdate = YearMonthDay[2]+'/'+YearMonthDay[0]+'/'+YearMonthDay[1];
+    var _instocktime = HourMinute[0]+':'+HourMinute[1]+':'+HourMinute[2];
+
+    console.log(_instockdate);
+    console.log(_instocktime);
+    res.redirect('/');
+});
+
+// 新增當地時區的時間物件
+function DateTimezone(offset) {
+    // 建立現在時間的物件
+    d = new Date();
+    // 取得 UTC time
+    utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+    // 新增不同時區的日期資料
+    return new Date(utc + (3600000*offset));
+}
+
+// 計算當地時區的時間
+function calcTime(city, offset) {
+    // 建立現在時間的物件
+    d = new Date();
+    // 取得 UTC time
+    utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+    // 新增不同時區的日期資料
+    nd = new Date(utc + (3600000*offset));
+    // 顯示當地時間
+    return "在 " + city + " 的本地時間是 " + nd.toLocaleString();
+}
 //  確認每個庫存數量
 app.get('/CheckProductPartialTagEachNumber/',function(req,res){
     HandleStockInOut.GetProductPartialTagEachNumber().then(function(items) 
