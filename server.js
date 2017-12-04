@@ -494,6 +494,10 @@ app.get('/CheckProductTiming/',function(req,res){
   console.log('YearMonthDay',YearMonthDay[2]);
   console.log('YearMonthDay',YearMonthDay[0]);
   console.log('YearMonthDay',YearMonthDay[1]);
+  if(YearMonthDay[1]<10){YearMonthDay[1]='0'+YearMonthDay[1];}
+  YearMonthDay[1] = YearMonthDay[1].toString();
+  if(YearMonthDay[0]<10){YearMonthDay[0]='0'+YearMonthDay[0];}
+  YearMonthDay[0] = YearMonthDay[0].toString();
 
   var _outstockdate = YearMonthDay[2]+'/'+YearMonthDay[0]+'/'+YearMonthDay[1];
   var _outstocktime = HourMinute[0]+':'+HourMinute[1]+':'+HourMinute[2];
