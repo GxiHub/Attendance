@@ -494,13 +494,17 @@ app.get('/CheckProductTiming/',function(req,res){
   console.log('YearMonthDay',YearMonthDay[2]);
   console.log('YearMonthDay',YearMonthDay[0]);
   console.log('YearMonthDay',YearMonthDay[1]);
-  if(YearMonthDay[1]<10){YearMonthDay[1]='0'+YearMonthDay[1];}
-  YearMonthDay[1] = YearMonthDay[1].toString();
-  if(YearMonthDay[0]<10){YearMonthDay[0]='0'+YearMonthDay[0];}
-  YearMonthDay[0] = YearMonthDay[0].toString();
-
-  var _outstockdate = YearMonthDay[2]+'/'+YearMonthDay[0]+'/'+YearMonthDay[1];
+  var _Year = YearMonthDay[2];
+  var _Day = YearMonthDay[1];
+  var _Month = YearMonthDay[0];
+  if(_Day<10){_Day='0'+_Day;}
+  _Day = _Day.toString();
+  if(_Month<10){_Month='0'+_Month;}
+  _Month= _Month.toString();
+  var _outstockdate = _Year+'/'+_Month+'/'+_Day;
   var _outstocktime = HourMinute[0]+':'+HourMinute[1]+':'+HourMinute[2];
+  console.log('_outstockdate',_outstockdate);
+  console.log('_outstocktime',_outstocktime);
     res.redirect('/');
 });
 
