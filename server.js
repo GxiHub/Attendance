@@ -395,7 +395,7 @@ app.get('/V1/API/GetSingleDayWorkScheduleDetail/',function(req,res){
 
                for(var i = 0;i<count;i++)
                {
-                  var onlineTime = results[i].workyear+'/'+results[i].workmonth+'/'+results[i].workday+' '+results[i].onlinehour+':'+results[i].onlineminute+'-'+results[i].offlinehour+':'+results[i].offlineminute;
+                  var onlineTime = results[i].onlinehour+':'+results[i].onlineminute+'-'+results[i].offlinehour+':'+results[i].offlineminute;
                   // console.log(' onlineTime = ',onlineTime);
                   // console.log(' results.name = ',results[i].status);
                   jsonArray.push({'name':results[i].name,'WorkTime':onlineTime,'status':results[i].status});
