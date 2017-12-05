@@ -954,8 +954,8 @@ function GetNeedSyncMonth(_Shift)
 {
   var Month = moment().format('MM')-_Shift;
     //為了月份做處理，單位數的補零，雙位數的轉字串
-    if(Month<10){Month='0'+Month;}
-    Month = Month.toString();
+    // if(Month<10){Month='0'+Month;}
+    // Month = Month.toString();
 
   return Month;
 } 
@@ -1011,8 +1011,8 @@ function GetNeedSyncDay()
 {
   var Day = moment().format('DD');
     //為了月份做處理，單位數的補零，雙位數的轉字串
-    if(Day<10){Day='0'+Day;}
-    Day = Day.toString();
+    // if(Day<10){Day='0'+Day;}
+    // Day = Day.toString();
 
   return Day;
 } 
