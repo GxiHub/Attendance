@@ -382,7 +382,7 @@ app.get('/V1/API/GetMonthlyEmployeeWorkSchedule/',function(req,res){
 app.get('/V1/API/GetSingleDayWorkScheduleDetail/',function(req,res){
   var year = req.headers['year'];
   var month = req.headers['month'];
-  var day = req.headers['month'];
+  var day = req.headers['day'];
   var date = req.headers['date'];
 
     SettingPage.PromiseGetMonthSalaryOrHourSalary(req.headers['uniid']).then(function(items) 
@@ -414,11 +414,12 @@ app.get('/V1/API/GetSingleDayWorkScheduleDetail/',function(req,res){
                       }
                    }
                    var RealPeriod = RealOnlineTime+'-'+RealOfflineTime;
+                   var JsonRealPeriod = {'TimePeriod':RealPeriod}
                }
                console.log(' RealPeriod =',RealPeriod);
 
-               if(results==''){ json = { 'status':{'code':'E0003','msg':'唯一碼有錯或查無資料'},'self_data': RealPeriod,'employee_data':jsonArray};}
-               else{ json = { 'status':{'code':'S0000','msg':'唯一碼正確'},'self_data': RealPeriod,'employee_data':jsonArray};}
+               if(results==''){ json = { 'status':{'code':'E0003','msg':'唯一碼有錯或查無資料'},'self_data': JsonRealPeriod,'employee_data':jsonArray};}
+               else{ json = { 'status':{'code':'S0000','msg':'唯一碼正確'},'self_data': JsonRealPeriod,'employee_data':jsonArray};}
                var SendDataToPhone = JSON.stringify(json); res.type('application/json'); res.send(SendDataToPhone);
 
             });
