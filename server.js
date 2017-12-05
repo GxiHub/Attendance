@@ -553,11 +553,23 @@ app.get('/CheckProductPartialTagEachNumber/',function(req,res){
 });
 //  確認現有庫存
 app.get('/CheckProductInStock/',function(req,res){
+    if(req.query.checkPeriodYear == null)
+    {
+      req.query.checkPeriodYear= GetNeedSyncYear();
+    }
+    if(req.query.checkPeriodMonth == null)
+    {
+      req.query.checkPeriodMonth = GetNeedSyncMonth(0);
+    }
+    if(req.query.checkPeriodDay == null)
+    {
+      req.query.checkPeriodDay = GetNeedSyncDay();
+    }
     var _Year = GetNeedSyncYear();
     var _Month = GetNeedSyncMonth(0);
     var _Day = GetNeedSyncDay();
     var _DaysNumber = MonthHaveHowManyDay(_Year,_Month);
-    console.log(' date = ',_Year,'/',_Month,'/',_Day);
+
 
     HandleStockInOut.GetProductListInStock(req.query.checkPeriodYear,req.query.checkPeriodMonth,req.query.checkPeriodDay,req.query.checkType).then(function(items) 
     {

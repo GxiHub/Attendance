@@ -164,6 +164,9 @@ function CheckProductIsInStockOrNot(_ProductTag)
 exports.GetProductListInStock = function(_Year,_Month,_Day,_Type)
 { 
     var date = _Year+'/'+_Month+'/'+_Day;
+    console.log(' date = ',date);
+
+    console.log(' date = ',_Year,'/',_Month,'/',_Day);
     return new Promise(function(resolve, reject) 
     {
       if(_Type =='全部')
@@ -201,6 +204,8 @@ exports.GetProductListInStock = function(_Year,_Month,_Day,_Type)
       }
       else
       {
+         console.log(' date = ',_Year,'/',_Month,'/',_Day);
+         // dbtest.collection('thinginstock').find({ $or:[{instockdate:'2017/12/05'},{outstockdate:'2017/12/05'}]}).sort({"class": 1,"subclass": 1,"tag": 1,"productnumber": 1}).toArray(function(err, results) {       
          dbtest.collection('thinginstock').find({ $or:[{instockdate:date},{outstockdate:date}]}).sort({"class": 1,"subclass": 1,"tag": 1,"productnumber": 1}).toArray(function(err, results) {       
            if (err) { 
                 reject(err);
