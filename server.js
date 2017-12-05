@@ -557,6 +557,7 @@ app.get('/CheckProductInStock/',function(req,res){
     var _Month = GetNeedSyncMonth(0);
     var _Day = GetNeedSyncDay();
     var _DaysNumber = MonthHaveHowManyDay(_Year,_Month);
+    console.log(' date = ',_Year,'/',_Month,'/',_Day);
 
     HandleStockInOut.GetProductListInStock(req.query.checkPeriodYear,req.query.checkPeriodMonth,req.query.checkPeriodDay,req.query.checkType).then(function(items) 
     {
@@ -1010,6 +1011,9 @@ function GetNeedSyncDay()
 {
   var Day = moment().format('DD');
     //為了月份做處理，單位數的補零，雙位數的轉字串
+    if(Day<10){Day='0'+Day;}
+    Day = Day.toString();
+
   return Day;
 } 
 // ==============================================
