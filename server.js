@@ -120,6 +120,32 @@ app.get('/QR_codeSan_GetTokenToServer/',function(req,res){
     });  
 });
 
+//QRcodeScan. 透過手機端掃描二維條碼，並添加個人上下班時間
+app.get('/V1/API/ReceiveQRcodeRequest/',function(req,res){
+
+    console.log('req.headers.uniid = ',req.headers['uniid']);
+    
+    QRcodeScan.CheckDeviceIDAndToken(req.headers['deviceid'],req.headers['usertoken']).then(function(items) 
+    {
+            if(items != '')
+            {
+                    QRcodeScan.EmployeeWorkTimeAndStatus(items.uniID,items.name,items.status);
+                    var msgString = items.name+''+items.status;
+                    var body = {'status':{'code':'S0000','msg':msgString}};
+                    console.log(' DeviceID is ',items.deviceid, ' and ',items.name,' is ',items.status);          
+            }
+            else
+            {
+                    var body = {'status':{'code':'E0001','msg':'DeviceID 或是 Token 錯誤，請重新輸入'}};
+            }
+            body = JSON.stringify(body); res.type('application/json'); res.send(body);
+
+    }, function(err) {
+          console.error('The promise was rejected', err, err.stack);
+    });  
+});
+
+
 // app.get('/FisrtLoginAndReturnMemberToken/',function(req,res){
 //   var deckey = decrypt(key, iv, req.headers['account']);
 //   var deciv = decrypt(key, iv, req.headers['password']);
@@ -665,6 +691,7 @@ app.get('/Plan_Work_Schedule_MultipleDirectPageToAddEmployeeWorkSchedule/',funct
     }); 
 });
 app.post('/Plan_Work_Schedule_UseCheckBoxByAddEmployeeWorkSchedule/',function(req,res){
+    console.log('checkName = ',req.body.checkName,'req.body.checkPeriodYear =',req.body.checkPeriodYear,'req.body.checkPeriodMonth =',req.body.checkPeriodMonth);
     PlanWorkSchedule.AddMultipleEmployeeWorkScheduleFunction(req.body.checkName,req.body.checkPeriodYear,req.body.checkPeriodMonth,req.body.checkPeriodOnlineHour,req.body.checkPeriodOnlineMinute,req.body.checkPeriodOfflineHour,req.body.checkPeriodOffineMinute,
                                                              req.body.checkbox01,req.body.checkbox02,req.body.checkbox03,req.body.checkbox04,req.body.checkbox05,req.body.checkbox06,req.body.checkbox07,req.body.checkbox08,req.body.checkbox09,req.body.checkbox10,req.body.checkbox11,req.body.checkbox12,
                                                              req.body.checkbox13,req.body.checkbox14,req.body.checkbox15,req.body.checkbox16,req.body.checkbox17,req.body.checkbox18,req.body.checkbox19,req.body.checkbox20,req.body.checkbox21,req.body.checkbox22,req.body.checkbox23,req.body.checkbox24,
@@ -967,7 +994,7 @@ function GetNeedSyncMonth(_Shift)
   var Month = moment().format('MM')-_Shift;
     //為了月份做處理，單位數的補零，雙位數的轉字串
     // if(Month<10){Month='0'+Month;}
-    // Month = Month.toString();
+    Month = Month.toString();
 
   return Month;
 } 

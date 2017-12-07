@@ -13,7 +13,7 @@
 <h2>添加單月多筆排班</h2>
 	<form action="/Plan_Work_Schedule_UseCheckBoxByAddEmployeeWorkSchedule/" method="POST">
 		<span>姓名</span>
-		<select name=" ">
+		<select name="checkName">
 		<%  for(var i=0; i<member.length; i++) {%>
 			<option value=<%= member[i].name %>><%= member[i].name %></option>
 		<% } %>
