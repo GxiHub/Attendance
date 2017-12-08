@@ -286,10 +286,21 @@ function NewCalculateAddAndLateTime(_Year,_Month,_UniID,_BrandButton)
         {
           if(backup[j].shcedulestatus =='正常上班')
           {
-            if(MsgControl == true){console.log('日期 : ',backup[j].workyear,'/',backup[j].workmonth,'/',backup[j].workday);}
-            NewLateconditionCalculate(backup[j].TID,backup[j].name,backup[j].workday,_BrandButton,backup[j].userbrandtitle,backup[j].onlinehour,backup[j].onlineminute,backup[j].realonlinehour,backup[j].realonlineminute);
-            NewAddconditionCalculate(backup[j].TID,backup[j].name,backup[j].workday,_BrandButton,backup[j].userbrandtitle,backup[j].offlinehour,backup[j].offlineminute,backup[j].realofflinehour,backup[j].realofflineminute);
-            console.log('');            
+            if(MsgControl == true){console.log('name =',backup[j].name,'日期 : ',backup[j].workyear,'/',backup[j].workmonth,'/',backup[j].workday);}
+            if(backup[j].realworkstatus == '正常')
+            {
+              NewLateconditionCalculate(backup[j].TID,backup[j].name,backup[j].workday,_BrandButton,backup[j].userbrandtitle,backup[j].onlinehour,backup[j].onlineminute,backup[j].realonlinehour,backup[j].realonlineminute);
+              NewAddconditionCalculate(backup[j].TID,backup[j].name,backup[j].workday,_BrandButton,backup[j].userbrandtitle,backup[j].offlinehour,backup[j].offlineminute,backup[j].realofflinehour,backup[j].realofflineminute);                
+            }
+            else
+            {
+              NewUpdateLateNormalCondition(backup[j].TID,backup[j].name,backup[j].workday,0);
+            }
+     
+          }
+          else if(backup[j].shcedulestatus =='排休')
+          {
+            NewUpdateLateNormalCondition(backup[j].TID,backup[j].name,backup[j].workday,0);
           }
         }
         if(err)return console.log(err);
@@ -305,7 +316,7 @@ function NewLateconditionCalculate(_TID,_Name,_Workday,_BrandButton,_Userbrandti
     if(ScheduleTime >= RealTime)
     {
       if(MsgControl == true){console.log(' ScheduleTime = ',ScheduleTime,' RealTime = ',RealTime, ' == > 正常');}
-      NewUpdateLateNormalCondition(_TID,_Name,_Workday);
+      NewUpdateLateNormalCondition(_TID,_Name,_Workday,0);
     }
     else
     {
@@ -314,12 +325,13 @@ function NewLateconditionCalculate(_TID,_Name,_Workday,_BrandButton,_Userbrandti
     }
 }
 
-function NewUpdateLateNormalCondition(_UniqueID,_Name,_Workday)
+function NewUpdateLateNormalCondition(_UniqueID,_Name,_Workday,_UpdateToZero)
 {
   dbtest.collection('synccombinemonthworkschedule').findOneAndUpdate({TID:parseInt(_UniqueID,10),name:_Name,workday:_Workday},{
     $set: 
     {
       onlinecondition: '正常',
+      onlineconditiontime:_UpdateToZero
     }
   },{
       upsert: true
@@ -537,7 +549,7 @@ function CalculateIsWorkOrScheduleWithSync(_Year,_Month,_UniID,_BrandButton)
                 console.log('[補打上班卡] name = ',backup[j].name,' date = ',backup[j].workyear,'/',backup[j].workmonth,'/',backup[j].workday);  
               } 
             }
-            else if(backup[j].realworkstatus =='多餘排班' || backup[j].realworkstatus =='忘記打下班卡' || backup[j].realworkstatus =='忘記打上班卡' || backup[j].realworkstatus == '忘記排班')
+            else if(backup[j].realworkstatus =='多餘排班' || backup[j].realworkstatus =='忘記打下班卡' || backup[j].realworkstatus =='忘記打上班卡' || backup[j].realworkstatus == '忘記排班' )
             {
               if(backup[j].realworkstatus =='多餘排班' && backup[j].realofflinehour != '' && backup[j].realofflinehour != '')
               {
