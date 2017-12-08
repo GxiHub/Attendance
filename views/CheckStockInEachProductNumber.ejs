@@ -16,6 +16,7 @@
 		<li>
 	      	<span> 產品名稱 </span>
 	      	<span> 產品數量 </span> 
+	      	<span> 警示數量 </span> 
 		</li>
 	</ul>
 </div>   
@@ -24,7 +25,13 @@
 	<ul>
 		<li>
 		  	<span><%= passvariable.product[i].name%></span>
-		  	<span><%= passvariable.product[i].number%></span>
+		  	<% if(passvariable.product[i].number < passvariable.product[i].alarm){%>
+		  		<span style="color:red;"><%= passvariable.product[i].number%></span>
+		  	<% }else{%>
+		  		<span><%= passvariable.product[i].number%></span>
+		  	<% }%>
+		  	<span><%= passvariable.product[i].alarm%></span>
+		  	
 		</li>
 	</ul>
 	<% } %>

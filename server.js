@@ -624,6 +624,13 @@ app.get('/CheckProductPartialTag/',function(req,res){
     });
 });
 
+//  更新最小庫存量
+app.get('/UpdatePartialTagAlarmNumber/',function(req,res){
+  console.log('tag = ',req.query.tag,' minalarm = ',req.query.minalarm);
+  HandleStockInOut.UpdateProductPartialTagAlarm(req.query.tag,req.query.minalarm);
+  res.redirect('/CheckProductPartialTag/');
+});
+
 //  新增庫存產品
 app.get('/QRcodeStockIn/',function(req,res){
     res.render('StockInCheck.ejs',{passvariable:req.query.thing});

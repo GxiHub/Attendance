@@ -48,6 +48,20 @@ exports.DeleteProduct = function(_StockTag)
     });
 }
 
+exports.UpdateProductPartialTagAlarm = function(_StockTag,_AlarmNumber)
+{
+  dbtest.collection('productpartialtag').findOneAndUpdate({tag:_StockTag},{
+      $set: 
+      {
+        alarm: _AlarmNumber
+      }
+  },{
+        upsert: true
+  },(err, result) => {
+      if (err) return res.send(err)
+  }); 
+}
+
 function UpdateProductStatus(_StockTag)
 {
   var date_taipei = DateTimezone(8);
@@ -256,7 +270,7 @@ exports.GetProductPartialTagEachNumber = function()
                     }
                 }
             } 
-            ret.product.push({ name: partilag[i].product, number: ProductNumber });
+            ret.product.push({ name: partilag[i].product, number: ProductNumber ,alarm:partilag[i].alarm});
           } 
               
           // console.log('Ret = ',ret);

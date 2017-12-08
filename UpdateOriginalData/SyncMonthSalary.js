@@ -229,7 +229,8 @@ function UpdateTotalMonthSalary(_Year,_Month,_UniID,_Userbrandtitle)
 
     for( var i = 0; i<results.length; i++ )
     {
-		console.log(' uniID = ',results[0].uniID);
+		console.log(' monthsalary = ',results[0].monthsalary,' foodsalary = ',results[0].foodsalary,' withoutsalary = ',results[0].withoutsalary,' titlesalary = ',results[0].titlesalary);
+    console.log(' _Userbrandtitle = ',_Userbrandtitle);
     	var AddSalary = CalculateAddSalary(_Userbrandtitle,results[0].addminute,results[0].monthsalary,results[0].foodsalary,results[0].withoutsalary,results[0].titlesalary);
     	console.log(' AddSalary = ',AddSalary);
     	var LateSalary = CalculateLateSalary(_Userbrandtitle,results[0].lateminute,results[0].monthsalary,results[0].foodsalary,results[0].withoutsalary,results[0].titlesalary);

@@ -20,7 +20,9 @@
 	      <span> 產品標籤 </span>  
 	      <span> 產品分類 </span>  
 	      <span> 產品細項 </span>  
-	      <span> 產品等級 </span>   
+	      <span> 產品等級 </span> 
+	      <span> 最低庫存值 </span>   
+		  <span>修改</span>
 		</li>
 	</ul>
 	</div>   
@@ -35,6 +37,14 @@
 	      <span><%= passvariable[i].class %></span>
 	      <span><%= passvariable[i].subclass %></span>
 	      <span><%= passvariable[i].grade %></span>
+	      <span><%= passvariable[i].alarm %></span>
+		  	<span>
+			  <form action="/UpdatePartialTagAlarmNumber/" method="GET">
+	      	  <input type="hidden" placeholder="tag" name="tag" value=<%= passvariable[i].tag %>>
+		      <input type="text" placeholder="最小庫存量" name="minalarm" value=<%= passvariable[i].name %>>
+		      <button type="submit">更新</button>
+		      </form>
+			</span>
 		</li>
 	</ul>
 	<% } %>
