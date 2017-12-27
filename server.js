@@ -831,7 +831,7 @@ app.get('/Sync_NewCombineMonthSchedule/',function(req,res){
 app.get('/Sync_IsWorkOrScheduleWithSync/',function(req,res){
     var BrandButton = '食鍋藝';//需要知道店名稱來識別需要計算哪間店的資料
     var _Year = GetNeedSyncYear();
-    var _Month = GetNeedSyncMonth(1);
+    var _Month = GetNeedSyncMonth(0);
     SyncCombineMonthSchedule.NewIsWorkOrScheduleWithSync(BrandButton,_Year,_Month);
     res.redirect('/');
 });

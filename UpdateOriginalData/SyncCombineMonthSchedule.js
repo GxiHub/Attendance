@@ -45,7 +45,7 @@ function NewGetNeedSyncYear()
 
 function NewGetNeedSyncMonth()
 {
-  var MonthShift = 1;
+  var MonthShift = 0;
   var Month = moment().format('MM') - MonthShift;
     //為了月份做處理，單位數的補零，雙位數的轉字串
     if(Month<10){Month='0'+Month;}
