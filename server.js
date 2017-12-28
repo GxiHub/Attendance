@@ -1072,7 +1072,7 @@ function GetNeedSyncDay()
 // ==============================================
 
 app.get('/TestOrangePowerDB/',function(req,res){
-  console.log('OrangePower fbid is = ',req.query.fbid);  
+  console.log('OrangePower fbid is = ',req.query);  
 });
 
           
