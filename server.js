@@ -68,6 +68,13 @@ MongoClient.connect('mongodb://9kingson:mini0306@ds163294.mlab.com:63294/testdat
   dbtest = database;
 })
 
+var dbOP;
+
+MongoClient.connect('mongodb://orangepowerdata:mini0306@ds135547.mlab.com:35547/orangepower', function(err, database){ 
+  if (err) return console.log(err);
+  dbOP = database;
+})
+
 var key = '0123456789abcdef';
 var iv = '0123456789abcdef';
 
@@ -1063,6 +1070,11 @@ function GetNeedSyncDay()
   return Day;
 } 
 // ==============================================
+
+app.get('/TestOrangePowerDB/',function(req,res){
+  console.log('OrangePower fbid is = ',req.query.fbid);  
+});
+
           
 https.createServer(options, app).listen(9081, function () {
     console.log('Https server listening on port ' + 9081);
