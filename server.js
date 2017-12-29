@@ -1077,13 +1077,12 @@ function GetNeedSyncDay()
 // ==============================================
 
 app.get('/V0/BookingAPI/',function(req,res){
-  console.log(req.query["messenger user id"]);
   var _StoreName = req.query["STORE_NAME"];var _UserPicUrl = req.query["profile pic url"];var _UserId = req.query["messenger user id"];var _HowManyDays =MonthHaveHowManyDay(moment().format('YYYY'),moment().format('MM'));
   res.render('BookingForm.ejs',{storename:_StoreName,userpicurl:_UserPicUrl,userid:_UserId,year:moment().format('YYYY'),month:moment().format('MM'),day:moment().format('DD'),hour:moment().format('HH'),howmanydays:_HowManyDays});
 });
 
 app.get('/V0/ReceiveUserDataAndSendToDB/',function(req,res){
-  Booking.MakeOneBooking(req.query.BookStoreName,req.query.BookUserPicUrl,req.query.BookUserId,req.query.BookUserName,req.query.BookUserPhone,req.query.BookYear,req.query.BookMonth,req.query.BookDay,req.query.BookHour,req.query.BookMinute,req.query.BookAdultNumber,req.query.BookChildNumber,req.query.BookUserNote);
+  Booking.MakeOneBooking(req.query.BookStoreName,req.query.BookUserPicUrl,req.query.BookUserId,req.query.BookGender,req.query.BookUserName,req.query.BookUserPhone,req.query.BookYear,req.query.BookMonth,req.query.BookDay,req.query.BookHour,req.query.BookMinute,req.query.BookAdultNumber,req.query.BookChildNumber,req.query.BookUserNote);
   res.redirect('/');
 });
 
@@ -1093,24 +1092,9 @@ app.get('/V1/BookingAPI/',function(req,res){
   // 系統內建丟出來的參數 (1) 店名稱 (2) 大頭像 (3) FBID (4) 性別
   var _StoreName = req.query["STORE_NAME"];var _UserPicUrl = req.query["profile pic url"];var _UserId = req.query["messenger user id"];var _UserGender = req.query["gender"];
   var _UserName = req.query["reserve_name"];var _UserPhone = req.query["reserve_phone"];var _Year = req.query["reserve_year"];var _Month = req.query["reserve_month"];var _Day =req.query["reserve_date"];
-  var _Time =req.query["reserve_time"].split(':');var _Hour = _Time[0];var _Minute = _Time[0];
+  var _Time =req.query["reserve_time"].split(':');var _Hour = _Time[0];var _Minute = _Time[1];
   var _AdultNumber = req.query["reserve_adult"];var _ChildNumber = req.query["reserve_child"];var _UserNote = req.query["reserve_comment"];
-  console.log(_StoreName);
-  console.log(_UserPicUrl);
-  console.log(_UserId);
-  console.log(_UserGender);
-  console.log(_UserName);
-  console.log(_UserPhone);
-  console.log(_Year);
-  console.log(_Month);  
-  console.log(_Day);  
-  console.log(_Hour);  
-  console.log(_Minute);
-  console.log(_AdultNumber);
-  console.log(_ChildNumber);
-  console.log(_UserNote);
-
-  //Booking.MakeOneBooking(_StoreName,_UserPicUrl,_UserId,_UserGender,_UserName,_UserPhone,_Year,_Month,_Day,_Hour,_Minute,_AdultNumber,_ChildNumber,_UserNote);
+  Booking.MakeOneBooking(_StoreName,_UserPicUrl,_UserId,_UserGender,_UserName,_UserPhone,_Year,_Month,_Day,_Hour,_Minute,_AdultNumber,_ChildNumber,_UserNote);
 });
 
 app.get('/V0/CheckBookingStatus/',function(req,res){

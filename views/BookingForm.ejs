@@ -9,9 +9,13 @@
 
   <h2>歡迎<%= storename %>訂位系統</h2>
   <form action="/V0/ReceiveUserDataAndSendToDB/" method="GET" onSubmit="return check()">
-    <input type="hidden" placeholder="storename" name="BookStoreName" value=<%= storename %>>
+    <input type="text" placeholder="店名" name="BookStoreName" value=<%= storename %>>
     <input type="hidden" placeholder="userpicurl" name="BookUserPicUrl" value=<%= userpicurl %>>
     <input type="hidden" placeholder="userid" name="BookUserId" value=<%= userid %>>
+	<select name="BookGender">
+			<option selected value="男">男</option>
+			<option value="女">女</option>
+	</select>
     <input type="text" name="BookUserName" placeholder="陳先生" /><br>
     <input type="text" name="BookUserPhone" placeholder="0912345678" /><br>
 	<select name="BookYear">
