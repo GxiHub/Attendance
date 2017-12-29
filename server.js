@@ -1077,6 +1077,7 @@ function GetNeedSyncDay()
 // ==============================================
 
 app.get('/V0/BookingAPI/',function(req,res){
+  console.log(req.query["messenger user id"]);
   var _StoreName = req.query["STORE_NAME"];var _UserPicUrl = req.query["profile pic url"];var _UserId = req.query["messenger user id"];var _HowManyDays =MonthHaveHowManyDay(moment().format('YYYY'),moment().format('MM'));
   res.render('BookingForm.ejs',{storename:_StoreName,userpicurl:_UserPicUrl,userid:_UserId,year:moment().format('YYYY'),month:moment().format('MM'),day:moment().format('DD'),hour:moment().format('HH'),howmanydays:_HowManyDays});
 });
