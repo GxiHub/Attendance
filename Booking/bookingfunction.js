@@ -18,12 +18,25 @@ exports.MakeOneBooking = function(_StoreName,_UserPicUrl,_UserID,_UserGender,_Us
   	 });
 }
 
-exports.CheckBookingStatus = function(_UserID)
+exports.CheckBookingStatusByFBID = function(_UserID)
 {
       return new Promise(function(resolve, reject) 
       {
-		  // dbOP.collection('bookingsystem').find({'userid':_UserID}).toArray(function(err, results) {
-		  dbOP.collection('bookingsystem').find({$or:[{userid:_UserID},{phone:_UserID}]}).toArray(function(err, results) {
+		  dbOP.collection('bookingsystem').find({'userid':_UserID}).toArray(function(err, results) {
+              if (err) { 
+                  reject(err);
+              } else {
+                  resolve(results);
+              }
+          });
+      });
+}
+
+exports.CheckBookingStatusByphone = function(_UserPhone)
+{
+      return new Promise(function(resolve, reject) 
+      {
+		  dbOP.collection('bookingsystem').find({'phone':_UserPhone}).toArray(function(err, results) {
               if (err) { 
                   reject(err);
               } else {

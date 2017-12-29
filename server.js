@@ -1100,7 +1100,7 @@ app.get('/V1/BookingAPI/',function(req,res){
 
 app.get('/V0/CheckBookingStatus/',function(req,res){
   console.log(req.query["messenger user id"]);
-  Booking.CheckBookingStatus(req.query["messenger user id"]).then(function(items) 
+  Booking.CheckBookingStatusByFBID(req.query["messenger user id"]).then(function(items) 
   {
         console.log(items[0].status);
         var jsonResponse = [];
@@ -1111,9 +1111,9 @@ app.get('/V0/CheckBookingStatus/',function(req,res){
   }); 
 });
 
-app.get('/V0/ByPhone/CheckBookingStatus/',function(req,res){
+app.get('/V0/CheckBookingStatusByphone/',function(req,res){
   console.log(req.query["reserve_phone"]);
-  Booking.CheckBookingStatus(req.query["reserve_phone"]).then(function(items) 
+  Booking.CheckBookingStatusByphone(req.query["reserve_phone"]).then(function(items) 
   {
         console.log(items[0].status);
         var jsonResponse = [];
