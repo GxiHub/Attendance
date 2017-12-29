@@ -4,6 +4,8 @@ MongoClient = require('mongodb').MongoClient;
 path = require('path');
 moment = require('moment');
 
+var queryString = require( "querystring" );
+var uniqid = require('uniqid');
 var url = require('url');
 var https = require('https');
 var  fs = require("fs");
@@ -47,7 +49,9 @@ ModifyMemberBrandData = require('./ModifyPersonalData/ModifyMemberBrandData');
 AddMemberData = require('./AddNewPersonalData/AddMemberData');
 PrintPersonalData = require('./AddNewPersonalData/PrintPersonalData');
 
-HandleStockInOut = require('./StockInAndOut/HandleStockInOut.js')
+HandleStockInOut = require('./StockInAndOut/HandleStockInOut.js');
+
+Booking = require('./Booking/bookingfunction.js');
 
 //AddIncomeAndExpenditure = require('./IncomeAndExpenditure/AddIncomeAndExpenditure');
 
@@ -1072,12 +1076,25 @@ function GetNeedSyncDay()
 } 
 // ==============================================
 
-app.get('/TestOrangePowerDB/',function(req,res){
-  console.log('OrangePower fbid is = ',req.query); 
-  var fbidparse = url.parse(req.url).query; 
-  console.log('fbidparse =',fbidparse);
-  var fbidsplit = fbidparse.split('=');
-  console.log('fbidparse =',fbidsplit[1]);
+app.get('/V0/BookingAPI/',function(req,res){
+  var _StoreName = req.query["STORE_NAME"];var _UserPicUrl = req.query["profile pic url"];var _UserId = req.query["messenger user id"];var _HowManyDays =MonthHaveHowManyDay(moment().format('YYYY'),moment().format('MM'));
+  res.render('BookingForm.ejs',{storename:_StoreName,userpicurl:_UserPicUrl,userid:_UserId,year:moment().format('YYYY'),month:moment().format('MM'),day:moment().format('DD'),hour:moment().format('HH'),howmanydays:_HowManyDays});
+});
+
+app.get('/V0/ReceiveUserDataAndSendToDB/',function(req,res){
+  Booking.MakeOneBooking(req.query.BookStoreName,req.query.BookUserPicUrl,req.query.BookUserId,req.query.BookUserName,req.query.BookUserPhone,req.query.BookYear,req.query.BookMonth,req.query.BookDay,req.query.BookHour,req.query.BookMinute,req.query.BookAdultNumber,req.query.BookChildNumber,req.query.BookUserNote);
+  res.redirect('/');
+});
+
+app.get('/V0/CheckBookingStatus/',function(req,res){
+  console.log(req.query["messenger user id"]);
+  Booking.CheckBookingStatus(req.query["messenger user id"]).then(function(items) 
+  {
+        body = items[0].status;res.send(body);
+  }, function(err) {
+        console.error('The promise was rejected', err, err.stack);
+  });
+  
 });
 
           

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>訂位</title>
+</head>
+<body>
+	
+
+  <h2>歡迎<%= storename %>訂位系統</h2>
+  <form action="/V0/ReceiveUserDataAndSendToDB/" method="GET" onSubmit="return check()">
+    <input type="hidden" placeholder="storename" name="BookStoreName" value=<%= storename %>>
+    <input type="hidden" placeholder="userpicurl" name="BookUserPicUrl" value=<%= userpicurl %>>
+    <input type="hidden" placeholder="userid" name="BookUserId" value=<%= userid %>>
+    <input type="text" name="BookUserName" placeholder="陳先生" /><br>
+    <input type="text" name="BookUserPhone" placeholder="0912345678" /><br>
+	<select name="BookYear">
+			<option selected value=<%= year %>><%= year %></option>
+			<%  for(var i=0; i<3; i++) {%>
+			<option value=<%= parseInt(year,10)+i %>><%= parseInt(year,10)+i %></option>
+			<% } %>
+	</select>
+	<select name="BookMonth">
+			<option selected value=<%= month %>><%= month %></option>
+			<%  for(var i=1; i<13; i++) {%>
+			<%  if(i<10){ i = '0'+i; } %>
+			<option value=<%= i %>><%= i %></option>
+			<% } %>
+	</select>
+	<select name="BookDay">
+			<option selected value=<%= day %>><%= day %></option>
+			<%  for(var i=1; i<howmanydays+1; i++) {%>
+			<%  if(i<10){ i = '0'+i; } %>
+			<option value=<%= i %>><%= i %></option>
+			<% } %>
+	</select>
+	<select name="BookHour">
+			<option selected value=<%= hour %>><%= hour %></option>
+			<%  for(var i=1; i<24+1; i++) {%>
+			<%  if(i<10){ i = '0'+i; } %>
+			<option value=<%= i %>><%= i %></option>
+			<% } %>
+	</select>
+	<select name="BookMinute">
+			<option selected value="00">00</option>
+			<option value="15">15</option>
+			<option value="30">30</option>
+			<option value="45">45</option>
+	</select>
+	<br>
+	成人
+	<select name="BookAdultNumber">
+			<option selected value="2">2</option>
+			<%  for(var i=1; i<12; i++) {%>
+			<option value=<%= i %>><%= i %></option>
+			<% } %>
+	</select>
+	兒童
+	<select name="BookChildNumber">
+			<option selected value="0">0</option>
+			<%  for(var i=0; i<6; i++) {%>
+			<option value=<%= i %>><%= i %></option>
+			<% } %>
+	</select>
+	<br>
+	<input type="text" name="BookUserNote" placeholder="其他備註" />
+    <input type="submit" value="新增庫存標籤" />
+  </form>
+
+<script>
+function check() {
+  	if(document.forms[0].BookUserName.value=="") {
+		alert("未輸入姓名");
+		return false;
+	}else if(document.forms[0].BookUserPhone.value=="") {
+		alert("未輸入電話");
+		return false;
+	}
+	// var re = /\s|[　]/g;  //[]裡面是一個全型空白
+	// if(re.test(document.forms[0].t1.value)) {
+	// 	alert("不能含有全型及半型的空白");
+	// 	return false;
+	// }
+}
+</script>
+</body>
+</html>

@@ -10,6 +10,9 @@ sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/AddLateStatus
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/AddNewPersonalData/AddMemberData.js ./AddNewPersonalData/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/AddNewPersonalData/PrintPersonalData.js ./AddNewPersonalData/.
 
+#Booking
+sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/Booking/bookingfunction.js ./Booking/.
+
 #CertificateFile
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/CertificateFile/cacertificat.pem ./CertificateFile/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/CertificateFile/certificate.pem ./CertificateFile/.
@@ -75,6 +78,7 @@ sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/views/Backup_
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/views/Backup_CombineMonthSchedule.ejs ./views/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/views/Backup_MonthSalary.ejs ./views/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/views/Backup_PlanWorkSchedule_CheckWorkScheduleByList.ejs ./views/.
+sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/views/BookingForm.ejs ./views/.	
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/views/CheckAddLateTimeBackupStatus.ejs ./views/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/views/CheckAddLateTimeOriginStatus.ejs ./views/.
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/views/CheckEveryDayWorkStatus.ejs ./views/.
@@ -102,3 +106,4 @@ sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/WorkOnlineOff
 
 #WorkSchedule
 sudo cp ./../../../../Library/WebServer/Documents/Project/9kingson/WorkSchedule/PlanWorkSchedule.js ./WorkSchedule/.
+
