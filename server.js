@@ -1087,6 +1087,15 @@ app.get('/V0/ReceiveUserDataAndSendToDB/',function(req,res){
   res.redirect('/');
 });
 
+app.get('/V1/BookingAPI/',function(req,res){
+  console.log(req.query);
+  // 系統內建丟出來的參數 (1) 店名稱 (2) 大頭像 (3) FBID (4) 性別
+  var _StoreName = req.query["STORE_NAME"];var _UserPicUrl = req.query["profile pic url"];var _UserId = req.query["messenger user id"];var _UserGender = req.query["Gender"];
+  var _UserName = req.query["UserName"];var _UserPhone = req.query["UserPhone"];var _Year = '2017';var _Month = '12';var _Day ='30';
+  //Booking.MakeOneBooking(_StoreName,_UserPicUrl,_UserId,_UserGender,_UserName,_UserPhone,_Year,_Month,_Day,req.query.BookHour,req.query.BookMinute,req.query.BookAdultNumber,req.query.BookChildNumber,req.query.BookUserNote);
+});
+
+
 app.get('/V0/CheckBookingStatus/',function(req,res){
   console.log(req.query["messenger user id"]);
   Booking.CheckBookingStatus(req.query["messenger user id"]).then(function(items) 
@@ -1095,8 +1104,6 @@ app.get('/V0/CheckBookingStatus/',function(req,res){
         var jsonResponse = [];
         jsonResponse.push({ "text": "Hi. " + items[0].status });
         res.send(jsonResponse);
-        // console.log(req.query["messenger user id"]);
-        // body = JSON.stringify(items[0].status); res.type('application/json'); res.send(body);
   }, function(err) {
         console.error('The promise was rejected', err, err.stack);
   });
