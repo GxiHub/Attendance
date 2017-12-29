@@ -22,7 +22,8 @@ exports.CheckBookingStatus = function(_UserID)
 {
       return new Promise(function(resolve, reject) 
       {
-		  dbOP.collection('bookingsystem').find({'userid':_UserID}).toArray(function(err, results) {
+		  // dbOP.collection('bookingsystem').find({'userid':_UserID}).toArray(function(err, results) {
+		  dbOP.collection('bookingsystem').find({$or:[{userid:_UserID},{phone:_UserID}]}).toArray(function(err, results) {
               if (err) { 
                   reject(err);
               } else {
