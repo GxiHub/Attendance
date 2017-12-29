@@ -4,6 +4,7 @@ MongoClient = require('mongodb').MongoClient;
 path = require('path');
 moment = require('moment');
 
+var url = require('url');
 var https = require('https');
 var  fs = require("fs");
 var sleep = require('system-sleep');
@@ -1072,7 +1073,11 @@ function GetNeedSyncDay()
 // ==============================================
 
 app.get('/TestOrangePowerDB/',function(req,res){
-  console.log('OrangePower fbid is = ',req.query);  
+  console.log('OrangePower fbid is = ',req.query); 
+  var fbidparse = url.parse(req.url).query; 
+  console.log('fbidparse =',fbidparse);
+  var fbidsplit = fbidparse.split('=');
+  console.log('fbidparse =',fbidsplit[1]);
 });
 
           
