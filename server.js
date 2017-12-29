@@ -1091,7 +1091,12 @@ app.get('/V0/CheckBookingStatus/',function(req,res){
   console.log(req.query["messenger user id"]);
   Booking.CheckBookingStatus(req.query["messenger user id"]).then(function(items) 
   {
-        body = JSON.stringify(items[0].status); res.type('application/json'); res.send(body);
+        console.log(items[0].status);
+        var jsonResponse = [];
+        jsonResponse.push({ "text": "Hi. " + (Math.random() * 5 + 1).toFixed(0) + " is a lucky number..." });
+        res.send(jsonResponse);
+        // console.log(req.query["messenger user id"]);
+        // body = JSON.stringify(items[0].status); res.type('application/json'); res.send(body);
   }, function(err) {
         console.error('The promise was rejected', err, err.stack);
   });
