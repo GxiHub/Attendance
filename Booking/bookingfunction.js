@@ -26,7 +26,7 @@ exports.CheckBookingStatusByFBID = function(_UserID)
       {
 		  dbOP.collection('bookingsystem').find({'userid':_UserID}).toArray(function(err, results) {
 		      for( var i = 0; i<results.length; i++ ) {
-		          var tempResponse = " .您訂位號 ["+items[i].unibookid+' '+items[i].year+"/"+items[i].month+"/"+items[i].day+" "+items[i].adultnumber+"大"+items[i].childnumber+"小 ] 的網路訂位狀態  = "+items[i].status;
+		          var tempResponse = " .您訂位號 ["+results[i].unibookid+' '+results[i].year+"/"+results[i].month+"/"+results[i].day+" "+results[i].adultnumber+"大"+results[i].childnumber+"小 ] 的網路訂位狀態  = "+results[i].status;
 		      	  jsonResponse.push({tempResponse});
 		      }
 		      console.log(jsonResponse);
