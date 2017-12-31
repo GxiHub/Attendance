@@ -21,11 +21,15 @@ exports.MakeOneBooking = function(_StoreName,_UserPicUrl,_UserID,_UserGender,_Us
 exports.CheckBookingStatusByFBID = function(_UserID)
 {
 	  console.log(_UserID);
+	  var jsonResponse = [];
       return new Promise(function(resolve, reject) 
       {
 		  dbOP.collection('bookingsystem').find({'userid':_UserID}).toArray(function(err, results) {
-	  			console.log(results);
-
+		      for( var i = 0; i<results.length; i++ ) {
+		          var tempResponse = " .您訂位號 ["+items[i].unibookid+' '+items[i].year+"/"+items[i].month+"/"+items[i].day+" "+items[i].adultnumber+"大"+items[i].childnumber+"小 ] 的網路訂位狀態  = "+items[i].status;
+		      	  jsonResponse.push({tempResponse});
+		      }
+		      console.log(jsonResponse);
               if (err) { 
                   reject(err);
               } else {
