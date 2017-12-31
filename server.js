@@ -1106,7 +1106,8 @@ app.get('/V0/CheckBookingStatus/',function(req,res){
         var jsonResponse = [];
         jsonResponse.push({ "text": "Hi. " + items[0].username +' '});
         for( var i = 0; i<items.length; i++ ) {
-          var tempResponse = " .您訂位號 ["items[i].unibookid+' '+items[i].year+"/"+items[i].month+"/"+items[i].day+" "+items[i].adultnumber+"大"+items[i].childnumber+"小 ] 的網路訂位狀態  = "+items[i].status })
+          var tempResponse = " .您訂位號 ["+items[i].unibookid+' '+items[i].year+"/"+items[i].month+"/"+items[i].day+" "+items[i].adultnumber+"大"+items[i].childnumber+"小 ] 的網路訂位狀態  = "+items[i].status;
+          // var tempResponse = ' .您訂位號 ['+items[i].unibookid+' '+items[i].year+"/"+items[i].month+"/"+items[i].day+" "+items[i].adultnumber+"大"+items[i].childnumber+"小 ] 的網路訂位狀態  = "+items[i].status })
           jsonResponse.push({tempResponse});
         }
         // jsonResponse.push({ "text": "Hi. " + items[0].username +" .您 ["+items[0].year+"/"+items[0].month+"/"+items[0].day+" "+items[0].adultnumber+"大"+items[0].childnumber+"小 ] 的網路訂位狀態  = "+items[0].status });
