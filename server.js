@@ -1104,7 +1104,7 @@ app.get('/V0/CheckBookingStatus/',function(req,res){
   {
         console.log(items.length);
         var jsonResponse = [];
-        jsonResponse.push({ "text": "Hi. " +items[0].username +' . 你的訂位狀態'+ items});
+        jsonResponse.push({ "text": "Hi. " +items[0].username +' . 你的訂位狀態 '+ items});
         //jsonResponse.push({ "text": "Hi. " + items[0].username +" .您 ["+items[0].year+"/"+items[0].month+"/"+items[0].day+" "+items[0].adultnumber+"大"+items[0].childnumber+"小 ] 的網路訂位狀態  = "+items[0].status });
         res.send(jsonResponse);
   }, function(err) {
