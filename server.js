@@ -1102,7 +1102,7 @@ app.get('/V0/CheckBookingStatus/',function(req,res){
   console.log(req.query["messenger user id"]);
   Booking.CheckBookingStatusByFBID(req.query["messenger user id"]).then(function(items) 
   {
-        console.log(itmes);
+        console.log(itmes[0].username);
         console.log(items[0].status);
         var jsonResponse = [];
         jsonResponse.push({ "text": "Hi. " + items[0].username +"您 ["+items[0].year+"/"+items[0].month+"/"+items[0].day+" "+items[0].adultnumber+"大"+items[0].childnumber+"小 ] 的網路訂位狀態  = "+items[0].status });
