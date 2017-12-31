@@ -1102,9 +1102,9 @@ app.get('/V0/CheckBookingStatus/',function(req,res){
   console.log(req.query["messenger user id"]);
   Booking.CheckBookingStatusByFBID(req.query["messenger user id"]).then(function(items) 
   {
-        console.log('/V0/CheckBookingStatus/');
+        console.log(items.length);
         var jsonResponse = [];
-        jsonResponse.push({ "text": "Hi. " + items[0].username +"您 ["+items[0].year+"/"+items[0].month+"/"+items[0].day+" "+items[0].adultnumber+"大"+items[0].childnumber+"小 ] 的網路訂位狀態  = "+items[0].status });
+        jsonResponse.push({ "text": "Hi. " + items[0].username +" .您 ["+items[0].year+"/"+items[0].month+"/"+items[0].day+" "+items[0].adultnumber+"大"+items[0].childnumber+"小 ] 的網路訂位狀態  = "+items[0].status });
         res.send(jsonResponse);
   }, function(err) {
         console.error('The promise was rejected', err, err.stack);
@@ -1117,7 +1117,7 @@ app.get('/V0/CheckBookingStatusByphone/',function(req,res){
   {
         console.log(items[0].status);
         var jsonResponse = [];
-        jsonResponse.push({ "text": "Hi. " + items[0].username +"您 ["+items[0].year+"/"+items[0].month+"/"+items[0].day+" "+items[0].adultnumber+"大"+items[0].childnumber+"小 ] 的電話訂位狀態  = "+items[0].status });
+        jsonResponse.push({ "text": "Hi. " + items[0].username +" .您 ["+items[0].year+"/"+items[0].month+"/"+items[0].day+" "+items[0].adultnumber+"大"+items[0].childnumber+"小 ] 的電話訂位狀態  = "+items[0].status });
         // jsonResponse.push({ "text": "Hi. " + items[0].status });
         res.send(jsonResponse);
   }, function(err) {
