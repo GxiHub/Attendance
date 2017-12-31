@@ -20,9 +20,12 @@ exports.MakeOneBooking = function(_StoreName,_UserPicUrl,_UserID,_UserGender,_Us
 
 exports.CheckBookingStatusByFBID = function(_UserID)
 {
+	  console.log(_UserID);
       return new Promise(function(resolve, reject) 
       {
 		  dbOP.collection('bookingsystem').find({'userid':_UserID}).toArray(function(err, results) {
+	  			console.log(results);
+
               if (err) { 
                   reject(err);
               } else {
