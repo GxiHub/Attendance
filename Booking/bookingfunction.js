@@ -49,7 +49,7 @@ exports.CheckBookingStatusByphone = function(_UserPhone)
               if (err) { 
                   reject(err);
               } else {
-                  resolve(results);
+                  resolve(Response);
               }
           });
       });
