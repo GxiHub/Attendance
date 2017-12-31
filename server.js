@@ -1115,7 +1115,14 @@ app.get('/V0/CheckBookingStatusByphone/',function(req,res){
   Booking.CheckBookingStatusByphone(req.query["reserve_phone"]).then(function(items) 
   {
         var jsonResponse = [];
-        jsonResponse.push({ "text":'你的電話訂位狀態 '+"\n"+ items});
+        if(items.length == 0)
+        {
+            jsonResponse.push({ "text":'你尚未有訂位紀錄 '});  
+        }
+        else
+        {
+            jsonResponse.push({ "text":'你的訂位狀態 '+"\n"+ items});          
+        }      
         res.send(jsonResponse);
 
   }, function(err) {
