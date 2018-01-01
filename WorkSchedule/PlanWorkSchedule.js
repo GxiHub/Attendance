@@ -94,12 +94,25 @@ exports.AddMultipleEmployeeWorkScheduleFunction = function(Name,Year,Month,Onlin
 // [查詢][Origin] #列表 #年月日 #店名 #全店 #單月上班
 exports.CheckWorkScheduleByList = function(_Year,_Month)
 {
-    if(_Month == null){Month = moment().format('MM');Year = moment().format('YYYY');}
-    else{Month = _Month;Year = _Year;}
+    if(_Month == null)
+    {
+      Month = moment().format('MM');
+      Year = moment().format('YYYY');
+      var _PreviousMonth = moment().format('MM')-1;
+      _PreviousMonth = _PreviousMonth.toString();
+    }
+    else
+    {
+      Month = _Month;
+      Year = _Year;
+      var _PreviousMonth = Month-1;
+      _PreviousMonth = _PreviousMonth.toString();
+    }
 
     return new Promise(function(resolve, reject) 
     {
-      dbwork.collection('employeeworkschedule').find({'workyear':Year,'workmonth':Month}).sort({"name": 1,"workday": 1}).toArray(function(err, results) {       
+      dbwork.collection('employeeworkschedule').find({$or:[{'workyear':Year,'workmonth':Month},{'workyear':Year,'workmonth':_PreviousMonth}]}).sort({"name": 1,"workday": 1}).toArray(function(err, results) {       
+      // dbwork.collection('employeeworkschedule').find({'workyear':Year,'workmonth':Month}).sort({"name": 1,"workday": 1}).toArray(function(err, results) {       
          if (err) { 
               reject(err);
          } else {
@@ -154,11 +167,26 @@ exports.CheckWorkSchedule = function(_Year,_Month)
 exports.AdjustWorkSchedule = function()
 {
   var _Year = moment().format('YYYY');
-  var _Month = moment().format('MM')-1;
+  var _Month = moment().format('MM');
   _Month = _Month.toString();
+  if(_Month == '01')
+  {
+    var _PreviousMonth = '12';
+    var _PreviousYear = parseInt(_Year,10) -1;
+    console.log('_PreviousYear =',_PreviousYear," _PreviousMonth = ",_PreviousMonth);
+  }
+  else
+  { 
+    var _PreviousMonth = moment().format('MM')-1;
+    var _PreviousYear = _Year;
+  }
+  _PreviousMonth = _PreviousMonth.toString();
+  _PreviousYear = _PreviousYear.toString();
   return new Promise(function(resolve, reject) 
   {
-	    dbwork.collection('employeeworkschedule').find({'workyear':_Year,'workmonth':_Month}).sort({"name": 1,"workyear": 1,"workmonth": 1,"workday": 1}).toArray(function(err, results) {
+   
+      dbwork.collection('employeeworkschedule').find( {$or:[{'workyear':_Year,'workmonth':_Month},{'workyear':_PreviousYear,'workmonth':_PreviousMonth}]}).sort({"name": 1,"workyear": 1,"workmonth": 1,"workday": 1}).toArray(function(err, results) {
+	    // dbwork.collection('employeeworkschedule').find({'workyear':_Year,'workmonth':_Month}).sort({"name": 1,"workyear": 1,"workmonth": 1,"workday": 1}).toArray(function(err, results) {
   		  if (err){ 
   		            reject(err);
   		  } else {

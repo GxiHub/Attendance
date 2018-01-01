@@ -767,6 +767,8 @@ app.get('/Show_CheckHaveScheduleButNoWork/',function(req,res){
 app.get('/QR_codeSan_CheckEveryMonthWorkStatus/',function(req,res){
     var _Year = GetNeedSyncYear();
     var _Month = GetNeedSyncMonth(0);
+    if(_Month<10){_Month='0'+_Month;}
+    _Month = _Month.toString();
     QRcodeScan.CheckMonthOnlineOfflineByBrandNameAndMonth(req.query.checkPeriodYear,req.query.checkPeriodMonth,req.query.checkName).then(function(items) 
     {
         dbtoken.collection('memberbrandinformation').find().toArray(function(err, results) {

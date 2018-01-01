@@ -116,12 +116,25 @@ exports.AdjustOnlineOfflineData = function()
 	//#修改資料庫成 workperiod
     var _Year = moment().format('YYYY');
     var _Month = moment().format('MM');
-    var _PreviousMonth = moment().format('MM')-1;
     _Month = _Month.toString();
+    var _PreviousMonth = moment().format('MM')-1;
+    if(_Month == '01')
+    {
+      var _PreviousMonth = '12';
+      var _PreviousYear = parseInt(_Year,10) -1;
+      console.log('_PreviousYear =',_PreviousYear," _PreviousMonth = ",_PreviousMonth);
+    }
+    else
+    { 
+      var _PreviousMonth = moment().format('MM')-1;
+      var _PreviousYear = _Year;
+    }
     _PreviousMonth = _PreviousMonth.toString();
+    _PreviousYear = _PreviousYear.toString();
+
     return new Promise(function(resolve, reject) 
     {
-          dbwork.collection('workperiod').find({$or:[{'Year':_Year,'Month':_Month},{'Year':_Year,'Month':_PreviousMonth}]}).sort({"name": 1,"Year":1,"Month":1,"Day": 1}).toArray(function(err, data) {
+          dbwork.collection('workperiod').find({$or:[{'Year':_Year,'Month':_Month},{'Year':_PreviousYear,'Month':_PreviousMonth}]}).sort({"name": 1,"Year":1,"Month":1,"Day": 1}).toArray(function(err, data) {
       		// dbwork.collection('workperiod').find({'Year':_Year,'Month':_Month}).sort({"name": 1,"Year":1,"Month":1,"Day": 1}).toArray(function(err, data) {
 	              // console.log(data);
 	              if (err) { 

@@ -16,7 +16,7 @@
 	<form action="/Plan_Work_Schedule_CheckEmployeeWorkScheduleByList/" method="GET">
 		<select name="checkPeriodYear" id="month">
 			<option selected value=<%= year %>><%= year %></option>
-			<%  for(var i=0; i<3; i++) {%>
+			<%  for(var i=-1; i<3; i++) {%>
 			<option value=<%= parseInt(year,10)+i %>><%= parseInt(year,10)+i %></option>
 			<% } %>
 		</select>
