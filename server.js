@@ -608,6 +608,8 @@ app.get('/CheckProductInStock/',function(req,res){
     var _Day = GetNeedSyncDay();
     var _DaysNumber = MonthHaveHowManyDay(_Year,_Month);
 
+    if(_Month<10){_Month='0'+_Month;}
+    _Month = _Month.toString();
 
     HandleStockInOut.GetProductListInStock(req.query.checkPeriodYear,req.query.checkPeriodMonth,req.query.checkPeriodDay,req.query.checkType).then(function(items) 
     {
@@ -705,6 +707,8 @@ app.get('/ShowAndModifyUserTokenData_UserTokenData/',function(req,res){
 app.get('/Plan_Work_Schedule_MultipleDirectPageToAddEmployeeWorkSchedule/',function(req,res){
     var _Year = GetNeedSyncYear();
     var _Month = GetNeedSyncMonth(0);
+    if(_Month<10){_Month='0'+_Month;}
+    _Month = _Month.toString();
     dbtoken.collection('memberbrandinformation').find().toArray(function(err, results) {
           res.render('UseCheckBoxByAddEmployeeWorkSchedule.ejs',{member:results,year:_Year,month:_Month});
     }); 
@@ -723,6 +727,8 @@ app.post('/Plan_Work_Schedule_UseCheckBoxByAddEmployeeWorkSchedule/',function(re
 app.get('/Plan_Work_Schedule_CheckEmployeeWorkScheduleByList/',function(req,res){
     var _Year = GetNeedSyncYear();
     var _Month = GetNeedSyncMonth(0);
+    if(_Month<10){_Month='0'+_Month;}
+    _Month = _Month.toString();
     PlanWorkSchedule.CheckWorkScheduleByList(req.query.checkPeriodYear,req.query.checkPeriodMonth).then(function(items) 
     {
           res.render('PlanWorkSchedule_CheckWorkScheduleByList.ejs',{passvariable:items,year:_Year,month:_Month});
