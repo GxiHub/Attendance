@@ -111,7 +111,7 @@ exports.CheckWorkScheduleByList = function(_Year,_Month)
 
     return new Promise(function(resolve, reject) 
     {
-      dbwork.collection('employeeworkschedule').find({$or:[{'workyear':Year,'workmonth':Month},{'workyear':Year,'workmonth':_PreviousMonth}]}).sort({"name": 1,"workday": 1}).toArray(function(err, results) {       
+      dbwork.collection('employeeworkschedule').find({$or:[{'workyear':Year,'workmonth':Month},{'workyear':Year,'workmonth':_PreviousMonth}]}).sort({"name": 1,"workyear": 1,"workmonth": 1,"workday": 1}).toArray(function(err, results) {       
       // dbwork.collection('employeeworkschedule').find({'workyear':Year,'workmonth':Month}).sort({"name": 1,"workday": 1}).toArray(function(err, results) {       
          if (err) { 
               reject(err);
