@@ -136,25 +136,25 @@ app.get('/QR_codeSan_GetTokenToServer/',function(req,res){
 app.get('/V1/API/ReceiveQRcodeRequest/',function(req,res){
 
     console.log('req.headers.uniid = ',req.headers['uniid']);
-    
-    QRcodeScan.CheckDeviceIDAndToken(req.headers['deviceid'],req.headers['usertoken']).then(function(items) 
-    {
-            if(items != '')
-            {
-                    QRcodeScan.EmployeeWorkTimeAndStatus(items.uniID,items.name,items.status);
-                    var msgString = items.name+''+items.status;
-                    var body = {'status':{'code':'S0000','msg':msgString}};
-                    console.log(' DeviceID is ',items.deviceid, ' and ',items.name,' is ',items.status);          
-            }
-            else
-            {
-                    var body = {'status':{'code':'E0001','msg':'DeviceID 或是 Token 錯誤，請重新輸入'}};
-            }
-            body = JSON.stringify(body); res.type('application/json'); res.send(body);
+    res.render('html.ejs');    
+    // QRcodeScan.CheckDeviceIDAndToken(req.headers['deviceid'],req.headers['usertoken']).then(function(items) 
+    // {
+    //         if(items != '')
+    //         {
+    //                 QRcodeScan.EmployeeWorkTimeAndStatus(items.uniID,items.name,items.status);
+    //                 var msgString = items.name+''+items.status;
+    //                 var body = {'status':{'code':'S0000','msg':msgString}};
+    //                 console.log(' DeviceID is ',items.deviceid, ' and ',items.name,' is ',items.status);          
+    //         }
+    //         else
+    //         {
+    //                 var body = {'status':{'code':'E0001','msg':'DeviceID 或是 Token 錯誤，請重新輸入'}};
+    //         }
+    //         body = JSON.stringify(body); res.type('application/json'); res.send(body);
 
-    }, function(err) {
-          console.error('The promise was rejected', err, err.stack);
-    });  
+    // }, function(err) {
+    //       console.error('The promise was rejected', err, err.stack);
+    // });  
 });
 
 
@@ -851,7 +851,7 @@ app.get('/Sync_NewCombineMonthSchedule/',function(req,res){
 app.get('/Sync_IsWorkOrScheduleWithSync/',function(req,res){
     var BrandButton = '食鍋藝';//需要知道店名稱來識別需要計算哪間店的資料
     var _Year = GetNeedSyncYear();
-    var _Month = GetNeedSyncMonth(0);
+    var _Month = GetNeedSyncMonth(1);
     SyncCombineMonthSchedule.NewIsWorkOrScheduleWithSync(BrandButton,_Year,_Month);
     res.redirect('/');
 });
@@ -908,7 +908,7 @@ app.get('/CheckBackupScheduleData/',function(req,res){
 app.get('/Sync_ShowCombineMonthSchedule/',function(req,res){
     var BrandButton = '食鍋藝';//需要知道店名稱來識別需要計算哪間店的資料
     var _Year = GetNeedSyncYear();
-    var _Month = GetNeedSyncMonth(0);
+    var _Month = GetNeedSyncMonth(1);
     dbtest.collection('synccombinemonthworkschedule').find({'workyear':req.query.checkPeriodYear,'workmonth':req.query.checkPeriodMonth,'userbrandname':BrandButton}).sort({'workyear':1,'workmonth':1,"name": 1,"TID":1,"workday":1}).toArray(function(err, backup) {
         res.render('Backup_CombineMonthSchedule.ejs',{passvariable:backup,year:_Year,month:_Month});
     });
@@ -1137,6 +1137,8 @@ app.get('/V0/CheckBookingStatusByphone/',function(req,res){
         console.error('The promise was rejected', err, err.stack);
   }); 
 });
+
+//
 
           
 https.createServer(options, app).listen(9081, function () {
