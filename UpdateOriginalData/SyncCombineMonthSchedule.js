@@ -62,7 +62,7 @@ exports.NewMonthWorkSchedule = function(_BrandButton)
     console.log(' _Year = ',_Year);
     console.log(' _Month = ',_Month);
 
-    // CheckAllPersonMonthWorkScheduleIsInDataBaseOrNot(_Year,_Month,_BrandButton);
+    CheckAllPersonMonthWorkScheduleIsInDataBaseOrNot(_Year,_Month,_BrandButton);
 }
 
 function CheckAllPersonMonthWorkScheduleIsInDataBaseOrNot(_Year,_Month,_BrandButton)
