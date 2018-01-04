@@ -593,7 +593,7 @@ app.get('/CheckProductPartialTagEachNumber/',function(req,res){
 app.get('/CheckProductInStock/',function(req,res){
     if(req.query.checkPeriodYear == null)
     {
-      req.query.checkPeriodYear= GetNeedSyncYear();
+      req.query.checkPeriodYear= GetNeedSyncYear(0);
     }
     if(req.query.checkPeriodMonth == null)
     {
@@ -603,7 +603,7 @@ app.get('/CheckProductInStock/',function(req,res){
     {
       req.query.checkPeriodDay = GetNeedSyncDay();
     }
-    var _Year = GetNeedSyncYear();
+    var _Year = GetNeedSyncYear(0);
     var _Month = GetNeedSyncMonth(0);
     var _Day = GetNeedSyncDay();
     var _DaysNumber = MonthHaveHowManyDay(_Year,_Month);
@@ -705,7 +705,7 @@ app.get('/ShowAndModifyUserTokenData_UserTokenData/',function(req,res){
 // =============== 員工排班相關 ===========================================
 // 新增員工多天排班
 app.get('/Plan_Work_Schedule_MultipleDirectPageToAddEmployeeWorkSchedule/',function(req,res){
-    var _Year = GetNeedSyncYear();
+    var _Year = GetNeedSyncYear(0);
     var _Month = GetNeedSyncMonth(0);
     if(_Month<10){_Month='0'+_Month;}
     _Month = _Month.toString();
@@ -725,7 +725,7 @@ app.post('/Plan_Work_Schedule_UseCheckBoxByAddEmployeeWorkSchedule/',function(re
 
 // 顯示單月員工排班列表
 app.get('/Plan_Work_Schedule_CheckEmployeeWorkScheduleByList/',function(req,res){
-    var _Year = GetNeedSyncYear();
+    var _Year = GetNeedSyncYear(0);
     var _Month = GetNeedSyncMonth(0);
     if(_Month<10){_Month='0'+_Month;}
     _Month = _Month.toString();
@@ -765,7 +765,7 @@ app.get('/Show_CheckHaveScheduleButNoWork/',function(req,res){
 // =============== 員工上班相關 ===========================================
 //顯示單月員工上班狀況
 app.get('/QR_codeSan_CheckEveryMonthWorkStatus/',function(req,res){
-    var _Year = GetNeedSyncYear();
+    var _Year = GetNeedSyncYear(0);
     var _Month = GetNeedSyncMonth(0);
     if(_Month<10){_Month='0'+_Month;}
     _Month = _Month.toString();
@@ -801,7 +801,7 @@ app.post('/QR_codeScan_UpdateOnlineOfflineDate/', (req, res) => {
 
 //顯示單月加班遲到狀況
 app.get('/PrintMonthSalary_CheckBackupAddLateStatus/',function(req,res){
-  var _Year = GetNeedSyncYear();
+  var _Year = GetNeedSyncYear(0);
   var _Month = GetNeedSyncMonth(0);
   PrintAddLateStatus.printBackupAddlateStatus(req.query.checkName,req.query.checkPeriodYear,req.query.checkPeriodMonth).then(function(items)
   {
@@ -850,7 +850,7 @@ app.get('/Sync_NewCombineMonthSchedule/',function(req,res){
 // 同步上班排班不同步
 app.get('/Sync_IsWorkOrScheduleWithSync/',function(req,res){
     var BrandButton = '食鍋藝';//需要知道店名稱來識別需要計算哪間店的資料
-    var _Year = GetNeedSyncYear();
+    var _Year = GetNeedSyncYear(1);
     var _Month = GetNeedSyncMonth(1);
     SyncCombineMonthSchedule.NewIsWorkOrScheduleWithSync(BrandButton,_Year,_Month);
     res.redirect('/');
@@ -885,7 +885,7 @@ app.get('/Sync_AddLateWorkTimeCalculate_result/',function(req,res){
 // =============== 同步相關 ===========================================
 //上班備份資料
 app.get('/Backup_CheckOriginDataByDay/',function(req,res){
-    var _Year = GetNeedSyncYear();
+    var _Year = GetNeedSyncYear(0);
     var _Month = GetNeedSyncMonth(0);
     dbtest.collection('synconlineofflinedata').find({'Year':req.query.checkPeriodYear,'Month':req.query.checkPeriodMonth}).sort({'Month':1,'Day':1,"name": 1,'status':1}).toArray(function(err, data) {
         dbtoken.collection('memberbrandinformation').find().toArray(function(err, results) {
@@ -897,7 +897,7 @@ app.get('/Backup_CheckOriginDataByDay/',function(req,res){
 
 // 排班備份資料
 app.get('/CheckBackupScheduleData/',function(req,res){
-    var _Year = GetNeedSyncYear();
+    var _Year = GetNeedSyncYear(0);
     var _Month = GetNeedSyncMonth(0);
     dbtest.collection('synworkscheduledata').find({'workyear':req.query.checkPeriodYear,'workmonth':req.query.checkPeriodMonth}).sort({'workyear':1,'workmonth':1,"workday":1,"name": 1}).toArray(function(err, data) {
       res.render('Backup_PlanWorkSchedule_CheckWorkScheduleByList.ejs',{passvariable:data,year:_Year,month:_Month});
@@ -907,8 +907,9 @@ app.get('/CheckBackupScheduleData/',function(req,res){
 // 合併排班資料
 app.get('/Sync_ShowCombineMonthSchedule/',function(req,res){
     var BrandButton = '食鍋藝';//需要知道店名稱來識別需要計算哪間店的資料
-    var _Year = GetNeedSyncYear();
-    var _Month = GetNeedSyncMonth(1);
+    var _Year = GetNeedSyncYear(0);
+    var _Month = GetNeedSyncMonth(0);
+    console.log('_Month = ',_Month);
     dbtest.collection('synccombinemonthworkschedule').find({'workyear':req.query.checkPeriodYear,'workmonth':req.query.checkPeriodMonth,'userbrandname':BrandButton}).sort({'workyear':1,'workmonth':1,"name": 1,"TID":1,"workday":1}).toArray(function(err, backup) {
         res.render('Backup_CombineMonthSchedule.ejs',{passvariable:backup,year:_Year,month:_Month});
     });
@@ -1009,16 +1010,17 @@ app.post('/CheckOriginScheduleData/',function(req,res){
 });
 
 // ============ 共同使用函式 =====================
-function GetNeedSyncYear()
+function GetNeedSyncYear(_yearShift)
 {
-  var Year = moment().format('YYYY');
+  var Year = moment().format('YYYY')-_yearShift;
   Year = Year.toString();
   return Year;
 } 
 
 function GetNeedSyncMonth(_Shift)
 {
-  var Month = moment().format('MM')-_Shift;
+    var Month = moment().format('MM')-_Shift;
+    if(Month == '00'){Month = 12;}
     //為了月份做處理，單位數的補零，雙位數的轉字串
     // if(Month<10){Month='0'+Month;}
     Month = Month.toString();

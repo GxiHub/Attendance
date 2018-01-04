@@ -36,17 +36,17 @@ exports.MonthWorkSchedule = function(_BrandButton)
 }
 
 
-function NewGetNeedSyncYear()
+function NewGetNeedSyncYear(YearShift)
 {
-  var Year = moment().format('YYYY');
+  var Year = moment().format('YYYY')-YearShift;
   Year = Year.toString();
   return Year;
 } 
 
-function NewGetNeedSyncMonth()
+function NewGetNeedSyncMonth(MonthShift)
 {
-  var MonthShift = 0;
-  var Month = moment().format('MM') - MonthShift;
+    var Month = moment().format('MM') - MonthShift;
+    if(Month == '00'){Month = 12;}
     //為了月份做處理，單位數的補零，雙位數的轉字串
     if(Month<10){Month='0'+Month;}
     Month = Month.toString();
@@ -57,12 +57,12 @@ function NewGetNeedSyncMonth()
 exports.NewMonthWorkSchedule = function(_BrandButton)
 {
   //產生現在的年份與月份
-    var _Year = NewGetNeedSyncYear();
-    var _Month = NewGetNeedSyncMonth();
+    var _Year = NewGetNeedSyncYear(1);
+    var _Month = NewGetNeedSyncMonth(1);
     console.log(' _Year = ',_Year);
     console.log(' _Month = ',_Month);
 
-    CheckAllPersonMonthWorkScheduleIsInDataBaseOrNot(_Year,_Month,_BrandButton);
+    // CheckAllPersonMonthWorkScheduleIsInDataBaseOrNot(_Year,_Month,_BrandButton);
 }
 
 function CheckAllPersonMonthWorkScheduleIsInDataBaseOrNot(_Year,_Month,_BrandButton)
