@@ -1140,7 +1140,11 @@ app.get('/V0/CheckBookingStatusByphone/',function(req,res){
   }); 
 });
 
-//
+app.get('/V0/ResponseQuickReply/',function(req,res){
+  var jsonResponse = [];
+  jsonResponse.push({ "text":'QuickReply ',"quick_replies":[{"title":"Quick1","block_names": ["Block 1"]}]});
+  res.send(jsonResponse);
+});
 
           
 https.createServer(options, app).listen(9081, function () {
