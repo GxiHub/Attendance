@@ -1097,9 +1097,13 @@ app.get('/V1/BookingAPI/',function(req,res){
   console.log(req.query);
   // 系統內建丟出來的參數 (1) 店名稱 (2) 大頭像 (3) FBID (4) 性別
   var _StoreName = req.query["STORE_NAME"];var _UserPicUrl = req.query["profile pic url"];var _UserId = req.query["messenger user id"];var _UserGender = req.query["gender"];
-  var _UserName = req.query["reserve_name"];var _UserPhone = req.query["reserve_phone"];var _Year = req.query["reserve_year"];var _Month = req.query["reserve_month"];var _Day =req.query["reserve_date"];
+  var _UserName = req.query["reserve_name"];var _UserPhone = req.query["reserve_phone"];
+  var _Year = moment().format('YYYY');var _Month = req.query["reserve_month"];var _Day =req.query["reserve_date"];
+  var _Date = req.query["reserve_date"].split('/');var _Month = _Date[0];var _Day =_Date[1];
   var _Time =req.query["reserve_time"].split(':');var _Hour = _Time[0];var _Minute = _Time[1];
-  var _AdultNumber = req.query["reserve_adult"];var _ChildNumber = req.query["reserve_child"];var _UserNote = req.query["reserve_comment"];
+  var _AdultNumber = req.query["reserve_people"];
+  var _ChildNumber = 0;
+  var _UserNote = req.query["reserve_comment"];
   Booking.MakeOneBooking(_StoreName,_UserPicUrl,_UserId,_UserGender,_UserName,_UserPhone,_Year,_Month,_Day,_Hour,_Minute,_AdultNumber,_ChildNumber,_UserNote);
 });
 

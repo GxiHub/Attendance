@@ -25,7 +25,7 @@ exports.CheckBookingStatusByFBID = function(_UserID)
       {
 		  dbOP.collection('bookingsystem').find({'userid':_UserID}).toArray(function(err, results) {
 		      for( var i = 0; i<results.length; i++ ) {
-		          Response = Response + "["+results[i].year+"/"+results[i].month+"/"+results[i].day+" "+results[i].hour+":"+results[i].minute+" "+results[i].adultnumber+"大"+results[i].childnumber+"小 ]  => "+results[i].status+"\n";
+		          Response = Response + "["+results[i].year+"/"+results[i].month+"/"+results[i].day+" "+results[i].hour+":"+results[i].minute+" "+results[i].adultnumber+"位 ]  => "+results[i].status+"\n";
 		      }
 		      console.log(Response);
               if (err) { 
@@ -44,7 +44,7 @@ exports.CheckBookingStatusByphone = function(_UserPhone)
       {
 		  dbOP.collection('bookingsystem').find({'phone':_UserPhone}).toArray(function(err, results) {
 		      for( var i = 0; i<results.length; i++ ) {
-		          Response = Response + "["+results[i].year+"/"+results[i].month+"/"+results[i].day+" "+results[i].hour+":"+results[i].minute+" "+results[i].adultnumber+"大"+results[i].childnumber+"小 ]  => "+results[i].status+"\n";
+		          Response = Response + "["+results[i].year+"/"+results[i].month+"/"+results[i].day+" "+results[i].hour+":"+results[i].minute+" "+results[i].adultnumber+"位 ]  => "+results[i].status+"\n";
 		      }
               if (err) { 
                   reject(err);
