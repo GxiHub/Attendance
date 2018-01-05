@@ -1136,16 +1136,44 @@ app.get('/V0/CheckBookingStatusByphone/',function(req,res){
 });
 
 app.get('/V0/ResponseQuickReply/',function(req,res){
-  var _Month = moment().format('MM');
-  var _Day = moment().format('DD');
-  console.log(_Month+'/'+_Day);
-  var jsonResponse = [];
-  jsonResponse.push({  
-      "text":'QuickReply ', 
-      "quick_replies":[{"set_attributes":{"reserve_date": "s1"},"title":"Quick1","block_names": ["Block 1"]}]
-  });
+  var reservedate = [];var _DayWeek = [];var jsonResponse = [];
+  var _DayPlus1 = moment().add(1, 'days').format('DD');
+  console.log(_DayPlus1);
+  for(var i=0; i<7;i++){
+      reservedate[i] = moment().add(i, 'days').format('MM')+'/'+moment().add(i, 'days').format('DD');
+      _DayWeek[i] = moment().add(i, 'days').format('dddd');
+  }
+  console.log(reservedate);
+  console.log(_DayWeek);
+
+  //_ReturnDayWeek = ConvertDayWeek(_DayWeek);
+  
+  
+  // jsonResponse.push({  
+  //     "text":'QuickReply ', 
+  //     "quick_replies":[{"set_attributes":{"reserve_date": reservedate},"title":reservedate+'('+_ReturnDayWeek+')',"block_names": ["Block 1"]},
+  //                      {"set_attributes":{"reserve_date": reservedate},"title":reservedate+'('+_ReturnDayWeek+')',"block_names": ["Block 1"]},
+  //                      {"set_attributes":{"reserve_date": reservedate},"title":reservedate+'('+_ReturnDayWeek+')',"block_names": ["Block 1"]},
+  //                      {"set_attributes":{"reserve_date": reservedate},"title":reservedate+'('+_ReturnDayWeek+')',"block_names": ["Block 1"]},
+  //                      {"set_attributes":{"reserve_date": reservedate},"title":reservedate+'('+_ReturnDayWeek+')',"block_names": ["Block 1"]},
+  //                      {"set_attributes":{"reserve_date": reservedate},"title":reservedate+'('+_ReturnDayWeek+')',"block_names": ["Block 1"]},
+  //                      {"set_attributes":{"reserve_date": reservedate},"title":reservedate+'('+_ReturnDayWeek+')',"block_names": ["Block 1"]},
+  //                      {"set_attributes":{"reserve_date": reservedate},"title":reservedate+'('+_ReturnDayWeek+')',"block_names": ["Block 1"]},]
+  // });
   res.send(jsonResponse);
 });
+function ConvertDayWeek(_DayWeek)
+{
+  var _ConvertDayWeek;
+  if(_DayWeek == 'Monday'){_ConvertDayWeek = '一'}
+  else if(_DayWeek == 'Tuesday'){_ConvertDayWeek = '二'}
+  else if(_DayWeek == 'Wednesday'){_ConvertDayWeek = '三'}
+  else if(_DayWeek == 'Thursday'){_ConvertDayWeek = '四'}
+  else if(_DayWeek == 'Friday'){_ConvertDayWeek = '五'}
+  else if(_DayWeek == 'Saturday'){_ConvertDayWeek = '六'}
+  else if(_DayWeek == 'Sunday'){_ConvertDayWeek = '日'}
+  return _ConvertDayWeek;
+}
 
           
 https.createServer(options, app).listen(9081, function () {
