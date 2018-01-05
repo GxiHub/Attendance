@@ -133,30 +133,25 @@ app.get('/QR_codeSan_GetTokenToServer/',function(req,res){
 });
 
 //QRcodeScan. 透過手機端掃描二維條碼，並添加個人上下班時間
-app.get('/V1/API/ReceiveQRcodeRequest/',function(req,res){
-
-    console.log('req.headers.uniid = ',req.headers['uniid']);
-    res.render('html.ejs');    
-    // QRcodeScan.CheckDeviceIDAndToken(req.headers['deviceid'],req.headers['usertoken']).then(function(items) 
-    // {
-    //         if(items != '')
-    //         {
-    //                 QRcodeScan.EmployeeWorkTimeAndStatus(items.uniID,items.name,items.status);
-    //                 var msgString = items.name+''+items.status;
-    //                 var body = {'status':{'code':'S0000','msg':msgString}};
-    //                 console.log(' DeviceID is ',items.deviceid, ' and ',items.name,' is ',items.status);          
-    //         }
-    //         else
-    //         {
-    //                 var body = {'status':{'code':'E0001','msg':'DeviceID 或是 Token 錯誤，請重新輸入'}};
-    //         }
-    //         body = JSON.stringify(body); res.type('application/json'); res.send(body);
-
-    // }, function(err) {
-    //       console.error('The promise was rejected', err, err.stack);
-    // });  
+app.get('/V1/API/ReceiveStatusAndDeviceIDThenGernerateQRcode/',function(req,res){
+    var timpstamp = Date.now();
+    var jsonResponse = [];
+    var encString = timpstamp+"/"+req.headers['deviceid']+"/"+req.headers['status'];
+    // var encString = '3c92cd28d0bd'+"/"+timpstamp+"/"+req.headers['deviceid']+"/"+req.headers['status'];
+    var enckey = encrypt(key, iv, encString);
+    console.log(enckey);
+    var deckey = decrypt(key, iv, enckey);
+    var SendEncryptString = {'string':enckey};
+    console.log(deckey);
+    res.send(SendEncryptString); 
 });
 
+app.get('/V1/API/ReceiveUidAndQRcodeToOnOffline/',function(req,res){
+    console.log(req.headers['onofflinetoken']);    
+    var deckey = decrypt(key, iv, req.headers['onofflinetoken']);
+    console.log(deckey);
+    res.send(deckey); 
+});
 
 // app.get('/FisrtLoginAndReturnMemberToken/',function(req,res){
 //   var deckey = decrypt(key, iv, req.headers['account']);
@@ -1142,7 +1137,10 @@ app.get('/V0/CheckBookingStatusByphone/',function(req,res){
 
 app.get('/V0/ResponseQuickReply/',function(req,res){
   var jsonResponse = [];
-  jsonResponse.push({ "text":'QuickReply ',"quick_replies":[{"title":"Quick1","block_names": ["Block 1"]}]});
+  jsonResponse.push({  
+      "text":'QuickReply ', 
+      "quick_replies":[{"set_attributes":{"step": "s1"},"title":"Quick1","block_names": ["Block 1"]}]
+  });
   res.send(jsonResponse);
 });
 
