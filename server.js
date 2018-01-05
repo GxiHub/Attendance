@@ -1137,29 +1137,24 @@ app.get('/V0/CheckBookingStatusByphone/',function(req,res){
 
 app.get('/V0/ResponseQuickReply/',function(req,res){
   var reservedate = [];var _DayWeek = [];var jsonResponse = [];
-  var _DayPlus1 = moment().add(1, 'days').format('DD');
-  console.log(_DayPlus1);
   for(var i=0; i<7;i++){
       reservedate[i] = moment().add(i, 'days').format('MM')+'/'+moment().add(i, 'days').format('DD');
-      _DayWeek[i] = moment().add(i, 'days').format('dddd');
+      _DayWeek[i] = ConvertDayWeek(moment().add(i, 'days').format('dddd'));
   }
-  console.log(reservedate);
-  console.log(_DayWeek);
+  // console.log(reservedate);
+  // console.log(_DayWeek);
 
-  //_ReturnDayWeek = ConvertDayWeek(_DayWeek);
-  
-  
-  // jsonResponse.push({  
-  //     "text":'QuickReply ', 
-  //     "quick_replies":[{"set_attributes":{"reserve_date": reservedate},"title":reservedate+'('+_ReturnDayWeek+')',"block_names": ["Block 1"]},
-  //                      {"set_attributes":{"reserve_date": reservedate},"title":reservedate+'('+_ReturnDayWeek+')',"block_names": ["Block 1"]},
-  //                      {"set_attributes":{"reserve_date": reservedate},"title":reservedate+'('+_ReturnDayWeek+')',"block_names": ["Block 1"]},
-  //                      {"set_attributes":{"reserve_date": reservedate},"title":reservedate+'('+_ReturnDayWeek+')',"block_names": ["Block 1"]},
-  //                      {"set_attributes":{"reserve_date": reservedate},"title":reservedate+'('+_ReturnDayWeek+')',"block_names": ["Block 1"]},
-  //                      {"set_attributes":{"reserve_date": reservedate},"title":reservedate+'('+_ReturnDayWeek+')',"block_names": ["Block 1"]},
-  //                      {"set_attributes":{"reserve_date": reservedate},"title":reservedate+'('+_ReturnDayWeek+')',"block_names": ["Block 1"]},
-  //                      {"set_attributes":{"reserve_date": reservedate},"title":reservedate+'('+_ReturnDayWeek+')',"block_names": ["Block 1"]},]
-  // });
+  jsonResponse.push({  
+      "text":'QuickReply ', 
+      "quick_replies":[{"set_attributes":{"reserve_date": reservedate[0]},"title":reservedate[0]+'('+_DayWeek[0]+')',"block_names": ["預約時間輸入"]},
+                       {"set_attributes":{"reserve_date": reservedate[1]},"title":reservedate[1]+'('+_DayWeek[1]+')',"block_names": ["預約時間輸入"]},
+                       {"set_attributes":{"reserve_date": reservedate[2]},"title":reservedate[2]+'('+_DayWeek[2]+')',"block_names": ["預約時間輸入"]},
+                       {"set_attributes":{"reserve_date": reservedate[3]},"title":reservedate[3]+'('+_DayWeek[3]+')',"block_names": ["預約時間輸入"]},
+                       {"set_attributes":{"reserve_date": reservedate[4]},"title":reservedate[4]+'('+_DayWeek[4]+')',"block_names": ["預約時間輸入"]},
+                       {"set_attributes":{"reserve_date": reservedate[5]},"title":reservedate[5]+'('+_DayWeek[5]+')',"block_names": ["預約時間輸入"]},
+                       {"set_attributes":{"reserve_date": reservedate[6]},"title":reservedate[6]+'('+_DayWeek[6]+')',"block_names": ["預約時間輸入"]},
+                       {"set_attributes":{"reserve_date": ''},"title":'其他日期',"block_names": ["其他預約日期"]},]
+  });
   res.send(jsonResponse);
 });
 function ConvertDayWeek(_DayWeek)
