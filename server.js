@@ -1136,8 +1136,9 @@ app.get('/V0/CheckBookingStatusByphone/',function(req,res){
 });
 
 app.get('/V0/ResponseQuickReply/',function(req,res){
-  moment().format('MM');
-  moment().format('DD');
+  var _Month = moment().format('MM');
+  var _Day = moment().format('DD');
+  console.log(_Month+'/'+_Day);
   var jsonResponse = [];
   jsonResponse.push({  
       "text":'QuickReply ', 
