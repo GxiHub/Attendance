@@ -1146,7 +1146,6 @@ app.get('/V0/ResponseQuickReply/',function(req,res){
       _DayWeek[i] = ConvertDayWeek(moment().add(i, 'days').format('dddd'));
   }
   // console.log(reservedate);
-  // console.log(_DayWeek);
 
   jsonResponse.push({  
       "text":'QuickReply ', 
@@ -1157,8 +1156,9 @@ app.get('/V0/ResponseQuickReply/',function(req,res){
                        {"set_attributes":{"reserve_date": reservedate[4]},"請選擇用餐日期":reservedate[4]+'('+_DayWeek[4]+')',"block_names": ["預約時間輸入"]},
                        {"set_attributes":{"reserve_date": reservedate[5]},"請選擇用餐日期":reservedate[5]+'('+_DayWeek[5]+')',"block_names": ["預約時間輸入"]},
                        {"set_attributes":{"reserve_date": reservedate[6]},"請選擇用餐日期":reservedate[6]+'('+_DayWeek[6]+')',"block_names": ["預約時間輸入"]},
-                       {"set_attributes":{"reserve_date": ''},"title":'其他日期',"block_names": ["其他預約日期"]},]
+                       {"set_attributes":{"reserve_date": ''},"title":'其他日期',"block_names": ["其他預約日期"]}]
   });
+  console.log(jsonResponse);
   res.send(jsonResponse);
 });
 function ConvertDayWeek(_DayWeek)
