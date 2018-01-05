@@ -1150,13 +1150,13 @@ app.get('/V0/ResponseQuickReply/',function(req,res){
 
   jsonResponse.push({  
       "text":'QuickReply ', 
-      "quick_replies":[{"set_attributes":{"reserve_date": reservedate[0]},"請問預約日期":reservedate[0]+'('+_DayWeek[0]+')',"block_names": ["預約時間輸入"]},
-                       {"set_attributes":{"reserve_date": reservedate[1]},"請問預約日期":reservedate[1]+'('+_DayWeek[1]+')',"block_names": ["預約時間輸入"]},
-                       {"set_attributes":{"reserve_date": reservedate[2]},"請問預約日期":reservedate[2]+'('+_DayWeek[2]+')',"block_names": ["預約時間輸入"]},
-                       {"set_attributes":{"reserve_date": reservedate[3]},"請問預約日期":reservedate[3]+'('+_DayWeek[3]+')',"block_names": ["預約時間輸入"]},
-                       {"set_attributes":{"reserve_date": reservedate[4]},"請問預約日期":reservedate[4]+'('+_DayWeek[4]+')',"block_names": ["預約時間輸入"]},
-                       {"set_attributes":{"reserve_date": reservedate[5]},"請問預約日期":reservedate[5]+'('+_DayWeek[5]+')',"block_names": ["預約時間輸入"]},
-                       {"set_attributes":{"reserve_date": reservedate[6]},"請問預約日期":reservedate[6]+'('+_DayWeek[6]+')',"block_names": ["預約時間輸入"]},
+      "quick_replies":[{"set_attributes":{"reserve_date": reservedate[0]},"請選擇用餐日期":reservedate[0]+'('+_DayWeek[0]+')',"block_names": ["預約時間輸入"]},
+                       {"set_attributes":{"reserve_date": reservedate[1]},"請選擇用餐日期":reservedate[1]+'('+_DayWeek[1]+')',"block_names": ["預約時間輸入"]},
+                       {"set_attributes":{"reserve_date": reservedate[2]},"請選擇用餐日期":reservedate[2]+'('+_DayWeek[2]+')',"block_names": ["預約時間輸入"]},
+                       {"set_attributes":{"reserve_date": reservedate[3]},"請選擇用餐日期":reservedate[3]+'('+_DayWeek[3]+')',"block_names": ["預約時間輸入"]},
+                       {"set_attributes":{"reserve_date": reservedate[4]},"請選擇用餐日期":reservedate[4]+'('+_DayWeek[4]+')',"block_names": ["預約時間輸入"]},
+                       {"set_attributes":{"reserve_date": reservedate[5]},"請選擇用餐日期":reservedate[5]+'('+_DayWeek[5]+')',"block_names": ["預約時間輸入"]},
+                       {"set_attributes":{"reserve_date": reservedate[6]},"請選擇用餐日期":reservedate[6]+'('+_DayWeek[6]+')',"block_names": ["預約時間輸入"]},
                        {"set_attributes":{"reserve_date": ''},"title":'其他日期',"block_names": ["其他預約日期"]},]
   });
   res.send(jsonResponse);
