@@ -513,7 +513,7 @@ function CheckIsWorkOrScheduleWithSync(_Year,_Month,_BrandButton)
     var MsgControl = false;
     dbtoken.collection('memberbrandinformation').find({'userbrandname':_BrandButton}).toArray(function(err, results) {
       for( var i = 0; i<results.length; i++ ) {
-            if(MsgControl == true){console.log(' result[',i,'].uniID = ',results[i].uniID,' name = ',results[i].name);}
+            // if(MsgControl == true){console.log(' result[',i,'].uniID = ',results[i].uniID,' name = ',results[i].name);}
             if(results[i].userbrandtitle != '離職')
             {
                 CalculateIsWorkOrScheduleWithSync(_Year,_Month,results[i].uniID,results[i].userbrandname);
