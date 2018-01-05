@@ -1136,10 +1136,12 @@ app.get('/V0/CheckBookingStatusByphone/',function(req,res){
 });
 
 app.get('/V0/ResponseQuickReply/',function(req,res){
+  moment().format('MM');
+  moment().format('DD');
   var jsonResponse = [];
   jsonResponse.push({  
       "text":'QuickReply ', 
-      "quick_replies":[{"set_attributes":{"step": "s1"},"title":"Quick1","block_names": ["Block 1"]}]
+      "quick_replies":[{"set_attributes":{"reserve_date": "s1"},"title":"Quick1","block_names": ["Block 1"]}]
   });
   res.send(jsonResponse);
 });
