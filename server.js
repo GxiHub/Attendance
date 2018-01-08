@@ -145,7 +145,7 @@ app.get('/V1/API/ReceiveStatusAndDeviceIDThenGernerateQRcode/',function(req,res)
     console.log(deckey);
     // res.send(SendEncryptString); 
 
-  var Work_Year = moment().utcOffset('+0800').format('HH');
+  var Work_Year = moment().utcOffset('+0800').format('YYYY');
   var Work_Month = moment().utcOffset('+0800').format('MM');
   var Work_Day = moment().utcOffset('+0800').format('DD');
   var Work_Hour = moment().utcOffset('+0800').format('HH');
