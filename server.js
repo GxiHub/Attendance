@@ -134,34 +134,47 @@ app.get('/QR_codeSan_GetTokenToServer/',function(req,res){
 });
 
 app.get('/V1/API/ReceiveStatusAndDeviceIDThenGernerateQRcode/',function(req,res){
+    // 產生 timestamp
     var timpstamp = Date.now();
     var jsonResponse = [];
+    // 接收 deviceID 和 status，合併三個變數後加密
     var encString = timpstamp+"/"+req.headers['deviceid']+"/"+req.headers['status'];
-    // var encString = '3c92cd28d0bd'+"/"+timpstamp+"/"+req.headers['deviceid']+"/"+req.headers['status'];
     var enckey = encrypt(key, iv, encString);
     console.log(enckey);
+    // 試著解密
     var deckey = decrypt(key, iv, enckey);
-    var SendEncryptString = {'string':enckey};
     console.log(deckey);
-    // res.send(SendEncryptString); 
 
-  var Work_Year = moment().utcOffset('+0800').format('YYYY');
-  var Work_Month = moment().utcOffset('+0800').format('MM');
-  var Work_Day = moment().utcOffset('+0800').format('DD');
-  var Work_Hour = moment().utcOffset('+0800').format('HH');
-  var Work_Minute = moment().utcOffset('+0800').format('mm');
-  console.log(Work_Year+'/'+Work_Month+'/'+Work_Day+' '+Work_Hour+':'+Work_Minute);
+    // 回應正確加密資料 或是 回應錯誤訊息
+    if(req.headers['deviceid'] == '' ||req.headers['status'] == '')
+    {
+        var body = {'status':{'code':'E0005A2','msg':'請通知管理員'}};
+    }
+    else
+    {
+        var body = {'status':{'code':'S0000','msg':enckey}};
+    }
+    body = JSON.stringify(body); res.type('application/json');res.send(body);
 });
 
 app.get('/V1/API/ReceiveUidAndQRcodeToOnOffline/',function(req,res){
     console.log(req.headers['onofflinetoken']);
+    var TimeOutCheck = false;
+    // 解密 QRcode 後得到  timestamp / deviceID / status / uniID 
     var deckey = decrypt(key, iv, req.headers['onofflinetoken']);
-    var stringsplit = deckey.split('/'); 
-    //525b954189ef/1515165311881/HT43ZWM00590/online
-
-    console.log(stringsplit);
-    console.log(deckey);
-    res.send(deckey); 
+    // 解密後分割取得各個變數
+    var stringsplit = deckey.split('/');
+    console.log(stringsplit); 
+    if(TimeOutCheck == false)
+    {  
+        var body = {'status':{'code':'S0000','msg':'正確打卡'}};
+        // TakeOnlineOffline.EmployeeWorkTimeAndStatus(stringsplit[3],'陳治廣',stringsplit[1],stringsplit[2]);
+    }
+    else
+    {
+        var body = {'status':{'code':'E0005B1','msg':'打卡逾時，請重新打卡'}};
+    }
+    body = JSON.stringify(body); res.type('application/json');res.send(body); 
 });
 
 // app.get('/FisrtLoginAndReturnMemberToken/',function(req,res){
