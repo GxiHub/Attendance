@@ -152,7 +152,7 @@ app.get('/V1/API/ReceiveStatusAndDeviceIDThenGernerateQRcode/',function(req,res)
     }
     else
     {
-        var body = {'status':{'code':'S0000','msg':'正確取得加密字串'},'string':enckey};
+        var body = {'status':{'code':'S0000','msg':'正確取得加密字串'},'token':enckey};
     }
     body = JSON.stringify(body); res.type('application/json');res.send(body);
 });
