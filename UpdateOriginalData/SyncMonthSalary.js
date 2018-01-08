@@ -27,28 +27,28 @@ var PartTimeHourPrice = 150;
 exports.MonthSalaryCalculate = function(_BrandButton)
 {
 	//產生現在的年份與月份
-  	var _Year = GetNeedSyncYear();
-  	var _Month = GetNeedSyncMonth();
-
-	CheckAllPersonMonthSalaryIsInDataBaseOrNot(_Year,_Month,_BrandButton);
-	CheckAllPersonTotalMonthSalary(_Year,_Month,_BrandButton);
-  	// CheckAllPersonWorkStatus(_Year,_Month,_BrandButton);
+  	var _Year = GetNeedSyncYear(1);
+  	var _Month = GetNeedSyncMonth(1);
+    console.log(_Year+'/'+_Month);
+    
+    setTimeout(function(){CheckAllPersonMonthSalaryIsInDataBaseOrNot(_Year,_Month,_BrandButton);}, 1000);
+    setTimeout(function(){CheckAllPersonTotalMonthSalary(_Year,_Month,_BrandButton);}, 12000); 
 }
 
-function GetNeedSyncYear()
+function GetNeedSyncYear(YearShift)
 {
-	var Year = moment().format('YYYY');
+	var Year = moment().format('YYYY') - YearShift;
 	Year = Year.toString();
 	return Year;
 } 
 
-function GetNeedSyncMonth()
+function GetNeedSyncMonth(MonthShift)
 {
-	var MonthShift = 1;
 	var Month = moment().format('MM') - MonthShift;
-  	//為了月份做處理，單位數的補零，雙位數的轉字串
-  	if(Month<10){Month='0'+Month;}
-  	Month = Month.toString();
+  if(Month == '00'){Month = 12;}
+  //為了月份做處理，單位數的補零，雙位數的轉字串
+  if(Month<10){Month='0'+Month;}
+  Month = Month.toString();
 
 	return Month;
 } 
@@ -57,21 +57,22 @@ function GetNeedSyncMonth()
 
 function CheckAllPersonMonthSalaryIsInDataBaseOrNot(_Year,_Month,_BrandButton)
 {
-  	dbtoken.collection('memberbrandinformation').find({'userbrandname':_BrandButton}).toArray(function(err, results) {
-      for( var i = 0; i<results.length; i++ ) {
-      	// console.log(' result[',i,'].uniID = ',results[i].uniID);
-      	if(results[i].userbrandtitle != '離職')
-      	{
-      	    ChecMonthSalaryIsInDataBaseOrNot(results[i].userbrandtitle,_Year,_Month,results[i].uniID,results[i].name,results[i].userbrandname,results[i].usermonthsalary,results[i].userfoodsalary,results[i].userwithoutsalary,results[i].usertitlesalary,results[i].userextrasalary,results[i].userlawsalary);
-      	}
-      }
-  	});
+
+    dbtoken.collection('memberbrandinformation').find({'userbrandname':_BrandButton}).toArray(function(err, results) {
+          for( var i = 0; i<results.length; i++ ) {
+            // console.log(' result[',i,'].uniID = ',results[i].uniID);
+            if(results[i].userbrandtitle != '離職')
+            {
+                ChecMonthSalaryIsInDataBaseOrNot(results[i].userbrandtitle,_Year,_Month,results[i].uniID,results[i].name,results[i].userbrandname,results[i].usermonthsalary,results[i].userfoodsalary,results[i].userwithoutsalary,results[i].usertitlesalary,results[i].userextrasalary,results[i].userlawsalary);
+            }
+          }
+    });
 }
 
 function ChecMonthSalaryIsInDataBaseOrNot(_Userbrandtitle,_Year,_Month,_UniID,_Name,_BrandButton,_Usermonthsalary,_Userfoodsalary,_Userwithoutsalary,_Usertitlesalary,_Userextrasalary,_Userlawsalary)
 {
-    dbtest.collection('syncmonthsalary').find({'year':_Year,'month':_Month,'userbrandname':_BrandButton,'uniID':_UniID}).toArray(function(err, results) {
-    	if(results == 0)
+  dbtest.collection('syncmonthsalary').find({'year':_Year,'month':_Month,'userbrandname':_BrandButton,'uniID':_UniID}).toArray(function(err, results) {
+    	if(results.length == 0)
     	{
     		var BasicSalary = CalculateAllBasicSalary(_Usermonthsalary,_Userfoodsalary,_Userwithoutsalary,_Usertitlesalary,_Userextrasalary);
     		console.log('資料庫沒有資料 _Name =',_Name,' BasicSalary =',BasicSalary);
@@ -82,21 +83,21 @@ function ChecMonthSalaryIsInDataBaseOrNot(_Userbrandtitle,_Year,_Month,_UniID,_N
     		console.log('資料庫已經有資料');
         if(_Userbrandtitle == '正職')
         {
-          var _UpdateBasicSalary = CalculateAllBasicSalary(_Usermonthsalary,_Userfoodsalary,_Userwithoutsalary,_Usertitlesalary,_Userextrasalary);
-          console.log('_UpdateBasicSalary = ',_UpdateBasicSalary);
-          UpdateBasicSalary(_UniID,_Year,_Month,_Name,_BrandButton,_UpdateBasicSalary);
-  			  CheckAllPersonAddLateSalary(_Year,_Month,_BrandButton);
+            var _UpdateBasicSalary = CalculateAllBasicSalary(_Usermonthsalary,_Userfoodsalary,_Userwithoutsalary,_Usertitlesalary,_Userextrasalary);
+            console.log('_UpdateBasicSalary = ',_UpdateBasicSalary);
+            UpdateBasicSalary(_UniID,_Year,_Month,_Name,_BrandButton,_UpdateBasicSalary);
+    			  CheckAllPersonAddLateSalary(_Year,_Month,_BrandButton);
         }
   			if(_Userbrandtitle == '兼職'){
-      			CalculatePartTimeSalary(_Year,_Month,_UniID,_BrandButton).then(function(items) {
-      			    var BasicSalary = items;
-      			    console.log('兼職 BasicSalary =',BasicSalary);
-      			    UpdatePartTimeSalary(_UniID,_Year,_Month,_Name,_BrandButton,BasicSalary);
-      			}, function(err) {
-            				console.error('The promise was rejected', err, err.stack);
-      			}); 
-      		}
-      	}
+        		CalculatePartTimeSalary(_Year,_Month,_UniID,_BrandButton).then(function(items) {
+        			    var BasicSalary = items;
+        			    console.log('兼職 BasicSalary =',BasicSalary);
+        			    UpdatePartTimeSalary(_UniID,_Year,_Month,_Name,_BrandButton,BasicSalary);
+        			}, function(err) {
+              				console.error('The promise was rejected', err, err.stack);
+        			}); 
+        }
+      }
     	if(err)return console.log(err);
 	}); 
 }
@@ -173,19 +174,36 @@ function  CalculateAllAddLateSalary(_Year,_Month,_UniID,_BrandButton)
            	{
            		MonthEarlyReturnMinute = MonthEarlyReturnMinute + backup[j].offlineconditiontime;
            	}
-
-          	if( (backup[j].shcedulestatus =='正常上班'||backup[j].shcedulestatus =='排休') && backup[j].realworkstatus =='正常')
-          	{
-  				    WorkDayNumber = WorkDayNumber + 1;
-          	}    
+            WorkDayNumber = WorkDayNumber+CheckWorkDayNumber(backup[j].shcedulestatus,backup[j].realworkstatus);
+            MonthAddMinute = MonthAddMinute+SpecialAddtime(backup[j].shcedulestatus,backup[j].realworkstatus);
         }
         // console.log('加班總時間 = ',MonthAddMinute,' 遲到總時間 = ',MonthLateMinute,' 早退總時間 = ',MonthEarlyReturnMinute,' 單月上班天數 = ',WorkDayNumber); 
 
         UpdateAddLateSalary(_Year,_Month,_UniID,MonthAddMinute,MonthLateMinute,MonthEarlyReturnMinute,WorkDayNumber);
 
-
         if(err)return console.log(err);
   	}); 	
+}
+function CheckWorkDayNumber(_Shcedulestatus,_Realworkstatus)
+{
+    var _WorkDayNumber = 0;
+    if( (_Shcedulestatus =='正常上班'||_Shcedulestatus =='排休') && (_Realworkstatus =='病假'||_Realworkstatus =='正常'||_Realworkstatus =='正常補打卡'||_Realworkstatus =='假日半小時'||_Realworkstatus =='假日一小時'||_Realworkstatus =='假日一個半小時'||_Realworkstatus =='補打卡/半小時'||_Realworkstatus =='補打卡/一小時'||_Realworkstatus =='補打卡/一個半小時'))
+    {
+        _WorkDayNumber = 1;
+    }  
+    return  _WorkDayNumber;
+}
+
+function SpecialAddtime(_Shcedulestatus,_Realworkstatus)
+{
+    var _SpecialAddtime = 0;
+    if(_Shcedulestatus =='正常上班')
+    {
+        if(_Realworkstatus =='假日半小時' || _Realworkstatus =='補打卡/半小時'){_SpecialAddtime = 30;}
+        else if(_Realworkstatus =='假日一小時' || _Realworkstatus =='補打卡/一小時'){_SpecialAddtime = 60;}
+        else if(_Realworkstatus =='假日一個半小時' || _Realworkstatus =='補打卡/一個半小時'){_SpecialAddtime = 90;}
+    }  
+    return  _SpecialAddtime;
 }
 
 function UpdateAddLateSalary(_Year,_Month,_UniID,_MonthAddMinute,_MonthLateMinute,_MonthEarlyReturnMinute,_WorkDayNumber)
@@ -229,40 +247,95 @@ function UpdateTotalMonthSalary(_Year,_Month,_UniID,_Userbrandtitle)
 
     for( var i = 0; i<results.length; i++ )
     {
-		console.log(' monthsalary = ',results[0].monthsalary,' foodsalary = ',results[0].foodsalary,' withoutsalary = ',results[0].withoutsalary,' titlesalary = ',results[0].titlesalary);
-    console.log(' _Userbrandtitle = ',_Userbrandtitle);
     	var AddSalary = CalculateAddSalary(_Userbrandtitle,results[0].addminute,results[0].monthsalary,results[0].foodsalary,results[0].withoutsalary,results[0].titlesalary);
-    	console.log(' AddSalary = ',AddSalary);
     	var LateSalary = CalculateLateSalary(_Userbrandtitle,results[0].lateminute,results[0].monthsalary,results[0].foodsalary,results[0].withoutsalary,results[0].titlesalary);
-		console.log(' LateSalary = ',LateSalary);
-    	var EarlySalary = CalculateLateSalary(_Userbrandtitle,results[0].earlyminute,results[0].monthsalary,results[0].foodsalary,results[0].withoutsalary,results[0].titlesalary);
-    	console.log(' EarlySalary = ',EarlySalary); 
-    	console.log(' workdaynumber = ',results[0].workdaynumber);   	
-    	var Ratio = results[0].workdaynumber/MonthHaveHowManyDay(GetNeedSyncYear(),GetNeedSyncMonth());
-    	console.log(' Ratio = ',Ratio); 
-
-    	if(_Userbrandtitle == '正職'){
-    		console.log(' _Userbrandtitle = ',_Userbrandtitle);
-    		console.log(' results[0].basicsalary = ',results[0].basicsalary); 
-        // var BasicSalary = CalculateAllBasicSalary(results[0].monthsalary,results[0].foodsalary,results[0].withoutsalary,results[0].titlesalary,results[0].extrasalary)* Ratio;
-    		var BasicSalary = parseInt(results[0].basicsalary,10)* Ratio;
-    	}
-    	else if (_Userbrandtitle == '兼職')
-    	{
-    		console.log(' _Userbrandtitle = ',_Userbrandtitle);
-    		console.log(' results[0].basicsalary = ',results[0].basicsalary);
-    		var BasicSalary = results[0].basicsalary;
-
-
-    	}
-    	console.log(' BasicSalary = ',BasicSalary); 
-    	var TotalSalary = CalculateTotalSalary(_Userbrandtitle,BasicSalary,AddSalary,LateSalary,EarlySalary);
-    	console.log(' TotalSalary = ',TotalSalary);
-    	UpdateTotalSalary(results[0].name,_UniID,_Year,_Month,AddSalary,LateSalary,EarlySalary,Math.round(BasicSalary),Math.round(TotalSalary));
-    	console.log(' ============ ');
+    	var EarlySalary = CalculateLateSalary(_Userbrandtitle,results[0].earlyminute,results[0].monthsalary,results[0].foodsalary,results[0].withoutsalary,results[0].titlesalary);  	
+    	var RatioDiff = MonthHaveHowManyDay(GetNeedSyncYear(1),GetNeedSyncMonth(1)) - results[0].workdaynumber;
+      CheckFullScheduleStatusAndCalculateBasicSalary(_Year,_Month,_UniID,_Userbrandtitle,RatioDiff,results[0].withoutsalary,results[0].basicsalary,results[0].workdaynumber).then(function(items) {
+          var TotalSalary = CalculateTotalSalary(_Userbrandtitle,items,AddSalary,LateSalary,EarlySalary);
+          console.log(' items = ',items);
+          console.log(' TotalSalary = ',TotalSalary);
+          UpdateTotalSalary(results[0].name,_UniID,_Year,_Month,AddSalary,LateSalary,EarlySalary,Math.round(items),Math.round(TotalSalary));
+          console.log(' ============ '); 
+      }, function(err){
+          console.error('The promise was rejected', err, err.stack);
+      });
+     //  console.log(' _Userbrandtitle = ',_Userbrandtitle);
+     //  console.log(' results[0].basicsalary = ',results[0].basicsalary);
+     //  console.log(' EarlySalary = ',EarlySalary);
+     //  console.log(' LateSalary = ',LateSalary); 
+     //  console.log(' workdaynumber = ',results[0].workdaynumber); 
+     //  console.log(' AddSalary = ',AddSalary);
+     //  console.log(' Ratio = ',Ratio); 
+     //  console.log(' monthsalary = ',results[0].monthsalary,' foodsalary = ',results[0].foodsalary,' withoutsalary = ',results[0].withoutsalary,' titlesalary = ',results[0].titlesalary);
     }
  //    	if(err)return console.log(err);
 	}); 
+}
+
+function CheckFullScheduleStatusAndCalculateBasicSalary(_Year,_Month,_UniID,_Userbrandtitle,_RatioDiff,_Withoutsalary,_Basicsalary,_Workdaynumber)
+{
+    var FullSchedule = 0;var NotFullMonth = false;var StandardDay = 30;
+    return new Promise(function(resolve, reject) 
+    {
+        dbtest.collection('synccombinemonthworkschedule').find({'workyear':_Year,'workmonth':_Month,'uniID':_UniID}).toArray(function(err, results) {
+              var OverCheckForThreeTimes = 0;
+              for( var i = 0; i<results.length; i++ )
+              {
+                  if(results[i].realworkstatus == '正常補打卡' || results[i].realworkstatus == '補打卡/半小時' ||results[i].realworkstatus == '補打卡/一小時' ||results[i].realworkstatus == '補打卡/一個半小時' )
+                  {
+                      OverCheckForThreeTimes++;
+                  }
+                  else if(results[i].realworkstatus == '尚未到職')
+                  {
+                      NotFullMonth = true;
+                  }
+              }
+
+              if( OverCheckForThreeTimes > 3 || _RatioDiff != 0)
+              {
+                  FullSchedule = _Withoutsalary;
+              }
+              else
+              {
+                  if(NotFullMonth == true)
+                  {
+                      FullSchedule = _Withoutsalary;
+                  }
+                  else
+                  {
+                      FullSchedule = 0;
+                  }
+              }
+              console.log(' _UniID = ',_UniID);
+              console.log(' _Basicsalary = ',parseInt(_Basicsalary,10));
+              console.log(' _Withoutsalary = ',parseInt(_Withoutsalary,10)); 
+              console.log(' OverCheckForThreeTimes = ',OverCheckForThreeTimes);
+              console.log(' FullSchedule = ',FullSchedule);
+              console.log(' _RatioDiff = ',_RatioDiff);
+              if(_Userbrandtitle == '正職')
+              { 
+                  if(NotFullMonth == true)
+                  {
+                      var BasicSalary = (parseInt(_Basicsalary,10)-parseInt(_Withoutsalary,10))/StandardDay*_Workdaynumber;
+                  }
+                  else
+                  {
+                      var BasicSalary = parseInt(_Basicsalary,10) - (parseInt(_Basicsalary,10)-parseInt(_Withoutsalary,10))/StandardDay*_RatioDiff - FullSchedule;
+                  }
+              }
+              else if (_Userbrandtitle == '兼職')
+              {
+                  var BasicSalary = parseInt(_Basicsalary,10);
+              }
+              // console.log(' BasicSalary = ',BasicSalary);
+              if (err) { 
+                    reject(err);
+              } else {
+                    resolve(BasicSalary);
+              }
+        });
+    });
 }
 
 function CalculateAddSalary(_Userbrandtitle,_Addtime,_Usermonthsalary,_Userfoodsalary,_Userwithoutsalary,_Usertitlesalary)
@@ -332,14 +405,14 @@ function CalculatePartTimeSalary(_Year,_Month,_UniID,_BrandButton)
 		    		var IsHolidayOrNot = parseInt(backup[i].realofflinehour,10)-parseInt(backup[i].realonlinehour,10);
 		    		var OnlineTime = parseInt(backup[i].realonlinehour,10)*60 + parseInt(backup[i].realonlineminute,10);
 		    		var OfflineTime = parseInt(backup[i].realofflinehour,10)*60 + parseInt(backup[i].realofflineminute,10);
-					if(IsHolidayOrNot>=9)
-					{
-						EveryDayWorkPeriod = EveryDayWorkPeriod+(OfflineTime - OnlineTime - HolidayNeedToDelete2Minute) *PartTimeMinutePrice;
-					}
-					else
-					{
-						EveryDayWorkPeriod = EveryDayWorkPeriod+(OfflineTime - OnlineTime)*PartTimeMinutePrice;
-					}
+  					if(IsHolidayOrNot>=9)
+  					{
+  						EveryDayWorkPeriod = EveryDayWorkPeriod+(OfflineTime - OnlineTime - HolidayNeedToDelete2Minute) *PartTimeMinutePrice;
+  					}
+  					else
+  					{
+  						EveryDayWorkPeriod = EveryDayWorkPeriod+(OfflineTime - OnlineTime)*PartTimeMinutePrice;
+  					}
 		    		// console.log(' date = ',backup[i].workyear,'/',backup[i].workmonth,'/',backup[i].workday);
 		    		// console.log(' time = ',backup[i].realonlinehour,':',backup[i].realonlineminute,'-',backup[i].realofflinehour,':',backup[i].realofflineminute);    		
 		    		// console.log(' minutes = ',OfflineTime-OnlineTime);
