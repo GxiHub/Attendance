@@ -143,13 +143,13 @@ app.get('/V1/API/ReceiveStatusAndDeviceIDThenGernerateQRcode/',function(req,res)
     var deckey = decrypt(key, iv, enckey);
     var SendEncryptString = {'string':enckey};
     console.log(deckey);
-    res.send(SendEncryptString); 
+    // res.send(SendEncryptString); 
 
-  var Work_Year = moment.tz("Asia/Taipei").format('YYYY');
-  var Work_Month = moment.tz("Asia/Taipei").format('MM');
-  var Work_Day = moment.tz("Asia/Taipei").format('DD');
-  var Work_Hour = moment.tz("Asia/Taipei").format('HH');
-  var Work_Minute = moment.tz("Asia/Taipei").format('mm');
+  var Work_Year = moment().utcOffset('+0800').format('HH');
+  var Work_Month = moment().utcOffset('+0800').format('MM');
+  var Work_Day = moment().utcOffset('+0800').format('DD');
+  var Work_Hour = moment().utcOffset('+0800').format('HH');
+  var Work_Minute = moment().utcOffset('+0800').format('mm');
   console.log(Work_Year+'/'+Work_Month+'/'+Work_Day+' '+Work_Hour+':'+Work_Minute);
 });
 
