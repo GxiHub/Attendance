@@ -109,9 +109,10 @@ app.get('/TestHtml/',function(req,res){
 
 //QRcodeScan. 透過手機端掃描二維條碼，並添加個人上下班時間
 app.get('/QR_codeSan_GetTokenToServer/',function(req,res){
-    //body = Object.assign({}, results); 
-    console.log('req.headers.contenttype = ',req.headers['content-type']);console.log('req.headers.language = ',req.headers['accept-language']);console.log('req.headers.deviceid = ',req.headers['deviceid']);console.log('req.query.usertoken = ',req.headers['usertoken']);
-    
+    console.log('req.headers.contenttype = ',req.headers['content-type']);
+    console.log('req.headers.language = ',req.headers['accept-language']);
+    console.log('req.headers.deviceid = ',req.headers['deviceid']);
+    console.log('req.query.usertoken = ',req.headers['usertoken']);
     QRcodeScan.CheckDeviceIDAndToken(req.headers['deviceid'],req.headers['usertoken']).then(function(items) 
     {
             if(items != '')
@@ -132,7 +133,6 @@ app.get('/QR_codeSan_GetTokenToServer/',function(req,res){
     });  
 });
 
-//QRcodeScan. 透過手機端掃描二維條碼，並添加個人上下班時間
 app.get('/V1/API/ReceiveStatusAndDeviceIDThenGernerateQRcode/',function(req,res){
     var timpstamp = Date.now();
     var jsonResponse = [];
@@ -144,11 +144,22 @@ app.get('/V1/API/ReceiveStatusAndDeviceIDThenGernerateQRcode/',function(req,res)
     var SendEncryptString = {'string':enckey};
     console.log(deckey);
     res.send(SendEncryptString); 
+
+  var Work_Year = moment().tz("Asia/Taipei").format('YYYY');
+  var Work_Month = moment().tz("Asia/Taipei").format('MM');
+  var Work_Day = moment().tz("Asia/Taipei").format('DD');
+  var Work_Hour = moment().tz("Asia/Taipei").format('HH');
+  var Work_Minute = moment().tz("Asia/Taipei").format('mm');
+  console.log(Work_Year+'/'+Work_Month+'/'+Work_Day+' '+Work_Hour+':'+Work_Minute);
 });
 
 app.get('/V1/API/ReceiveUidAndQRcodeToOnOffline/',function(req,res){
-    console.log(req.headers['onofflinetoken']);    
+    console.log(req.headers['onofflinetoken']);
     var deckey = decrypt(key, iv, req.headers['onofflinetoken']);
+    var stringsplit = deckey.split('/'); 
+    //525b954189ef/1515165311881/HT43ZWM00590/online
+
+    console.log(stringsplit);
     console.log(deckey);
     res.send(deckey); 
 });
