@@ -94,9 +94,9 @@ function ChecMonthWorkScheduleIsInDataBaseOrNot(_BrandButton,_Userbrandtitle,_Ye
       {
         // console.log('資料庫已經有資料');
         // console.log('_Name = ',_Name,' _UniID =',_UniID);
-        NewFullfillMonthWorkSchedule(_Year,_Month,_BrandButton);
-        NewCheckAllOnlineAndOffline(_Year,_Month,_BrandButton,_UniID);
-        NewCheckAllPersonAddAndLate(_Year,_Month,_BrandButton,_UniID);
+        setTimeout(function(){NewFullfillMonthWorkSchedule(_Year,_Month,_BrandButton);}, 2000); 
+        setTimeout(function(){NewCheckAllOnlineAndOffline(_Year,_Month,_BrandButton,_UniID);}, 2000); 
+        setTimeout(function(){NewCheckAllPersonAddAndLate(_Year,_Month,_BrandButton,_UniID);}, 2000); 
       }
       if(err)return console.log(err);
   }); 
@@ -591,7 +591,7 @@ function CalculateIsWorkOrScheduleWithSync(_Year,_Month,_UniID,_BrandButton)
                 // console.log('從[',backup[j].realworkstatus,']變成[正常]  name = ',backup[j].name,' date = ',backup[j].workyear,'/',backup[j].workmonth,'/',backup[j].workday);  
               }  
             }
-           else if(backup[j].realworkstatus == '多餘排班')
+            else if(backup[j].realworkstatus == '多餘排班')
             {
               if(backup[j].realonlinehour =='' && backup[j].realofflinehour == '')
               {
@@ -599,6 +599,7 @@ function CalculateIsWorkOrScheduleWithSync(_Year,_Month,_UniID,_BrandButton)
                 // console.log('從[',backup[j].realworkstatus,']變成[正常]  name = ',backup[j].name,' date = ',backup[j].workyear,'/',backup[j].workmonth,'/',backup[j].workday);  
               }  
             }
+
           }    
         }  
         if(err)return console.log(err);

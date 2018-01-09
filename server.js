@@ -167,14 +167,22 @@ app.get('/V1/API/ReceiveUidAndQRcodeToOnOffline/',function(req,res){
     console.log(stringsplit); 
     if(TimeOutCheck == false)
     {  
-        var body = {'status':{'code':'S0000','msg':'正確打卡'}};
-        // TakeOnlineOffline.EmployeeWorkTimeAndStatus(stringsplit[3],'陳治廣',stringsplit[1],stringsplit[2]);
+        QRcodeScan.CheckUserUniID(stringsplit[3]).then(function(items) 
+        {
+              // QRcodeScan.EmployeeWorkTimeAndStatus(stringsplit[3],items.name,stringsplit[2]);
+              var body = {'status':{'code':'S0000','msg':'正確打卡'}};
+              body = JSON.stringify(body); res.type('application/json');res.send(body); 
+        }, function(err) {
+              var body = {'status':{'code':'E0005B1','msg':'打卡逾時，請重新打卡'}};
+              body = JSON.stringify(body); res.type('application/json');res.send(body); 
+        });   
     }
     else
     {
         var body = {'status':{'code':'E0005B1','msg':'打卡逾時，請重新打卡'}};
+        body = JSON.stringify(body); res.type('application/json');res.send(body); 
     }
-    body = JSON.stringify(body); res.type('application/json');res.send(body); 
+    
 });
 
 // app.get('/FisrtLoginAndReturnMemberToken/',function(req,res){
@@ -536,53 +544,6 @@ app.get('/AddManageNews/',function(req,res){
 
 
 // =============== 庫存系統相關 ===========================================
-//更新庫存資料
-app.get('/CheckProductTiming/',function(req,res){
-  //更新STOCKTAG
-  // UpdateStockTag(1511493006434);
-  //測試時間
-  // var date_taipei = DateTimezone(8);
-  // var date = date_taipei.toLocaleString();
-  // var DotSplit = date.split(',');
-  // var PreDotSplit = DotSplit[0];
-  // var PostDotSplit = DotSplit[1];
-  // var YearMonthDay=PreDotSplit.split('/');
-  // var HourMinute=PostDotSplit.split(':');
-  // var _Year = YearMonthDay[2];
-  // var _Day = YearMonthDay[1];
-  // var _Month = YearMonthDay[0];
-  // if(_Day<10){_Day='0'+_Day;}
-  // _Day = _Day.toString();
-  // if(_Month<10){_Month='0'+_Month;}
-  // _Month= _Month.toString();
-  // var _outstockdate = _Year+'/'+_Month+'/'+_Day;
-  // var _outstocktime = HourMinute[0]+':'+HourMinute[1]+':'+HourMinute[2];
-    res.redirect('/');
-});
-
-// 新增當地時區的時間物件
-function DateTimezone(offset) {
-    // 建立現在時間的物件
-    d = new Date();
-    // 取得 UTC time
-    utc = d.getTime() + (d.getTimezoneOffset() * 60000);
-    // 新增不同時區的日期資料
-    return new Date(utc + (3600000*offset));
-}
-
-// 計算當地時區的時間
-function calcTime(city, offset) {
-    // 建立現在時間的物件
-    d = new Date();
-    // 取得 UTC time
-    utc = d.getTime() + (d.getTimezoneOffset() * 60000);
-    // 新增不同時區的日期資料
-    nd = new Date(utc + (3600000*offset));
-    // 顯示當地時間
-    return "在 " + city + " 的本地時間是 " + nd.toLocaleString();
-}
-
-
 function UpdateStockTag(_StockTag)
 {
   dbtest.collection('thinginstock').findOneAndUpdate({TID:_StockTag},{

@@ -74,7 +74,7 @@ function ChecMonthSalaryIsInDataBaseOrNot(_Userbrandtitle,_Year,_Month,_UniID,_N
   dbtest.collection('syncmonthsalary').find({'year':_Year,'month':_Month,'userbrandname':_BrandButton,'uniID':_UniID}).toArray(function(err, results) {
     	if(results.length == 0)
     	{
-    		var BasicSalary = CalculateAllBasicSalary(_Usermonthsalary,_Userfoodsalary,_Userwithoutsalary,_Usertitlesalary,_Userextrasalary);
+    		var BasicSalary = CalculateAllBasicSalary(_Usermonthsalary,_Userfoodsalary,_Userwithoutsalary,_Usertitlesalary,_Userextrasalary,_Userlawsalary);
     		console.log('資料庫沒有資料 _Name =',_Name,' BasicSalary =',BasicSalary);
         CreateNewMonthDayDataToDataBase(_UniID,_Year,_Month,_Name,_BrandButton,_Usermonthsalary,_Userfoodsalary,_Userwithoutsalary,_Usertitlesalary,_Userextrasalary,_Userlawsalary,BasicSalary);
     	}
@@ -83,7 +83,7 @@ function ChecMonthSalaryIsInDataBaseOrNot(_Userbrandtitle,_Year,_Month,_UniID,_N
     		console.log('資料庫已經有資料');
         if(_Userbrandtitle == '正職')
         {
-            var _UpdateBasicSalary = CalculateAllBasicSalary(_Usermonthsalary,_Userfoodsalary,_Userwithoutsalary,_Usertitlesalary,_Userextrasalary);
+            var _UpdateBasicSalary = CalculateAllBasicSalary(_Usermonthsalary,_Userfoodsalary,_Userwithoutsalary,_Usertitlesalary,_Userextrasalary,_Userlawsalary);
             console.log('_UpdateBasicSalary = ',_UpdateBasicSalary);
             UpdateBasicSalary(_UniID,_Year,_Month,_Name,_BrandButton,_UpdateBasicSalary);
     			  CheckAllPersonAddLateSalary(_Year,_Month,_BrandButton);
@@ -105,9 +105,9 @@ function ChecMonthSalaryIsInDataBaseOrNot(_Userbrandtitle,_Year,_Month,_UniID,_N
 // ================================================================================
 
 // ====================== 若當月沒有薪水項目，新增基本薪水 ===============================
-function CalculateAllBasicSalary(_Usermonthsalary,_Userfoodsalary,_Userwithoutsalary,_Usertitlesalary,_Userextrasalary)
+function CalculateAllBasicSalary(_Usermonthsalary,_Userfoodsalary,_Userwithoutsalary,_Usertitlesalary,_Userextrasalary,_Userlawsalary)
 {
-	return parseInt(_Usermonthsalary,10)+parseInt(_Userfoodsalary,10)+parseInt(_Userwithoutsalary,10)+parseInt(_Usertitlesalary,10)+parseInt(_Userextrasalary,10);
+	return parseInt(_Usermonthsalary,10)+parseInt(_Userfoodsalary,10)+parseInt(_Userwithoutsalary,10)+parseInt(_Usertitlesalary,10)+parseInt(_Userextrasalary,10)-parseInt(_Userlawsalary,10);
 }
 
 function CreateNewMonthDayDataToDataBase(_UniID,_Year,_Month,_Name,_BrandButton,_Usermonthsalary,_Userfoodsalary,_Userwithoutsalary,_Usertitlesalary,_Userextrasalary,_Userlawsalary,_BasicSalary)
@@ -321,7 +321,7 @@ function CheckFullScheduleStatusAndCalculateBasicSalary(_Year,_Month,_UniID,_Use
                   }
                   else
                   {
-                      var BasicSalary = parseInt(_Basicsalary,10) - (parseInt(_Basicsalary,10)-parseInt(_Withoutsalary,10))/StandardDay*_RatioDiff - FullSchedule;
+                      var BasicSalary = parseInt(_Basicsalary,10) - parseInt(_Basicsalary,10)/StandardDay*_RatioDiff - FullSchedule;
                   }
               }
               else if (_Userbrandtitle == '兼職')

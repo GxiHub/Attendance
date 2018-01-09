@@ -20,7 +20,6 @@ MongoClient.connect('mongodb://9kingson:mini0306@ds163294.mlab.com:63294/testdat
 
 var Promise = require('rsvp').Promise;
 
-// 透過 deviceID 和 token 來確認 uniID、name、status
 exports.CheckDeviceIDAndToken = function(DeviceID,Token)
 {
       console.log( 'DeviceID = ',DeviceID,' Token = ',Token);
@@ -39,7 +38,23 @@ exports.CheckDeviceIDAndToken = function(DeviceID,Token)
       });
  }
 
-// 新增上下班資訊
+exports.CheckUserUniID = function(_UniID)
+{
+      return new Promise(function(resolve, reject) 
+      {
+          var collection = dbtoken.collection('memberbrandinformation');
+          collection.findOne({uniID:_UniID}, function(err, data )
+          {
+              // console.log(data);
+              if (err) { 
+                  reject(err);
+              } else {
+                  resolve(data);
+              }
+          });
+      });
+ }
+
 exports.EmployeeWorkTimeAndStatus = function(OnlyID,UserName,WorkStatus)
 {
   var Work_Year = moment().format('YYYY');
@@ -56,16 +71,13 @@ exports.EmployeeWorkTimeAndStatus = function(OnlyID,UserName,WorkStatus)
   console.log( 'Work_Hour = ',Work_Hour);
   var Work_Minute = moment().format('mm');
   var SalaryStatus = false;
-  //#修改資料庫成 workperiod
   dbwork.collection('workperiod').save({TID:Date.now(),uniID:OnlyID,name:UserName,status:WorkStatus,Year:Work_Year,Month:Work_Month,Day:Work_Day,Hour:Work_Hour,Minute:Work_Minute,SalaryCountStatus:SalaryStatus,addworkstatus:'0',extrainfo1:'0',extrainfo2:'0'},function(err,result){
      if(err)return console.log(err);
   });
 }
 
-// #年月日 #店名 #查詢 #全店 #單日上班狀況
 exports.CheckSingleDayOnlineOfflineByBrandNameAndDate = function(year,month,day)
 {
-	//#修改資料庫成 workperiod
     return new Promise(function(resolve, reject) 
     {
 
@@ -80,10 +92,8 @@ exports.CheckSingleDayOnlineOfflineByBrandNameAndDate = function(year,month,day)
     });
 }
 
-// #年月 #店名 #查詢 #全店 #單月上班狀況
 exports.CheckMonthOnlineOfflineByBrandNameAndMonth = function(year,month,name)
 {
-	//#修改資料庫成 workperiod
     return new Promise(function(resolve, reject) 
     {
     	if(name == '全部')
@@ -135,7 +145,6 @@ exports.AdjustOnlineOfflineData = function()
     return new Promise(function(resolve, reject) 
     {
           dbwork.collection('workperiod').find({$or:[{'Year':_Year,'Month':_Month},{'Year':_PreviousYear,'Month':_PreviousMonth}]}).sort({"name": 1,"Year":1,"Month":1,"Day": 1}).toArray(function(err, data) {
-      		// dbwork.collection('workperiod').find({'Year':_Year,'Month':_Month}).sort({"name": 1,"Year":1,"Month":1,"Day": 1}).toArray(function(err, data) {
 	              // console.log(data);
 	              if (err) { 
 	                  reject(err);
@@ -146,7 +155,6 @@ exports.AdjustOnlineOfflineData = function()
     });
 }
 
-// [刪除] 
 exports.DeleteOnlineOfflineData = function(OnlyID,UserName,_Year,_Month,_Day)
 {
   console.log(' OnlyID= ',OnlyID);
