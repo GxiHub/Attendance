@@ -1106,7 +1106,8 @@ app.get('/V0/CheckBookingStatus/',function(req,res){
 
 app.get('/V0/CheckBookingStatusByphone/',function(req,res){
   console.log(req.query["reserve_phone"]);
-  Booking.CheckBookingStatusByphone(req.query["reserve_phone"]).then(function(items) 
+  console.log(req.query["STORE_NAME"]);
+  Booking.CheckBookingStatusByphone(req.query["reserve_phone"],req.query["STORE_NAME"]).then(function(items) 
   {
         var jsonResponse = [];
         if(items.length == 0)

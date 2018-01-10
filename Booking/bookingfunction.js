@@ -37,12 +37,12 @@ exports.CheckBookingStatusByFBID = function(_UserID)
       });
 }
 
-exports.CheckBookingStatusByphone = function(_UserPhone)
+exports.CheckBookingStatusByphone = function(_UserPhone,_StoreName)
 {
 	  var Response = [];
       return new Promise(function(resolve, reject) 
       {
-		  dbOP.collection('bookingsystem').find({'phone':_UserPhone}).toArray(function(err, results) {
+		  dbOP.collection('bookingsystem').find({'phone':_UserPhone,'storename':_StoreName}).toArray(function(err, results) {
 		      for( var i = 0; i<results.length; i++ ) {
 		          Response = Response + "["+results[i].year+"/"+results[i].month+"/"+results[i].day+" "+results[i].hour+":"+results[i].minute+" "+results[i].adultnumber+"位 ]  => "+results[i].status+"\n";
 		      }
