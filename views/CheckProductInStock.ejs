@@ -62,8 +62,8 @@
 <div class='PreStockIn'>
 	<ul>
 		<li>
-	      	<span> 刪除 </span>
-	      	<span> 時間碼 </span>
+<!-- 	      	<span> 刪除 </span> -->
+<!-- 	      	<span> 時間碼 </span> -->
 <!-- 	      	<span> 品牌名稱 </span> -->
 	      	<span> 編號 </span>
 	      	<span> 名稱 </span>
@@ -83,11 +83,11 @@
 	<% for(var i=0; i<passvariable.length; i++) {%>
 	<ul>
 		<li>
-		   <span><form action="/DeleteProductInStock/" method="POST">
+<!-- 		   <span><form action="/DeleteProductInStock/" method="POST">
 		   	<input type="hidden" placeholder="productnumber" name="productnumber" value=<%= passvariable[i].productnumber %>>
 		    <button type="submit">刪除</button>
-		  </form></span>
-		  <span><%= passvariable[i].TID %></span>
+		  </form></span> -->
+<!-- 		  <span><%= passvariable[i].TID %></span> -->
 <!-- 		  <span><%= passvariable[i].brandname %></span> -->
 	      <span><%= passvariable[i].productnumber %></span>
 	      <span><%= passvariable[i].product %></span>
