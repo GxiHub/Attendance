@@ -11,31 +11,24 @@
      <% include ./html.ejs %>
 </header>
 
-<div class='PreProduct'>
-	<ul>
-		<li>
-	      	<span> 產品名稱 </span>
-	      	<span> 產品數量 </span> 
-	      	<span> 警示數量 </span> 
-		</li>
-	</ul>
-</div>   
-<div class='PostProduct'>
-	<% for(var i=0; i<passvariable.product.length; i++) {%>
-	<ul>
-		<li>
-		  	<span><%= passvariable.product[i].name%></span>
-		  	<% if(passvariable.product[i].number < passvariable.product[i].alarm){%>
-		  		<span style="color:red;"><%= passvariable.product[i].number%></span>
-		  	<% }else{%>
-		  		<span><%= passvariable.product[i].number%></span>
-		  	<% }%>
-		  	<span><%= passvariable.product[i].alarm%></span>
-		  	
-		</li>
-	</ul>
-	<% } %>
-</div>	
+<br>
+<table style="width:70%" align="center" border="1px solid black">
+	<tr>
+	<th >產品名稱</th>
+	<th >產品數量</th>
+	<th >警示數量</th>	
+	</tr>
+<% for(var i=0; i<passvariable.product.length; i++) {%>
+	<tr>
+	<th><%= passvariable.product[i].name%></th>
+	<% if(passvariable.product[i].number < passvariable.product[i].alarm){%>
+	<th bgcolor="red"><%= passvariable.product[i].number %></th>
+	<% }else{%>
+	<th><%= passvariable.product[i].number %></th>
+	<% }%>
+	<th><%= passvariable.product[i].alarm%></th>	
+	</tr>
+<% } %>
 
 </body>
 </html>
