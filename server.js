@@ -591,9 +591,81 @@ app.get('/CheckProductInStock/',function(req,res){
     if(_Month<10){_Month='0'+_Month;}
     _Month = _Month.toString();
 
+
     HandleStockInOut.GetProductListInStock(req.query.checkPeriodYear,req.query.checkPeriodMonth,req.query.checkPeriodDay,req.query.checkType).then(function(items) 
     {
-          res.render('CheckProductInStock.ejs',{passvariable:items,year:_Year,month:_Month,day:_Day,daysnumber:_DaysNumber});
+          
+          var jsonArray = [];
+          var StockInNumber = 0;
+          var StockOutNumber = 0;
+          // console.log(items[0]);
+          const date = req.query.checkPeriodYear+'/'+req.query.checkPeriodMonth+'/'+req.query.checkPeriodDay;
+          console.log(date);
+          for(var i=0;i<items.length-1;i++){
+              if(items[i].product == items[i+1].product)
+              {
+                if(items[i].instockdate == date){
+                  StockInNumber++;
+                }
+                if(items[i].outstockdate == date){
+                  StockOutNumber++;
+                }
+                // console.log(StockInNumber,'/',StockOutNumber);
+                // console.log(items[i].product);
+                if( i == items.length-2){
+                  if(items[items.length-1].instockdate == date){
+                    StockInNumber++;
+                  }
+                  if(items[items.length-1].outstockdate == date){
+                    StockOutNumber++;
+                  }  
+                  // console.log(StockInNumber,'/',StockOutNumber);
+                  // console.log(items[i].product); 
+                  var item = {
+                    "productname": items[i].product,
+                    "stockin": StockInNumber,
+                    "stockout": StockOutNumber
+                  };
+                  console.log(item);
+                  jsonArray.push(item); 
+                }
+              }
+              else
+              {
+                if(items[i].instockdate == date){
+                  StockInNumber++;
+                }
+                if(items[i].outstockdate == date){
+                  StockOutNumber++;
+                }
+                // console.log(StockInNumber,'/',StockOutNumber);
+                // console.log(items[i].product);
+                var item = {
+                  "productname": items[i].product,
+                  "stockin": StockInNumber,
+                  "stockout": StockOutNumber
+                };
+                console.log(item);
+                jsonArray.push(item);
+                StockInNumber = 0;
+                StockOutNumber = 0;
+                // console.log(StockInNumber,'/',StockOutNumber);
+                if( i == items.length-2){
+                  if(items[items.length-1].instockdate == date){
+                    StockInNumber++;
+                  }
+                  if(items[items.length-1].outstockdate == date){
+                    StockOutNumber++;
+                  }  
+                  // console.log(StockInNumber,'/',StockOutNumber);
+                  // console.log(items[i].product);                
+                }
+              }
+          }
+
+          console.log(jsonArray);            
+
+          res.render('CheckProductInStock.ejs',{passvariable:items,year:_Year,month:_Month,day:_Day,daysnumber:_DaysNumber,ListNumber:jsonArray});
     }, function(err) {
           console.error('The promise was rejected', err, err.stack);
     });

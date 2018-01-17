@@ -11,6 +11,22 @@
      <% include ./html.ejs %>
 </header>
 
+<br>
+<table style="width:70%" align="center" border="1px solid black">
+	<tr>
+	<th font size="8px">產品</th>
+	<th font size="8px">入庫</th>
+	<th font size="8px">出庫</th>	
+	</tr>
+<% for(var i=0; i<ListNumber.length; i++) {%>
+	<tr>
+	<th><%= ListNumber[i].productname %></th>
+	<th><%= ListNumber[i].stockin %></th>
+	<th><%= ListNumber[i].stockout %></th>	
+	</tr>
+<% } %>
+</table>
+
 <div class="CheckStock">
 	<form action="/CheckProductInStock/" method="GET">
 		<select name="checkPeriodYear" id="year">
