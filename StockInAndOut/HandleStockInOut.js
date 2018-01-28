@@ -48,6 +48,21 @@ exports.DeleteProduct = function(_StockTag)
     });
 }
 
+exports.UpdateProduct = function(_StockNumber,_Statuschange)
+{
+  console.log(_StockNumber,'/',_Statuschange);
+  dbtest.collection('thinginstock').findOneAndUpdate({productnumber:_StockNumber},{
+    $set: 
+    {
+      status: _Statuschange
+    }
+  },{
+        upsert: true
+  },(err, result) => {
+      if (err) return res.send(err)
+  }); 
+}
+
 exports.UpdateProductPartialTagAlarm = function(_StockTag,_AlarmNumber)
 {
   dbtest.collection('productpartialtag').findOneAndUpdate({tag:_StockTag},{

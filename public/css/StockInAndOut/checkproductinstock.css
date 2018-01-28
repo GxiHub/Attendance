@@ -14,6 +14,17 @@
     display: inline-block;
 }
 
+.PreStockIn ul li span:last-child{
+    width:160px;
+    text-align:center;
+    vertical-align: middle; 
+    font: 14px Verdana, 'Lucida Grande';
+    color: #000;
+    padding-right: 5px;
+    line-height: 14px;
+    display: inline-block;
+}
+
 .PostStockIn{
     text-align: center;
     background:#FFF;
@@ -21,6 +32,17 @@
 
 .PostStockIn ul li span{
     width:100px;
+    text-align:center;
+    vertical-align: middle; 
+    font: 12px Verdana, 'Lucida Grande';
+    color: #777;
+    padding-right: 5px;
+    line-height: 14px;
+    display: inline-block;
+}
+
+.PostStockIn ul li span:last-child{
+    width:160px;
     text-align:center;
     vertical-align: middle; 
     font: 12px Verdana, 'Lucida Grande';

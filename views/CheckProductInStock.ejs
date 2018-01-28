@@ -54,7 +54,7 @@
 			<option value="全部" >全部</option>
 			<option value="入庫" >入庫</option>
 			<option value="出庫" >出庫</option>
-		</select>
+		</select>	
 		<button type="submit">查詢</button>
 	</form>	 
 </div>
@@ -75,7 +75,8 @@
 	  	  	<span> 入庫日期 </span>
 	  	  	<span> 入庫時間 </span> 
 	  	  	<span> 出庫日期 </span>
-	  	  	<span> 出庫時間 </span> 	  	
+			<span> 出庫時間 </span> 
+			<span> 調整狀態 </span> 	  	
 		</li>
 	</ul>
 </div>   
@@ -103,7 +104,17 @@
 	      <span><%= passvariable[i].instockdate %></span> 
 		  <span><%= passvariable[i].instocktime %></span>
 	      <span><%= passvariable[i].outstockdate %></span> 
-		  <span><%= passvariable[i].outstocktime %></span>  	  
+		  <span><%= passvariable[i].outstocktime %></span> 
+		  <span>
+			<form action="/ChangeStatusProductInStock/" method="POST">
+				<input type="hidden" placeholder="productnumber" name="productnumber" value=<%= passvariable[i].productnumber %>>				
+				<select name="statuschange">
+					<option selected value=<%= passvariable[i].status %>><%= passvariable[i].status %></option>
+					<option value="異常" >異常</option>
+				</select>
+				<button type="submit">修正</button>
+			</form> 
+		  </span>		  
 		</li>
 	</ul>
 	<% } %>

@@ -714,6 +714,12 @@ app.post('/DeleteProductInStock/',function(req,res){
     res.redirect('/');
 });
 
+app.post('/ChangeStatusProductInStock/',function(req,res){
+    console.log(' productnumber = ',req.body.productnumber);
+    console.log(' statuschange = ',req.body.statuschange);
+    HandleStockInOut.UpdateProduct(req.body.productnumber,req.body.statuschange);
+    res.redirect('/');
+});
 
 // ===============================================================
 
