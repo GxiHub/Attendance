@@ -178,10 +178,14 @@ exports.AdjustWorkSchedule = function()
   else
   { 
     var _PreviousMonth = moment().format('MM')-1;
+    if(_PreviousMonth<10){
+      _PreviousMonth = '0'+_PreviousMonth;
+    }
     var _PreviousYear = _Year;
   }
   _PreviousMonth = _PreviousMonth.toString();
   _PreviousYear = _PreviousYear.toString();
+  console.log(_Year,'/',_Month,'-',_PreviousYear,'/',_PreviousMonth);
   return new Promise(function(resolve, reject) 
   {
    

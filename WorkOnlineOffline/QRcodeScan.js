@@ -137,11 +137,12 @@ exports.AdjustOnlineOfflineData = function()
     else
     { 
       var _PreviousMonth = moment().format('MM')-1;
+      _PreviousMonth = '0'+_PreviousMonth;
       var _PreviousYear = _Year;
     }
     _PreviousMonth = _PreviousMonth.toString();
     _PreviousYear = _PreviousYear.toString();
-
+    console.log(_Year,'/',_Month,'-',_PreviousYear,'/',_PreviousMonth);
     return new Promise(function(resolve, reject) 
     {
           dbwork.collection('workperiod').find({$or:[{'Year':_Year,'Month':_Month},{'Year':_PreviousYear,'Month':_PreviousMonth}]}).sort({"name": 1,"Year":1,"Month":1,"Day": 1}).toArray(function(err, data) {
