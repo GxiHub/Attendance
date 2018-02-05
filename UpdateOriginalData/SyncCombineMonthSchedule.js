@@ -58,7 +58,7 @@ exports.NewMonthWorkSchedule = function(_BrandButton)
 {
   //產生現在的年份與月份
     var _Year = NewGetNeedSyncYear(0);
-    var _Month = NewGetNeedSyncMonth(0);
+    var _Month = NewGetNeedSyncMonth(1);
     // console.log(' _Year = ',_Year);
     // console.log(' _Month = ',_Month);
 
